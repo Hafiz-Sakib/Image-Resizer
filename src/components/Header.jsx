@@ -10,7 +10,6 @@ const LINKS = [
   { id: 'photo', href: '#workspace', label: 'ছবি রিসাইজ করুন', tool: 'photo' },
   { id: 'signature', href: '#workspace', label: 'স্বাক্ষর রিসাইজ করুন', tool: 'signature' },
   { id: 'presets', href: '#presets', label: 'প্রিসেট' },
-  { id: 'how', href: '#how', label: 'কীভাবে ব্যবহার করবেন' },
   { id: 'dev', href: '/developer', label: 'ডেভেলপার', path: '/developer' },
 ];
 

@@ -3,7 +3,7 @@ import Header from '../components/Header.jsx';
 import Hero from '../components/Hero.jsx';
 import Workspace from '../components/Workspace.jsx';
 import PresetsSection from '../components/PresetsSection.jsx';
-import { WhyUs, HowTo, PrivacySection } from '../components/InfoSections.jsx';
+import { WhyUs, PrivacySection } from '../components/InfoSections.jsx';
 import Footer from '../components/Footer.jsx';
 import useTheme from '../hooks/useTheme.js';
 import usePresets from '../hooks/usePresets.js';
@@ -61,11 +61,10 @@ export default function Home() {
       </a>
       <Header theme={theme} onToggleTheme={toggle} onTool={openTool} onGoto={scrollToId} activeMode={ws.settings.mode} install={install} />
       <main id="main">
-        <Hero install={install} onStart={() => openTool('photo')} onHow={() => scrollToId('how')} />
+        <Hero install={install} onStart={() => openTool('photo')} />
         <Workspace ws={ws} presets={presets} />
         <PresetsSection presets={presets} onApply={applyAndScroll} />
         <WhyUs />
-        <HowTo />
         <PrivacySection />
       </main>
       <Footer onTool={openTool} onGoto={scrollToId} />

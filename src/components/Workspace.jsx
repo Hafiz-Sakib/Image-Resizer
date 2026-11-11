@@ -102,7 +102,7 @@ export default function Workspace({ ws, presets }) {
               <CompressionControls settings={s} actions={a} compression={compression} errors={errors} />
             </Panel>
 
-            <Panel step="৫" title="ফরম্যাট ও ব্যাকগ্রাউন্ড" hint="কোন ধরনের ফাইল ডাউনলোড করবেন">
+            <Panel step="৫" title="ফরম্যাট" hint="কোন ধরনের ফাইল ডাউনলোড করবেন">
               <FormatSelector settings={s} actions={a} info={info} />
             </Panel>
 
@@ -160,8 +160,7 @@ export default function Workspace({ ws, presets }) {
                     tone="brand"
                     src={proc.url}
                     alt="প্রস্তুতকৃত ছবির প্রিভিউ"
-                    checker={s.bg === 'transparent' && s.format !== 'jpeg'}
-                    busy={proc.busy}
+                                        busy={proc.busy}
                     naturalWidth={result?.width}
                     placeholder="প্রস্তুত হচ্ছে…"
                     specs={[

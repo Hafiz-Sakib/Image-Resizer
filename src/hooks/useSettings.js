@@ -117,9 +117,7 @@ export default function useSettings(presetList) {
       setCustomKB: (customKB) => patch({ sizeKey: 'custom', customKB }),
       setMinKB: (minKB) => patch({ minKB }),
       setQuality: (quality) => patch({ quality }),
-      // JPEG স্বচ্ছতা সমর্থন করে না, তাই "স্বচ্ছ" ব্যাকগ্রাউন্ড থাকলে সাদা করে দেওয়া হয়
-      setFormat: (format) => set((s) => ({ ...s, format, bg: format === 'jpeg' && s.bg === 'transparent' ? '#ffffff' : s.bg })),
-      setBg: (bg) => patch({ bg }),
+      setFormat: (format) => patch({ format }),
       setCrop: (crop) => patch({ crop }),
       resetCrop: () => patch({ crop: DEFAULT_CROP }),
       setEnhance: (p) => patch(p),

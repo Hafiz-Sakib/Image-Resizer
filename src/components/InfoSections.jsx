@@ -12,13 +12,6 @@ const FEATURES = [
   { icon: Monitor, title: 'মোবাইল ও কম্পিউটারে ব্যবহারযোগ্য', desc: 'ফোন, ট্যাবলেট বা কম্পিউটার — যেকোনো ডিভাইসের ব্রাউজারে সমানভাবে কাজ করে।' },
 ];
 
-const STEPS = [
-  { n: '১', title: 'ছবি আপলোড করুন', desc: 'ছবি টেনে এনে ছাড়ুন অথবা ক্লিক করে আপনার ডিভাইস থেকে বেছে নিন।' },
-  { n: '২', title: 'প্রয়োজনীয় Pixel ও KB নির্ধারণ করুন', desc: 'আবেদনের বিজ্ঞপ্তি দেখে প্রস্থ, উচ্চতা ও সর্বোচ্চ KB লিখুন বা একটি প্রিসেট বাছুন।' },
-  { n: '৩', title: 'ছবি প্রসেস করুন', desc: 'টুল নিজে থেকেই ছবি রিসাইজ ও কমপ্রেস করে। দরকারে ক্রপ এলাকা নিজে ঠিক করুন।' },
-  { n: '৪', title: 'প্রস্তুত ছবি ডাউনলোড করুন', desc: 'প্রকৃত সাইজ যাচাই করে “ছবি ডাউনলোড করুন” বোতাম চাপুন।' },
-];
-
 const GUARANTEES = [
   { icon: CircleOff, title: 'সার্ভারে কিছুই যায় না', desc: 'এই টুলে কোনো ব্যাকএন্ড, ডেটাবেস বা ক্লাউড স্টোরেজ নেই।' },
   { icon: HardDrive, title: 'ছবি সংরক্ষিত হয় না', desc: 'শুধু প্রিসেটের সেটিংস ব্রাউজারে থাকে — ছবি নয়।' },
@@ -51,30 +44,6 @@ export function WhyUs() {
             </motion.li>
           ))}
         </ul>
-      </div>
-    </section>
-  );
-}
-
-export function HowTo() {
-  return (
-    <section id="how" className="scroll-mt-20 py-14 sm:py-20" aria-labelledby="how-title">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <SectionHeading eyebrow="ব্যবহারবিধি" title={<span id="how-title">যেভাবে ব্যবহার করবেন</span>} desc="মাত্র চারটি ধাপে আপনার ছবি আবেদনের জন্য প্রস্তুত।" />
-        <ol className="relative grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {STEPS.map((s, i) => (
-            <motion.li key={s.n} {...reveal(i)} className="card relative p-5 pt-9">
-              <span className="absolute -top-5 left-5 grid h-11 w-11 place-items-center rounded-2xl bg-brand text-xl font-bold text-onbrand shadow-card">
-                {s.n}
-              </span>
-              <h3 className="text-lg font-semibold">
-                <span className="sr-only">ধাপ {s.n}: </span>
-                {s.title}
-              </h3>
-              <p className="mt-1.5 text-muted">{s.desc}</p>
-            </motion.li>
-          ))}
-        </ol>
       </div>
     </section>
   );

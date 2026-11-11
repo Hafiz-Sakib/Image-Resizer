@@ -1,13 +1,41 @@
 import { motion } from 'framer-motion';
 import InstallButton from './InstallButton.jsx';
 import samplePhoto from '../assets/sample-portrait.jpg';
-import { ArrowRight, Check, Gift, PlayCircle, ShieldCheck, UserX, PenLine, Repeat } from 'lucide-react';
+import { ArrowRight, Check, Gift, ShieldCheck, UserX, PenLine, Repeat } from 'lucide-react';
 
 const TRUST = [
   { icon: Gift, text: 'সম্পূর্ণ বিনামূল্যে' },
   { icon: UserX, text: 'অ্যাকাউন্ট লাগে না' },
   { icon: ShieldCheck, text: 'ছবি ডিভাইসেই থাকে' },
 ];
+
+// "Sakib" — হাতে লেখার মতো করে আঁকা স্বাক্ষর। পুরো চক্র CYCLE সেকেন্ডের; নাম → ফোঁটা → নিচের দাগ ক্রমে আঁকা হয়
+const CYCLE = 7;
+const SIGN_NAME =
+  'M38 11 C30 3 14 6 15 15 C16 24 34 22 33 32 C32 41 14 41 9 33 C17 39 27 38 37 34 C38 28 39 24 46 23 C41 22 36 29 41 33 C45 36 52 30 53 23 C53 29 54 34 58 34 C61 34 63 30 65 27 C67 12 71 4 75 4 C79 4 75 18 71 33 C73 27 81 21 85 21 C87 21 81 28 74 29 C80 30 84 36 92 33 C96 31 97 26 99 23 C99 29 100 34 105 34 C111 31 115 8 119 5 C122 3 122 10 118 22 C116 30 114 34 115 33 C120 25 135 21 136 29 C137 37 122 39 116 32 C122 35 131 34 139 31';
+const SIGN_DOT = 'M99 13 L99.1 13.1';
+const SIGN_LINE = 'M12 43 C50 38 100 41 150 37';
+
+/** from–to সেকেন্ডে আঁকা হয়, চক্রের শেষে মিলিয়ে যায় */
+function SignStroke({ d, from, to, width = 2 }) {
+  const t0 = from / CYCLE;
+  const t1 = to / CYCLE;
+  const fade = 0.93;
+  return (
+    <motion.path
+      d={d}
+      strokeWidth={width}
+      initial={{ pathLength: 0, opacity: 0 }}
+      animate={{ pathLength: [0, 0, 1, 1, 1], opacity: [0, 1, 1, 1, 0] }}
+      transition={{
+        duration: CYCLE,
+        repeat: Infinity,
+        ease: 'linear',
+        times: [0, t0, t1, fade, 1],
+      }}
+    />
+  );
+}
 
 function HeroIllustration() {
   return (
@@ -69,13 +97,10 @@ function HeroIllustration() {
 
         <div className="mt-5 flex items-center gap-3 rounded-xl border border-dashed border-line bg-sunken/60 p-3">
           <PenLine size={20} className="shrink-0 text-accent" />
-          <svg viewBox="0 0 200 40" className="h-9 flex-1 text-ink" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
-            <motion.path
-              d="M6 28 C16 2 28 4 26 22 S40 36 48 18 S62 10 60 26 S78 34 88 16 S104 8 102 24 S120 34 132 14 S150 10 150 26 S172 30 194 12"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 2, delay: 0.6, repeat: Infinity, repeatDelay: 2.5 }}
-            />
+          <svg viewBox="0 0 200 48" className="h-11 flex-1 text-ink" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" role="img" aria-label="Sakib">
+            <SignStroke d={SIGN_NAME} from={0.4} to={3.6} />
+            <SignStroke d={SIGN_DOT} from={3.7} to={3.9} width={3} />
+            <SignStroke d={SIGN_LINE} from={3.9} to={4.6} />
           </svg>
           <span className="shrink-0 text-right text-[0.7rem] leading-tight text-muted">
             স্বাক্ষর
@@ -103,7 +128,7 @@ function HeroIllustration() {
   );
 }
 
-export default function Hero({ onStart, onHow, install }) {
+export default function Hero({ onStart, install }) {
   return (
     <section id="top" className="relative overflow-hidden">
       <div
@@ -152,9 +177,6 @@ export default function Hero({ onStart, onHow, install }) {
           >
             <button type="button" onClick={onStart} className="btn-primary px-7 text-lg">
               ছবি রিসাইজ শুরু করুন <ArrowRight size={20} aria-hidden="true" />
-            </button>
-            <button type="button" onClick={onHow} className="btn-ghost px-7 text-lg">
-              <PlayCircle size={20} aria-hidden="true" /> কীভাবে কাজ করে দেখুন
             </button>
           </motion.div>
           <InstallButton install={install} variant="card" />
