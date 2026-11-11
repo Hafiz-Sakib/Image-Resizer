@@ -9,35 +9,31 @@ export default function CompressionControls({ settings: s, actions: a, compressi
   ];
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3 sm:space-y-4">
       <ChipGroup legend="সর্বোচ্চ ফাইল সাইজ" name="size" options={options} value={s.sizeKey} onChange={a.setSize} />
 
-      <div className="max-w-[14rem]">
+      <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
         <NumberField
           id="min-kb"
-          label="সর্বনিম্ন সাইজ (ঐচ্ছিক)"
+          label="সর্বনিম্ন (ঐচ্ছিক)"
           suffix="KB"
           value={s.minKB}
           onChange={a.setMinKB}
           error={errors?.minKB}
           placeholder="যেমন 4"
-          hint="কিছু পোর্টালে ন্যূনতম KB-ও বলা থাকে"
         />
-      </div>
-
-      {s.sizeKey === 'custom' && (
-        <div className="max-w-[14rem]">
+        {s.sizeKey === 'custom' && (
           <NumberField
             id="custom-kb"
-            label="সর্বোচ্চ সাইজ (KB)"
+            label="সর্বোচ্চ (KB)"
             suffix="KB"
             value={s.customKB}
             onChange={a.setCustomKB}
             error={compression.kbError}
             placeholder="যেমন 40"
           />
-        </div>
-      )}
+        )}
+      </div>
 
       {compression.hasLimit && s.format !== 'png' && (
         <p className="text-sm text-muted">

@@ -29,8 +29,10 @@ function HeroIllustration() {
 
         <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 sm:gap-4">
           <div>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-sunken">
-              <img src={samplePhoto} alt="" className="h-full w-full object-cover object-top" loading="eager" decoding="async" />
+            <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-[#f9f5e9]">
+              <img src={samplePhoto} alt="" className="absolute inset-y-0 left-[12.5%] h-full w-[75%] max-w-none" loading="eager" decoding="async" />
+              {/* ক্রপ এলাকা — এই অংশটাই "প্রস্তুত ছবি" হবে */}
+              <span className="absolute left-[21.5%] top-[3%] h-[76%] w-[57%] rounded-md border-2 border-dashed border-brand shadow-[0_0_0_999px_rgb(0_0_0/0.28)]" />
             </div>
             <p className="mt-2 text-center text-xs font-medium text-muted">মূল ছবি</p>
             <p className="text-center text-[0.7rem] text-muted">4000 × 3000 px · 3.2 MB</p>
@@ -46,7 +48,16 @@ function HeroIllustration() {
 
           <div>
             <div className="relative mx-auto aspect-square w-4/5 rounded-xl border-2 border-brand bg-brandsoft">
-              <img src={samplePhoto} alt="" className="h-full w-full rounded-[0.65rem] object-cover" loading="eager" decoding="async" />
+              <div className="absolute inset-0 overflow-hidden rounded-[0.65rem]">
+                <img
+                  src={samplePhoto}
+                  alt=""
+                  className="absolute max-w-none"
+                  style={{ width: '131.6%', left: '-15.8%', top: '-3.9%' }}
+                  loading="eager"
+                  decoding="async"
+                />
+              </div>
               <span className="absolute -right-2 -top-2 grid h-6 w-6 place-items-center rounded-full bg-brand text-onbrand">
                 <Check size={14} strokeWidth={3} />
               </span>

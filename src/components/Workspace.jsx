@@ -85,7 +85,7 @@ export default function Workspace({ ws, presets }) {
 
         <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
           {/* ===== বাম প্যানেল: সেটিংস ===== */}
-          <div className="min-w-0 space-y-5">
+          <div className="min-w-0 space-y-3 sm:space-y-5">
             <Panel step="১" title="ছবি আপলোড" hint={s.mode === 'signature' ? 'স্বাক্ষরের ছবি বা স্ক্যান নির্বাচন করুন' : 'রঙিন ছবি দিন — কিছু পোর্টালে সাদা-কালো ছবি গ্রহণ করা হয় না'}>
               <ImageUploader upload={upload} />
             </Panel>
@@ -113,8 +113,8 @@ export default function Workspace({ ws, presets }) {
             )}
           </div>
 
-          {/* ===== ডান প্যানেল: প্রিভিউ ===== */}
-          <div className="min-w-0 space-y-5">
+          {/* ===== ডান প্যানেল: প্রিভিউ (ডেস্কটপে স্ক্রল করলেও চোখের সামনে থাকে) ===== */}
+          <div className="min-w-0 space-y-4 lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto lg:self-start lg:pb-2">
             {!info ? (
               <div className="card grid place-items-center gap-3 px-6 py-16 text-center">
                 <span className="grid h-16 w-16 place-items-center rounded-2xl bg-brandsoft text-brand">

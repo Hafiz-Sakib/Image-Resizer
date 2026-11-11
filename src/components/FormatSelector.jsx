@@ -17,7 +17,7 @@ export default function FormatSelector({ settings: s, actions: a, info }) {
   const isCustom = s.bg !== 'transparent' && !SWATCHES.some((x) => x.value === s.bg);
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-3 sm:space-y-5">
       <OptionCards legend="আউটপুট ফরম্যাট" name="format" cols="grid-cols-2" options={FORMATS} value={s.format} onChange={a.setFormat} />
 
       <fieldset>
@@ -73,7 +73,7 @@ export default function FormatSelector({ settings: s, actions: a, info }) {
             </span>
           </label>
         </div>
-        <p className="mt-2 text-xs text-muted">
+        <p className="mt-1.5 text-[0.7rem] leading-snug text-muted sm:mt-2 sm:text-xs">
           ছবির ফাঁকা অংশ (ফিট মোডে) ও স্বচ্ছ অংশ এই রঙে ভরবে। “স্বচ্ছ” শুধু PNG-তে চলে।
         </p>
       </fieldset>

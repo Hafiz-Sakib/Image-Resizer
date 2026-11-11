@@ -5,7 +5,7 @@ import { MAX_DIM, MIN_DIM } from '../utils/imageResize.js';
 export default function DimensionControls({ settings: s, actions: a, errors }) {
   const valid = !errors.width && !errors.height;
   return (
-    <div className="space-y-4">
+    <div className="space-y-2.5 sm:space-y-4">
       <div className="grid grid-cols-[1fr_auto_1fr] items-start gap-2">
         <NumberField
           id="dim-width"
@@ -23,7 +23,7 @@ export default function DimensionControls({ settings: s, actions: a, errors }) {
           aria-label={s.lock ? 'অনুপাত লক চালু আছে — বন্ধ করতে চাপুন' : 'অনুপাত লক বন্ধ আছে — চালু করতে চাপুন'}
           title={s.lock ? 'অনুপাত ঠিক রাখা হচ্ছে' : 'প্রস্থ ও উচ্চতা আলাদাভাবে বদলানো যাবে'}
           className={cx(
-            'mt-7 grid h-12 w-12 place-items-center rounded-xl border transition',
+            'mt-7 grid h-11 w-10 place-items-center sm:h-12 sm:w-12 rounded-xl border transition',
             s.lock ? 'border-brand bg-brandsoft text-brand' : 'border-line bg-surface text-muted hover:bg-sunken',
           )}
         >
@@ -40,19 +40,19 @@ export default function DimensionControls({ settings: s, actions: a, errors }) {
         />
       </div>
 
-      <p className="text-sm text-muted" aria-live="polite">
+      <p className="text-xs text-muted sm:text-sm" aria-live="polite">
         {s.lock
           ? 'অনুপাত ঠিক রাখা আছে — একটি মাপ বদলালে অন্যটি নিজে নিজে হিসাব হবে।'
           : 'অনুপাত লক বন্ধ — প্রস্থ ও উচ্চতা আলাদাভাবে লিখতে পারবেন।'}
       </p>
 
-      <div className="flex items-center justify-between rounded-xl bg-sunken px-4 py-3">
-        <span className="text-sm text-muted">চূড়ান্ত মাপ</span>
-        <strong className="text-lg" data-testid="final-dims">
+      <div className="flex items-center justify-between rounded-xl bg-sunken px-3 py-2 sm:px-4 sm:py-3">
+        <span className="text-xs text-muted sm:text-sm">চূড়ান্ত মাপ</span>
+        <strong className="text-base sm:text-lg" data-testid="final-dims">
           {valid ? `${s.width} × ${s.height} px` : '—'}
         </strong>
       </div>
-      <p className="text-xs text-muted">অনুমোদিত মাপ: {MIN_DIM} থেকে {MAX_DIM} Pixel পর্যন্ত। বাংলা সংখ্যাও (যেমন ৩০০) লিখতে পারবেন।</p>
+      <p className="text-[0.7rem] leading-snug text-muted sm:text-xs">অনুমোদিত মাপ: {MIN_DIM} থেকে {MAX_DIM} Pixel পর্যন্ত। বাংলা সংখ্যাও (যেমন ৩০০) লিখতে পারবেন।</p>
     </div>
   );
 }

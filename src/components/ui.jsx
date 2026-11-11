@@ -9,14 +9,14 @@ export function cx(...a) {
 /** ধাপ-নম্বরসহ কার্ড প্যানেল */
 export function Panel({ step, title, icon: Icon, hint, children, className }) {
   return (
-    <section className={cx('card p-4 sm:p-5', className)}>
-      <header className="mb-4 flex items-start gap-3">
-        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-brandsoft text-brand">
+    <section className={cx('card p-3.5 sm:p-5', className)}>
+      <header className="mb-3 flex items-start gap-2.5 sm:mb-4 sm:gap-3">
+        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-brandsoft text-brand sm:h-9 sm:w-9">
           {step ? <span className="text-base font-bold">{step}</span> : Icon && <Icon size={18} aria-hidden="true" />}
         </span>
         <div className="min-w-0">
-          <h3 className="text-lg font-semibold">{title}</h3>
-          {hint && <p className="text-sm text-muted">{hint}</p>}
+          <h3 className="text-base font-semibold leading-tight sm:text-lg">{title}</h3>
+          {hint && <p className="text-xs text-muted sm:text-sm">{hint}</p>}
         </div>
       </header>
       {children}

@@ -9,7 +9,13 @@ export default function PresetSelector({ presets, settings: s, actions: a, maxKB
   const [name, setName] = useState('');
   const visible = presets.list.filter((p) => p.kind === s.mode);
   const options = [
-    ...visible.map((p) => ({ value: p.id, label: `${p.name} · ${p.width}×${p.height}` })),
+    ...visible.map((p) => ({ value: p.id, label: (
+        <span className="flex flex-col items-center">
+          <span>{p.name}</span>
+          <span className="text-[0.68rem] opacity-75 sm:text-xs">{p.width}×{p.height}</span>
+        </span>
+      ),
+    })),
     { value: 'custom', label: 'কাস্টম সাইজ' },
   ];
   const value = s.activePresetId && visible.some((p) => p.id === s.activePresetId) ? s.activePresetId : 'custom';
@@ -41,9 +47,9 @@ export default function PresetSelector({ presets, settings: s, actions: a, maxKB
   };
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-2.5">
       <ChipGroup legend="প্রিসেট" hideLegend name="preset" options={options} value={value} onChange={onPick} />
-      <p className="text-xs text-muted">
+      <p className="text-[0.72rem] leading-snug text-muted sm:text-xs">
         প্রিসেট শুধু উদাহরণ। আপনার আবেদনের বিজ্ঞপ্তিতে দেওয়া সঠিক মাপ ও KB নিজে লিখে নিন।
       </p>
 
@@ -52,7 +58,7 @@ export default function PresetSelector({ presets, settings: s, actions: a, maxKB
           type="button"
           disabled={!canSave}
           onClick={() => setSaving(true)}
-          className="btn-ghost min-h-[2.5rem] px-3 text-sm"
+          className="btn-ghost min-h-[2.25rem] w-full px-3 text-[0.8rem] sm:w-auto sm:min-h-[2.5rem] sm:text-sm"
         >
           <BookmarkPlus size={16} aria-hidden="true" /> বর্তমান সেটিং প্রিসেট হিসেবে সংরক্ষণ করুন
         </button>
