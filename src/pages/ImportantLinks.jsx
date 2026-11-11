@@ -140,7 +140,7 @@ export default function ImportantLinks() {
 
   useEffect(() => {
     const prev = document.title;
-    document.title = 'গুরুত্বপূর্ণ লিংক — সরকারি চাকরি';
+    document.title = 'সরকারি চাকরি';
     window.scrollTo({ top: 0 });
     return () => {
       document.title = prev;
