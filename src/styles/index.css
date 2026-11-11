@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --paper: 245 248 244;
+    --surface: 255 255 255;
+    --sunken: 236 242 238;
+    --ink: 15 38 31;
+    --muted: 77 98 90;
+    --line: 214 225 219;
+    --brand: 0 105 77;
+    --onbrand: 255 255 255;
+    --brandsoft: 222 241 232;
+    --accent: 200 40 58;
+    --ok: 4 120 87;
+    --oksoft: 220 245 232;
+    --warn: 146 84 0;
+    --warnsoft: 254 243 214;
+    --err: 185 28 28;
+    --errsoft: 254 226 226;
+    --shadow: 15 38 31;
+  }
+
+  .dark {
+    --paper: 8 18 15;
+    --surface: 15 31 25;
+    --sunken: 21 42 35;
+    --ink: 232 241 236;
+    --muted: 160 182 172;
+    --line: 38 60 49;
+    --brand: 52 200 148;
+    --onbrand: 4 32 23;
+    --brandsoft: 18 56 43;
+    --accent: 255 107 122;
+    --ok: 94 214 160;
+    --oksoft: 16 54 39;
+    --warn: 246 196 90;
+    --warnsoft: 56 43 14;
+    --err: 255 140 140;
+    --errsoft: 66 24 24;
+    --shadow: 0 0 0;
+  }
+
+  html {
+    font-family: 'Hind Siliguri', 'Noto Sans Bengali', Kalpurush, 'Siyam Rupali', Vrinda, system-ui, sans-serif;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+    color-scheme: light;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-paper text-ink antialiased;
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.7;
+    /* বাংলা যুক্তাক্ষর ভাঙতে পারে বলে অক্ষরের ফাঁক কখনো কমানো হয়নি */
+    letter-spacing: 0;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    line-height: 1.35;
+    letter-spacing: 0;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font-family: inherit;
+  }
+
+  button,
+  a,
+  input,
+  [role='switch'] {
+    touch-action: manipulation;
+  }
+
+  :focus-visible {
+    outline: 3px solid rgb(var(--brand) / 0.55);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: rgb(var(--brand) / 0.25);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex min-h-[2.75rem] select-none items-center justify-center gap-2 rounded-xl px-5 py-2 font-semibold transition
+      duration-150 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-brand text-onbrand shadow-card hover:brightness-110 active:scale-[0.98];
+  }
+  .btn-ghost {
+    @apply btn border border-line bg-surface text-ink hover:bg-sunken active:scale-[0.98];
+  }
+  .btn-danger {
+    @apply btn border border-err/40 bg-errsoft text-err hover:brightness-95;
+  }
+  .input {
+    @apply min-h-[3rem] w-full rounded-xl border border-line bg-surface px-4 text-base text-ink placeholder:text-muted/70
+      transition focus:border-brand focus:outline-none focus:ring-4 focus:ring-brand/20;
+  }
+  .card {
+    @apply rounded-2xl border border-line bg-surface shadow-card;
+  }
+  /* স্বচ্ছ ছবি বোঝাতে দাবার ছক */
+  .checker {
+    background-color: rgb(var(--surface));
+    background-image: conic-gradient(rgb(var(--sunken)) 25%, transparent 0 50%, rgb(var(--sunken)) 0 75%, transparent 0);
+    background-size: 16px 16px;
+  }
+}
