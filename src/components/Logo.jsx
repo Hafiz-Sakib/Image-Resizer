@@ -20,8 +20,8 @@ export default function Logo({ compact = false }) {
     <span className="flex items-center gap-2.5">
       <LogoMark size={compact ? 32 : 40} />
       <span className="min-w-0 leading-tight">
-        <span className="block whitespace-nowrap text-base font-bold sm:text-lg">বিডি ইমেজ রিসাইজার</span>
-        {!compact && <span className="hidden text-xs text-muted sm:block">ছবি ও স্বাক্ষর রিসাইজ টুল</span>}
+        <span className="block whitespace-nowrap text-base font-bold sm:text-lg">সরকারি চাকরি</span>
+        {!compact && <span className="hidden text-xs text-muted sm:block">আবেদনের লিংক, ছবি ও স্বাক্ষর টুল</span>}
       </span>
     </span>
   );

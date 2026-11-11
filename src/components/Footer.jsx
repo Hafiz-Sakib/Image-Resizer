@@ -8,6 +8,7 @@ const LINKS = [
   { href: 'workspace', label: 'স্বাক্ষর রিসাইজ করুন', tool: 'signature' },
   { href: 'presets', label: 'প্রিসেট' },
   { href: 'privacy', label: 'গোপনীয়তা ও নিরাপত্তা' },
+  { href: 'important-links', label: 'গুরুত্বপূর্ণ লিংক', path: '/ImportantLinks' },
   { href: 'developer', label: 'ডেভেলপার', path: '/developer' },
 ];
 
@@ -49,7 +50,7 @@ export default function Footer({ onTool, onGoto, onPage = navigate }) {
       </div>
       <div className="border-t border-line">
         <p className="mx-auto max-w-7xl px-4 py-5 text-center text-sm text-muted sm:px-6">
-          © {bnYear()} বিডি ইমেজ রিসাইজার। সর্বস্বত্ব সংরক্ষিত। প্রিসেটের মাপ কেবল উদাহরণ — আবেদনের বিজ্ঞপ্তি অনুযায়ী সঠিক মাপ ব্যবহার করুন।
+          © {bnYear()} সরকারি চাকরি। সর্বস্বত্ব সংরক্ষিত। প্রিসেটের মাপ কেবল উদাহরণ — আবেদনের বিজ্ঞপ্তি অনুযায়ী সঠিক মাপ ব্যবহার করুন।
         </p>
       </div>
     </footer>

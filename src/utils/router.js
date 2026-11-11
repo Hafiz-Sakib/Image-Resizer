@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
 
-// খুব ছোট রাউটার: "/" (হোম) ও "/developer" — Vercel-এর rewrite থাকায় সরাসরি লিংকও কাজ করে
-export const PATHS = { home: '/', developer: '/developer' };
+// খুব ছোট রাউটার: "/" (হোম), "/developer" ও "/ImportantLinks" — Vercel-এর rewrite থাকায় সরাসরি লিংকও কাজ করে
+export const PATHS = { home: '/', developer: '/developer', importantLinks: '/ImportantLinks' };
+
+// বড়-ছোট হাতের অক্ষরে পার্থক্য করা হয় না (/importantlinks ও /ImportantLinks একই পেজ); অচেনা পথ হোমে যায়
+const KNOWN = Object.values(PATHS);
+const canonical = (p) => KNOWN.find((k) => k.toLowerCase() === p.toLowerCase()) || '/';
 
 let pending = null;
 
-const normalize = (p) => p.replace(/\/+$/, '') || '/';
+const normalize = (p) => canonical(p.replace(/\/+$/, '') || '/');
 
 /** পেজ বদলের পর হোম কী করবে (যেমন নির্দিষ্ট সেকশনে স্ক্রল) তা এক বার পড়ে নেওয়া যায় */
 export const takePending = () => {

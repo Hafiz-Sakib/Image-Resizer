@@ -13,9 +13,9 @@ export default defineConfig({
       includeAssets: ['favicon.svg', 'favicon.ico', 'favicon-16.png', 'favicon-32.png', 'icons/apple-touch-icon.png', 'og-image.png'],
       manifest: {
         id: '/',
-        name: 'বিডি ইমেজ রিসাইজার',
-        short_name: 'ইমেজ রিসাইজার',
-        description: 'চাকরির আবেদনের ছবি ও স্বাক্ষর Pixel ও KB অনুযায়ী রিসাইজ ও কমপ্রেস করুন — সবকিছু আপনার ব্রাউজারেই।',
+        name: 'সরকারি চাকরি',
+        short_name: 'সরকারি চাকরি',
+        description: 'সরকারি চাকরির গুরুত্বপূর্ণ লিংক এক জায়গায়, সাথে আবেদনের ছবি ও স্বাক্ষর Pixel ও KB অনুযায়ী রিসাইজ ও কমপ্রেস — সবকিছু আপনার ব্রাউজারেই।',
         lang: 'bn',
         dir: 'ltr',
         start_url: '/?source=pwa',
@@ -27,6 +27,7 @@ export default defineConfig({
         categories: ['utilities', 'productivity', 'photo'],
         icons: [icon('/icons/icon-192.png', '192x192'), icon('/icons/icon-512.png', '512x512'), icon('/icons/maskable-512.png', '512x512', 'maskable')],
         shortcuts: [
+          { name: 'গুরুত্বপূর্ণ লিংক', short_name: 'লিংক', url: '/ImportantLinks', icons: [icon('/icons/icon-192.png', '192x192')] },
           { name: 'ছবি রিসাইজ করুন', short_name: 'ছবি', url: '/?tool=photo', icons: [icon('/icons/icon-192.png', '192x192')] },
           { name: 'স্বাক্ষর রিসাইজ করুন', short_name: 'স্বাক্ষর', url: '/?tool=signature', icons: [icon('/icons/icon-192.png', '192x192')] },
         ],

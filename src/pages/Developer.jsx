@@ -67,7 +67,7 @@ export default function Developer() {
 
   useEffect(() => {
     const prev = document.title;
-    document.title = 'ডেভেলপার পরিচিতি — বিডি ইমেজ রিসাইজার';
+    document.title = 'ডেভেলপার পরিচিতি — সরকারি চাকরি';
     window.scrollTo({ top: 0 });
     return () => {
       document.title = prev;
