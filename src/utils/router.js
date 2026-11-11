@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
 // খুব ছোট রাউটার: "/" (হোম), "/developer" ও "/ImportantLinks" — Vercel-এর rewrite থাকায় সরাসরি লিংকও কাজ করে
-export const PATHS = { home: '/', developer: '/developer', importantLinks: '/ImportantLinks' };
+export const PATHS = { home: '/', developer: '/developer', importantLinks: '/ImportantLinks', notFound: '/404' };
 
-// বড়-ছোট হাতের অক্ষরে পার্থক্য করা হয় না (/importantlinks ও /ImportantLinks একই পেজ); অচেনা পথ হোমে যায়
+// বড়-ছোট হাতের অক্ষরে পার্থক্য করা হয় না (/importantlinks ও /ImportantLinks একই পেজ); অচেনা পথ ৪০৪ পেজে যায়
 const KNOWN = Object.values(PATHS);
-const canonical = (p) => KNOWN.find((k) => k.toLowerCase() === p.toLowerCase()) || '/';
+const canonical = (p) => KNOWN.find((k) => k.toLowerCase() === p.toLowerCase()) || PATHS.notFound;
 
 let pending = null;
 
