@@ -79,16 +79,6 @@ function PresetForm({ initial, onSave, onCancel }) {
             { value: 'signature', label: 'স্বাক্ষর' },
           ]}
         />
-        <ChipGroup
-          legend="ফরম্যাট"
-          name="pf-format"
-          value={f.format}
-          onChange={set('format')}
-          options={[
-            { value: 'jpeg', label: 'JPEG' },
-            { value: 'png', label: 'PNG' },
-          ]}
-        />
       </div>
 
       <div className="flex flex-wrap gap-2">
@@ -147,7 +137,7 @@ export default function PresetsSection({ presets, onApply }) {
                 <span className="ml-1 text-sm font-medium text-muted">px</span>
               </p>
               <p className="text-sm text-muted">
-                {p.minKB ? `${p.minKB}–` : ''}{p.maxKB ? `${p.maxKB} KB` : 'সাইজ সীমা নেই'} · {p.format === 'jpeg' ? 'JPEG' : 'PNG'}
+                {p.minKB ? `${p.minKB}–` : ''}{p.maxKB ? `${p.maxKB} KB` : 'সাইজ সীমা নেই'} · {{ jpeg: 'JPEG', png: 'PNG', webp: 'WebP' }[p.format] || 'JPEG'}
               </p>
               <div className="mt-auto flex flex-wrap gap-2 pt-1">
                 <button type="button" onClick={() => onApply(p)} className="btn-primary min-h-[2.5rem] flex-1 px-3 text-sm">

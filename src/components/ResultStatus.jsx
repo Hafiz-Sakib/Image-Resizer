@@ -1,7 +1,7 @@
 import { Alert, Spinner } from './ui.jsx';
 import { formatBytes, formatNumber } from '../utils/format.js';
 
-const FORMAT_NAME = { jpeg: 'JPEG', png: 'PNG' };
+const FORMAT_NAME = { jpeg: 'JPEG', png: 'PNG', webp: 'WebP' };
 
 /** প্রসেসিংয়ের ফলাফল ও সীমা পূরণ হয়েছে কি না — প্রকৃত Blob সাইজের ভিত্তিতে */
 export default function ResultStatus({ processor, settings: s, maxKB, hasErrors, onSwitchFormat }) {

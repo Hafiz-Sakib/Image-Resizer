@@ -1,14 +1,15 @@
-import { Alert, OptionCards } from './ui.jsx';
+import { Alert } from './ui.jsx';
 
-const FORMATS = [
-  { value: 'jpeg', title: 'JPEG (.jpg)', desc: 'সবচেয়ে বহুল ব্যবহৃত। ফাইল ছোট, KB নিয়ন্ত্রণ সহজ। আবেদনের ছবির জন্য সেরা।' },
-  { value: 'png', title: 'PNG (.png)', desc: 'ক্ষতিহীন মান, কিন্তু ফাইল বড় হয়।' },
-];
-
-export default function FormatSelector({ settings: s, actions: a, info }) {
+/** আউটপুট সব সময় JPG — আপলোড PNG/WebP হলেও ডাউনলোড হবে .jpg */
+export default function FormatSelector({ info }) {
   return (
     <div className="space-y-3 sm:space-y-5">
-      <OptionCards legend="আউটপুট ফরম্যাট" name="format" cols="grid-cols-2" options={FORMATS} value={s.format} onChange={a.setFormat} />
+      <div className="flex items-center justify-between rounded-xl border border-brand bg-brandsoft px-3 py-3 sm:px-4">
+        <div>
+          <p className="font-semibold">JPG (.jpg)</p>
+          <p className="text-xs text-muted sm:text-sm">আপলোড যে ফরম্যাটেরই হোক, ডাউনলোড সব সময় .jpg হবে।</p>
+        </div>
+      </div>
 
       {info?.hasAlpha && (
         <Alert tone="info" title="স্বচ্ছ অংশ সাদা হবে" live>

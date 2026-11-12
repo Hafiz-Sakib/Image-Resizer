@@ -7,6 +7,19 @@ export const MAX_DIM = 5000;
 export const MAX_AREA = 16_000_000;
 export const MAX_SOURCE_PIXELS = 120_000_000;
 
+/** ছবির আসল মাপকে অনুপাত ঠিক রেখে অনুমোদিত সীমার ভেতরে আনে (MAX_DIM, MAX_AREA, MIN_DIM) */
+export function fitWithinLimits(w, h) {
+  let scale = Math.min(1, MAX_DIM / w, MAX_DIM / h, Math.sqrt(MAX_AREA / (w * h)));
+  let outW = Math.round(w * scale);
+  let outH = Math.round(h * scale);
+  if (Math.min(outW, outH) < MIN_DIM) {
+    scale = MIN_DIM / Math.min(w, h);
+    outW = Math.min(MAX_DIM, Math.round(w * scale));
+    outH = Math.min(MAX_DIM, Math.round(h * scale));
+  }
+  return { w: Math.max(1, outW), h: Math.max(1, outH) };
+}
+
 export const RATIO_KEYS = ['1:1', '3:1', '4:3', '3:4', '16:9'];
 
 /** অনুপাতের সংখ্যাগত মান (প্রস্থ ÷ উচ্চতা) */

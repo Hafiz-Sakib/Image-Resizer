@@ -16,7 +16,7 @@ import useImageUpload from '../hooks/useImageUpload.js';
 import useImageProcessor from '../hooks/useImageProcessor.js';
 import { formatBytes, formatNumber } from '../utils/format.js';
 
-const FORMAT_NAME = { jpeg: 'JPEG', png: 'PNG' };
+const FORMAT_NAME = { jpeg: 'JPEG', png: 'PNG', webp: 'WebP' };
 const SRC_FORMAT = { 'image/jpeg': 'JPEG', 'image/png': 'PNG', 'image/webp': 'WebP' };
 
 function ModeTabs({ mode, onChange }) {
@@ -102,7 +102,7 @@ export default function Workspace({ ws, presets }) {
               <CompressionControls settings={s} actions={a} compression={compression} errors={errors} />
             </Panel>
 
-            <Panel step="৫" title="ফরম্যাট" hint="কোন ধরনের ফাইল ডাউনলোড করবেন">
+            <Panel step="৫" title="ফরম্যাট" hint="ডাউনলোড সব সময় JPG">
               <FormatSelector settings={s} actions={a} info={info} />
             </Panel>
 

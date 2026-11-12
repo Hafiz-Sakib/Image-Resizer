@@ -1,4 +1,3 @@
-import { Link2, Link2Off } from 'lucide-react';
 import { NumberField, cx } from './ui.jsx';
 import { MAX_DIM, MIN_DIM } from '../utils/imageResize.js';
 
@@ -6,7 +5,7 @@ export default function DimensionControls({ settings: s, actions: a, errors }) {
   const valid = !errors.width && !errors.height;
   return (
     <div className="space-y-2.5 sm:space-y-4">
-      <div className="grid grid-cols-[1fr_auto_1fr] items-start gap-2">
+      <div className="grid grid-cols-2 items-start gap-3">
         <NumberField
           id="dim-width"
           label="প্রস্থ (Width)"
@@ -16,19 +15,6 @@ export default function DimensionControls({ settings: s, actions: a, errors }) {
           error={errors.width}
           placeholder="যেমন 300"
         />
-        <button
-          type="button"
-          onClick={a.toggleLock}
-          aria-pressed={s.lock}
-          aria-label={s.lock ? 'অনুপাত লক চালু আছে — বন্ধ করতে চাপুন' : 'অনুপাত লক বন্ধ আছে — চালু করতে চাপুন'}
-          title={s.lock ? 'অনুপাত ঠিক রাখা হচ্ছে' : 'প্রস্থ ও উচ্চতা আলাদাভাবে বদলানো যাবে'}
-          className={cx(
-            'mt-7 grid h-11 w-10 place-items-center sm:h-12 sm:w-12 rounded-xl border transition',
-            s.lock ? 'border-brand bg-brandsoft text-brand' : 'border-line bg-surface text-muted hover:bg-sunken',
-          )}
-        >
-          {s.lock ? <Link2 size={20} aria-hidden="true" /> : <Link2Off size={20} aria-hidden="true" />}
-        </button>
         <NumberField
           id="dim-height"
           label="উচ্চতা (Height)"
@@ -40,10 +26,27 @@ export default function DimensionControls({ settings: s, actions: a, errors }) {
         />
       </div>
 
+      <label
+        htmlFor="dim-lock"
+        className={cx(
+          'flex min-h-[2.75rem] cursor-pointer items-center gap-3 rounded-xl border px-3 py-2 transition sm:px-4',
+          s.lock ? 'border-brand bg-brandsoft' : 'border-line bg-surface hover:bg-sunken',
+        )}
+      >
+        <input
+          id="dim-lock"
+          type="checkbox"
+          checked={s.lock}
+          onChange={a.toggleLock}
+          className="h-5 w-5 shrink-0 cursor-pointer accent-brand"
+        />
+        <span className="text-sm font-medium sm:text-base">অনুপাত ঠিক রাখুন (Maintain aspect ratio)</span>
+      </label>
+
       <p className="text-xs text-muted sm:text-sm" aria-live="polite">
         {s.lock
-          ? 'অনুপাত ঠিক রাখা আছে — একটি মাপ বদলালে অন্যটি নিজে নিজে হিসাব হবে।'
-          : 'অনুপাত লক বন্ধ — প্রস্থ ও উচ্চতা আলাদাভাবে লিখতে পারবেন।'}
+          ? 'একটি মাপ বদলালে অন্যটি নিজে নিজে হিসাব হবে। ছবি আপলোড করলে আসল মাপ বসে যাবে।'
+          : 'অনুপাত লক বন্ধ — প্রস্থ ও উচ্চতা আলাদাভাবে লিখতে পারবেন (ছবি চেপে/টেনে যেতে পারে)।'}
       </p>
 
       <div className="flex items-center justify-between rounded-xl bg-sunken px-3 py-2 sm:px-4 sm:py-3">

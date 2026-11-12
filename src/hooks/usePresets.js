@@ -5,7 +5,7 @@ import { MIN_DIM, MAX_DIM } from '../utils/imageResize.js';
 // শুধু প্রিসেটের কনফিগারেশন সংরক্ষিত হয় — কোনো ছবি বা ছবির ডেটা নয়
 const KEY = 'bdir.presets.v1';
 
-const FORMATS = ['jpeg', 'png'];
+const FORMATS = ['jpeg'];
 const FITS = ['crop', 'fit'];
 
 function sanitize(p) {

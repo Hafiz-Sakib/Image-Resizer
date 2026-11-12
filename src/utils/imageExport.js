@@ -43,7 +43,7 @@ export function canvasToBlob(canvas, type, quality) {
 
 export function buildFilename({ mode, width, height, format }) {
   const base = mode === 'signature' ? 'signature' : 'photo';
-  return `${base}_${width}x${height}.${EXT[format] || 'jpg'}`;
+  return `${base}_${width}x${height}.jpg`; // সব সময় .jpg
 }
 
 /** একটি Object URL থেকে ফাইল ডাউনলোড চালু করে (মেইন থ্রেড) */

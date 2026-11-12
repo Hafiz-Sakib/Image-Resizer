@@ -12,7 +12,7 @@ function buildOptions(s, info, maxKB, hasErrors) {
     outH: s.height,
     fit: s.fit,
     crop: s.crop,
-    format: s.format,
+    format: 'jpeg', // সব সময় JPG
     maxBytes: maxKB ? kbToBytes(maxKB) : null,
     minBytes: s.minKB ? Math.ceil(Number(s.minKB) * 1024) : null,
     quality: s.quality / 100,

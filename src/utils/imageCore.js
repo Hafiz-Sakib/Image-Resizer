@@ -2,6 +2,7 @@
 import { computeDrawGeometry, MAX_AREA, MAX_SOURCE_PIXELS } from './imageResize.js';
 import { createCanvas, releaseCanvas } from './imageExport.js';
 import { encodeCanvas } from './imageCompression.js';
+import { lanczosResize } from './lanczos.js';
 
 export function coded(code, message = code) {
   return Object.assign(new Error(message), { code });
@@ -64,29 +65,54 @@ export function detectAlpha(img) {
   return found;
 }
 
-/** বড় ছবি ছোট করার সময় ধাপে ধাপে অর্ধেক করে এঁকে ভালো মানের স্কেলিং */
-function drawHighQuality(ctx, img, g) {
+/**
+ * ছবি আঁকা। ছোট করার সময়: (বড় হলে) আগে ধাপে ধাপে অর্ধেক করে লক্ষ্যের ~২–৩ গুণে আনা হয়,
+ * তারপর শেষ ধাপ Lanczos3 দিয়ে — ফলে ছবি ধারালো থাকে (ব্রাউজারের সাধারণ স্কেলিং ঝাপসা করে দেয়)।
+ * বড় করার সময় ব্রাউজারের স্মুথ স্কেলিং ব্যবহার হয়।
+ */
+function drawHighQuality(ctx, img, g, bg) {
+  const downscale = g.dw < g.sw || g.dh < g.sh;
   let cur = img;
   let cx = g.sx;
   let cy = g.sy;
   let cw = g.sw;
   let ch = g.sh;
   const temps = [];
-  while (cw / 2 >= g.dw && ch / 2 >= g.dh) {
-    const nw = Math.max(1, Math.floor(cw / 2));
-    const nh = Math.max(1, Math.floor(ch / 2));
-    const t = createCanvas(nw, nh);
-    const tctx = t.getContext('2d');
-    tctx.imageSmoothingEnabled = true;
-    tctx.imageSmoothingQuality = 'high';
-    tctx.drawImage(cur, cx, cy, cw, ch, 0, 0, nw, nh);
-    temps.push(t);
-    cur = t;
-    cx = 0;
-    cy = 0;
-    cw = nw;
-    ch = nh;
+
+  if (downscale) {
+    while (cw / 2 >= g.dw * 3 && ch / 2 >= g.dh * 3) {
+      const nw = Math.max(1, Math.floor(cw / 2));
+      const nh = Math.max(1, Math.floor(ch / 2));
+      const t = createCanvas(nw, nh);
+      const tctx = t.getContext('2d');
+      tctx.imageSmoothingEnabled = true;
+      tctx.imageSmoothingQuality = 'high';
+      tctx.drawImage(cur, cx, cy, cw, ch, 0, 0, nw, nh);
+      temps.push(t);
+      cur = t;
+      cx = 0;
+      cy = 0;
+      cw = nw;
+      ch = nh;
+    }
+    // উৎস অংশটি অপাক রঙে (সাদা/বেছে নেওয়া ব্যাকগ্রাউন্ডে) পিক্সেল-ডেটা হিসেবে নেওয়া
+    const srcCanvas = createCanvas(cw, ch);
+    const sctx = srcCanvas.getContext('2d', { willReadFrequently: true });
+    sctx.fillStyle = bg === 'transparent' ? '#ffffff' : bg;
+    sctx.fillRect(0, 0, cw, ch);
+    sctx.drawImage(cur, cx, cy, cw, ch, 0, 0, cw, ch);
+    const data = sctx.getImageData(0, 0, cw, ch).data;
+    const resized = lanczosResize(data, cw, ch, g.dw, g.dh);
+    const dstCanvas = createCanvas(g.dw, g.dh);
+    const dctx = dstCanvas.getContext('2d');
+    dctx.putImageData(new ImageData(resized, g.dw, g.dh), 0, 0);
+    ctx.drawImage(dstCanvas, g.dx, g.dy);
+    releaseCanvas(srcCanvas);
+    releaseCanvas(dstCanvas);
+    temps.forEach(releaseCanvas);
+    return;
   }
+
   ctx.imageSmoothingEnabled = true;
   ctx.imageSmoothingQuality = 'high';
   ctx.drawImage(cur, cx, cy, cw, ch, g.dx, g.dy, g.dw, g.dh);
@@ -128,7 +154,7 @@ export async function processImage(img, opts) {
       ctx.fillRect(0, 0, outW, outH);
     }
     const g = computeDrawGeometry({ fit, srcW: img.width, srcH: img.height, outW, outH, crop });
-    drawHighQuality(ctx, img, g);
+    drawHighQuality(ctx, img, g, bg);
     if (enhance) applyEnhance(ctx, outW, outH, enhance.strength);
 
     const enc = await encodeCanvas(canvas, { format, maxBytes, minBytes, quality });

@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from 'react';
 import { DEFAULT_PRESETS, SIZE_OPTIONS } from '../data/presets.js';
 import { DEFAULT_CROP } from '../utils/imageCrop.js';
-import { ratioStateFromDims, ratioValue } from '../utils/imageResize.js';
+import { fitWithinLimits, ratioStateFromDims, ratioValue } from '../utils/imageResize.js';
 import { validateSettings } from '../utils/imageValidation.js';
 import useImageCompression from './useImageCompression.js';
 
@@ -22,7 +22,7 @@ function fromPreset(s, p) {
     fit: p.fit,
     ...sizeStateFromKB(p.maxKB),
     minKB: p.minKB ?? '',
-    format: p.format,
+    format: 'jpeg', // আউটপুট সব সময় .jpg
     crop: DEFAULT_CROP,
     activePresetId: p.id,
   };
@@ -117,7 +117,7 @@ export default function useSettings(presetList) {
       setCustomKB: (customKB) => patch({ sizeKey: 'custom', customKB }),
       setMinKB: (minKB) => patch({ minKB }),
       setQuality: (quality) => patch({ quality }),
-      setFormat: (format) => patch({ format }),
+      setFormat: () => patch({ format: 'jpeg' }), // শুধু JPEG
       setCrop: (crop) => patch({ crop }),
       resetCrop: () => patch({ crop: DEFAULT_CROP }),
       setEnhance: (p) => patch(p),
@@ -135,11 +135,20 @@ export default function useSettings(presetList) {
 
       onImageLoaded: (info) =>
         set((s) => {
-          const next = { ...s, srcW: info.width, srcH: info.height, crop: DEFAULT_CROP };
-          if (s.ratioKey === 'original' && s.lock && s.width !== '') {
-            next.height = roundDim(s.width / (info.width / info.height));
-          }
-          return next;
+          // ছবি আপলোড হলে মাপ = ছবির আসল মাপ, অনুপাত লক চালু (iLoveIMG-এর মতো)
+          const d = fitWithinLimits(info.width, info.height);
+          return {
+            ...s,
+            srcW: info.width,
+            srcH: info.height,
+            crop: DEFAULT_CROP,
+            width: d.w,
+            height: d.h,
+            lock: true,
+            ratioKey: 'original',
+            fit: 'stretch',
+            activePresetId: null,
+          };
         }),
 
       onImageRemoved: () =>
