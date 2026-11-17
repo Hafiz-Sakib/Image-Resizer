@@ -25,6 +25,7 @@ function fromPreset(s, p) {
     format: 'jpeg', // আউটপুট সব সময় .jpg
     crop: DEFAULT_CROP,
     activePresetId: p.id,
+    customMode: false,
   };
 }
 
@@ -132,11 +133,14 @@ export default function useSettings(presetList) {
 
       applyPreset: (p) => set((s) => fromPreset(s, p)),
       clearPreset: () => patch({ activePresetId: null }),
+      /** কাস্টম সাইজ: প্রিসেট ছাড়ুন, অনুপাত লক খুলুন — প্রস্থ ও উচ্চতা ব্যবহারকারী নিজে লিখবেন */
+      customSize: () =>
+        set((s) => ({ ...s, activePresetId: null, customMode: true, lock: false, ratioKey: 'custom', customRW: s.width || 1, customRH: s.height || 1, fit: s.mode === 'signature' ? 'fit' : 'crop', crop: DEFAULT_CROP })),
 
       onImageLoaded: (info) =>
         set((s) => {
           // প্রিসেট বাছাই থাকলে (যেমন ৩০০×৩০০) সেটিই থাকবে — শুধু ছবির তথ্য ও ক্রপ রিসেট হবে
-          if (s.activePresetId) return { ...s, srcW: info.width, srcH: info.height, crop: DEFAULT_CROP };
+          if (s.activePresetId || s.customMode) return { ...s, srcW: info.width, srcH: info.height, crop: DEFAULT_CROP };
           // কাস্টম মোডে: মাপ = ছবির আসল মাপ, অনুপাত লক চালু (iLoveIMG-এর মতো)
           const d = fitWithinLimits(info.width, info.height);
           return {

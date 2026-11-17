@@ -97,7 +97,7 @@ export default function Workspace({ ws, presets }) {
             </Panel>
 
             <Panel step="২" title="প্রিসেট" hint="দ্রুত শুরু করতে একটি প্রিসেট বেছে নিন">
-              <PresetSelector presets={presets} settings={s} actions={a} maxKB={maxKB} />
+              <PresetSelector presets={presets} settings={s} actions={a} />
             </Panel>
 
             <Panel step="৩" title="মাপ (Pixel)" hint="আবেদনে চাওয়া প্রস্থ ও উচ্চতা লিখুন">

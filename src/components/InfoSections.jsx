@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { CircleOff, Eraser, Gift, Gauge, Monitor, ShieldCheck, UserX, Zap, Eye, HardDrive, Upload, SlidersHorizontal, Download } from 'lucide-react';
+import { CircleOff, Eraser, Gift, Gauge, Monitor, ShieldCheck, UserX, Zap, Eye, HardDrive, Upload, SlidersHorizontal, Download, Check } from 'lucide-react';
 import { SectionHeading } from './ui.jsx';
 import { Spotlight, CountUp } from './motion/kit.jsx';
+import { OrbitCard } from './orbit-card.jsx';
 import PrivacyNotice from './PrivacyNotice.jsx';
 
 const FEATURES = [
@@ -104,6 +106,53 @@ export function HowItWorks() {
             </motion.li>
           ))}
         </ol>
+      </div>
+    </section>
+  );
+}
+
+const POINTS = ['ছবি ৩০০×৩০০ ও স্বাক্ষর ৩০০×৮০ প্রিসেট', 'নিজের মাপ ও KB লিখে কাস্টম সাইজ', 'ক্রপ করে ঠিক মাপে আনা, JPG ডাউনলোড', 'অফলাইনেও চলে — PWA হিসেবে ইনস্টল করা যায়'];
+
+/** কতগুলো ছবি এই ডিভাইসে ডাউনলোড হয়েছে — শুধু ব্রাউজারে গোনা, কোথাও পাঠানো হয় না */
+function useLocalCount() {
+  const read = () => { try { return Number(localStorage.getItem('bdir.count')) || 0; } catch { return 0; } };
+  const [n, setN] = useState(read);
+  useEffect(() => {
+    const f = () => setN(read());
+    window.addEventListener('bdir:downloaded', f);
+    return () => window.removeEventListener('bdir:downloaded', f);
+  }, []);
+  return n;
+}
+
+export function OrbitSection({ onStart }) {
+  const n = useLocalCount();
+  return (
+    <section id="orbit" className="scroll-mt-20 border-y border-line bg-sunken/40 py-14 sm:py-20" aria-labelledby="orbit-title">
+      <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-2">
+        <div>
+          <p className="mb-3 inline-flex rounded-full bg-brandsoft px-3 py-1 text-sm font-medium text-brand">এক জায়গায় সব</p>
+          <h2 id="orbit-title" className="text-3xl font-bold sm:text-4xl">আবেদনের সব ছবির কাজ এক টুলে</h2>
+          <ul className="mt-5 space-y-2.5">
+            {POINTS.map((p) => (
+              <li key={p} className="flex items-start gap-2.5 text-muted"><Check size={18} className="mt-1 shrink-0 text-brand" aria-hidden="true" />{p}</li>
+            ))}
+          </ul>
+          <p className="mt-5 text-sm text-muted">কার্ডটি টেনে ঘোরান, মাউস রাখলে ধীর হবে।</p>
+        </div>
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.6 }}>
+          <OrbitCard
+            count={n}
+            label="ছবি তৈরি হয়েছে"
+            description="এই ডিভাইসে আপনার ডাউনলোড করা ছবির গণনা — শুধু ব্রাউজারে থাকে। চিপগুলো টুলের সুবিধা।"
+            cta="ছবি রিসাইজ শুরু করুন"
+            onCta={onStart}
+            speed={4}
+            joinEvery={5.2}
+            incrementOnJoin={false}
+            className="mx-auto max-w-md"
+          />
+        </motion.div>
       </div>
     </section>
   );

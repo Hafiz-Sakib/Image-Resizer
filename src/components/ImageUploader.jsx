@@ -1,7 +1,8 @@
-import { useRef, useState } from 'react';
-import { ImagePlus, RefreshCw, Trash2, UploadCloud } from 'lucide-react';
-import { Alert, Spinner, cx } from './ui.jsx';
-import { ACCEPT } from '../utils/imageValidation.js';
+import { useRef } from 'react';
+import { RefreshCw, Trash2 } from 'lucide-react';
+import { Alert, Spinner } from './ui.jsx';
+import { FileDrop } from './file-drop.jsx';
+import { ACCEPT, MAX_FILE_BYTES } from '../utils/imageValidation.js';
 import { formatBytes, formatNumber } from '../utils/format.js';
 
 const FORMAT_NAME = { 'image/jpeg': 'JPEG', 'image/png': 'PNG', 'image/webp': 'WebP' };
@@ -9,72 +10,27 @@ const FORMAT_NAME = { 'image/jpeg': 'JPEG', 'image/png': 'PNG', 'image/webp': 'W
 export default function ImageUploader({ upload }) {
   const { url, info, loading, error, notice, select, remove, dismissError } = upload;
   const inputRef = useRef(null);
-  const [dragging, setDragging] = useState(false);
-
   const openPicker = () => inputRef.current?.click();
-  const onFiles = (files) => select(files);
 
-  const input = (
-    <input
-      ref={inputRef}
-      type="file"
-      accept={ACCEPT}
-      className="sr-only"
-      tabIndex={-1}
-      aria-label="ছবি নির্বাচন করুন"
-      data-testid="file-input"
-      onChange={(e) => {
-        onFiles(e.target.files);
-        e.target.value = ''; // একই ফাইল আবার বাছলেও যেন কাজ করে
-      }}
-    />
-  );
+  // ফাইল পড়ার সময় আসল অগ্রগতি দেখায়, তারপর যাচাই ও লোড করে
+  const uploadFile = async (file, progress) => {
+    await new Promise((resolve, reject) => {
+      const r = new FileReader();
+      r.onprogress = (e) => e.lengthComputable && progress((e.loaded / e.total) * 85);
+      r.onerror = () => reject(new Error('ফাইল পড়া যায়নি।'));
+      r.onload = () => { progress(90); resolve(); };
+      r.readAsArrayBuffer(file);
+    });
+    const ok = await select([file]);
+    if (!ok) throw Object.assign(new Error('rejected'), { silent: true }); // কারণ নিচের বার্তায় দেখানো হবে
+    progress(100);
+  };
 
   return (
     <div className="space-y-3">
-      {input}
-
+      <input ref={inputRef} type="file" accept={ACCEPT} className="sr-only" tabIndex={-1} aria-label="ছবি পরিবর্তন করুন" onChange={(e) => { select(e.target.files); e.target.value = ''; }} />
       {!info ? (
-        <div
-          role="button"
-          tabIndex={0}
-          aria-label="ছবি আপলোড করুন — ক্লিক করুন বা ছবি টেনে এনে ছাড়ুন"
-          onClick={openPicker}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              openPicker();
-            }
-          }}
-          onDragEnter={(e) => (e.preventDefault(), setDragging(true))}
-          onDragOver={(e) => (e.preventDefault(), setDragging(true))}
-          onDragLeave={(e) => {
-            if (!e.currentTarget.contains(e.relatedTarget)) setDragging(false);
-          }}
-          onDrop={(e) => {
-            e.preventDefault();
-            setDragging(false);
-            onFiles(e.dataTransfer.files);
-          }}
-          className={cx(
-            'relative flex cursor-pointer flex-col items-center gap-3 rounded-2xl border-2 border-dashed px-5 py-10 text-center transition',
-            dragging ? 'border-brand bg-brandsoft' : 'border-line bg-sunken/50 hover:border-brand/60 hover:bg-brandsoft/60',
-          )}
-        >
-          <span className="grid h-16 w-16 place-items-center rounded-2xl bg-brand text-onbrand shadow-card">
-            {loading ? <Spinner size={30} /> : <UploadCloud size={30} aria-hidden="true" />}
-          </span>
-          <div>
-            <p className="text-xl font-semibold">{loading ? 'ছবি লোড হচ্ছে…' : 'আপনার ছবি আপলোড করুন'}</p>
-            <p className="mt-1 text-sm text-muted">
-              এখানে ছবি ড্র্যাগ করে আনুন অথবা ক্লিক করে আপনার ডিভাইস থেকে ছবি নির্বাচন করুন।
-            </p>
-          </div>
-          <span className="btn-primary mt-1 pointer-events-none">
-            <ImagePlus size={18} aria-hidden="true" /> ছবি নির্বাচন করুন
-          </span>
-          <p className="text-xs text-muted">সমর্থিত ফরম্যাট: JPG, PNG, WEBP</p>
-        </div>
+        <FileDrop maxSize={MAX_FILE_BYTES} upload={uploadFile} />
       ) : (
         <div className="relative flex items-center gap-3 rounded-2xl border border-line bg-sunken/50 p-3">
           <img

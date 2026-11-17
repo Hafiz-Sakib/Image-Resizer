@@ -21,21 +21,21 @@ export default function useImageUpload() {
   const select = useCallback(
     async (fileList) => {
       const files = Array.from(fileList || []);
-      if (!files.length) return;
+      if (!files.length) return false;
       const file = files[0];
       const mine = ++token.current;
       const notice = files.length > 1 ? 'একাধিক ছবি নির্বাচন করা হয়েছে; শুধু প্রথম ছবিটি নেওয়া হয়েছে।' : null;
       setState((s) => ({ ...s, loading: true, error: null, notice: null }));
 
       const v = await validateFile(file);
-      if (mine !== token.current) return;
+      if (mine !== token.current) return false;
       if (!v.ok) {
         setState((s) => ({ ...s, loading: false, error: v.error }));
-        return;
+        return false;
       }
       try {
         const meta = await engine.load(file, v.type);
-        if (mine !== token.current) return;
+        if (mine !== token.current) return false;
         const url = URL.createObjectURL(file);
         swapUrl(url);
         setState({
@@ -45,9 +45,11 @@ export default function useImageUpload() {
           notice,
           info: { ...meta, size: file.size, type: v.type, name: file.name },
         });
+        return true;
       } catch (err) {
-        if (err.code === 'TERMINATED' || mine !== token.current) return;
+        if (err.code === 'TERMINATED' || mine !== token.current) return false;
         setState((s) => ({ ...s, loading: false, error: MESSAGES[err.code] || MESSAGES.DECODE_FAILED }));
+        return false;
       }
     },
     [engine],

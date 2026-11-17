@@ -3,7 +3,7 @@ import Header from '../components/Header.jsx';
 import Hero from '../components/Hero.jsx';
 import Workspace from '../components/Workspace.jsx';
 import PresetsSection from '../components/PresetsSection.jsx';
-import { WhyUs, PrivacySection, HowItWorks } from '../components/InfoSections.jsx';
+import { WhyUs, PrivacySection, HowItWorks, OrbitSection } from '../components/InfoSections.jsx';
 import { Marquee, ScrollProgress } from '../components/motion/kit.jsx';
 import Footer from '../components/Footer.jsx';
 import useTheme from '../hooks/useTheme.js';
@@ -70,6 +70,7 @@ export default function Home() {
         <Workspace ws={ws} presets={presets} />
         <PresetsSection presets={presets} onApply={applyAndScroll} />
         <HowItWorks />
+        <OrbitSection onStart={() => openTool('photo')} />
         <WhyUs />
         <PrivacySection />
       </main>
