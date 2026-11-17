@@ -82,9 +82,16 @@ export default function HeroScene({ className = '' }) {
 
     const recolor = () => {
       const b = rgbVar('--brand'), a = rgbVar('--accent');
-      cards.forEach((c, i) => c.children.forEach((o) => o.material.color.copy(i % 4 === 3 ? a : b)));
+      const night = document.documentElement.classList.contains('dark');
+      cards.forEach((c, i) => c.children.forEach((o, k) => {
+        o.material.color.copy(i % 4 === 3 ? a : b);
+        o.material.opacity = k === 0 ? (night ? 0.16 : 0.1) : night ? 0.8 : 0.45; // রাতে ফ্রেমগুলো আলোকিত
+      }));
       pm.color.copy(b);
+      pm.size = night ? 0.06 : 0.045;
+      pm.opacity = night ? 0.85 : 0.55;
     };
+    recolor();
     const mo = new MutationObserver(recolor);
     mo.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 

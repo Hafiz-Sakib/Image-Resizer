@@ -73,7 +73,7 @@ export function TiltCard({ children, className = '', max = 7 }) {
 export function Spotlight({ children, className = '', inner = '', as: Tag = 'div', ...rest }) {
   const x = useMotionValue(-300);
   const y = useMotionValue(-300);
-  const bg = useTransform([x, y], ([a, b]) => `radial-gradient(300px circle at ${a}px ${b}px, rgb(var(--brand) / .13), transparent 70%)`);
+  const bg = useTransform([x, y], ([a, b]) => `radial-gradient(300px circle at ${a}px ${b}px, rgb(var(--brand) / var(--spot, .13)), transparent 70%)`);
   const move = (e) => { const r = e.currentTarget.getBoundingClientRect(); x.set(e.clientX - r.left); y.set(e.clientY - r.top); };
   return (
     <Tag onMouseMove={move} className={`relative overflow-hidden ${className}`} {...rest}>
@@ -134,5 +134,30 @@ export function Reveal({ children, className = '', delay = 0, y = 28, as = 'div'
     <M className={className} initial={{ opacity: 0, y }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '0px 0px -8% 0px' }} transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}>
       {children}
     </M>
+  );
+}
+
+/** ডার্ক মোডে কার্সরের পিছু নেওয়া বড় নরম আলো */
+export function CursorGlow() {
+  const el = useRef(null);
+  const reduce = useReducedMotion();
+  useEffect(() => {
+    const node = el.current;
+    if (!node || reduce || !window.matchMedia('(pointer: fine)').matches) return undefined;
+    let x = innerWidth / 2, y = innerHeight / 3, tx = x, ty = y, raf = 0;
+    const mv = (e) => { tx = e.clientX; ty = e.clientY; };
+    const loop = () => {
+      raf = requestAnimationFrame(loop);
+      if (!document.documentElement.classList.contains('dark')) return;
+      x += (tx - x) * 0.1; y += (ty - y) * 0.1;
+      node.style.transform = `translate3d(${x - 320}px, ${y - 320}px, 0)`;
+    };
+    window.addEventListener('pointermove', mv, { passive: true });
+    loop();
+    return () => { cancelAnimationFrame(raf); window.removeEventListener('pointermove', mv); };
+  }, [reduce]);
+  return (
+    <div ref={el} aria-hidden="true" className="pointer-events-none fixed left-0 top-0 -z-10 hidden h-[640px] w-[640px] rounded-full dark:block"
+      style={{ background: 'radial-gradient(circle, rgb(var(--brand) / .14), rgb(var(--brand) / .04) 45%, transparent 68%)' }} />
   );
 }

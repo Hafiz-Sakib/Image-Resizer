@@ -147,7 +147,7 @@ export function OrbitSection({ onStart }) {
             description="এই ডিভাইসে আপনার ডাউনলোড করা ছবির গণনা — শুধু ব্রাউজারে থাকে। চিপগুলো টুলের সুবিধা।"
             cta="ছবি রিসাইজ শুরু করুন"
             onCta={onStart}
-            speed={4}
+            speed={1.5}
             joinEvery={5.2}
             incrementOnJoin={false}
             className="mx-auto max-w-md"

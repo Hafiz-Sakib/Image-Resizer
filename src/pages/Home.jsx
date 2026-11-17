@@ -4,7 +4,7 @@ import Hero from '../components/Hero.jsx';
 import Workspace from '../components/Workspace.jsx';
 import PresetsSection from '../components/PresetsSection.jsx';
 import { WhyUs, PrivacySection, HowItWorks, OrbitSection } from '../components/InfoSections.jsx';
-import { Marquee, ScrollProgress } from '../components/motion/kit.jsx';
+import { Marquee, ScrollProgress, CursorGlow } from '../components/motion/kit.jsx';
 import Footer from '../components/Footer.jsx';
 import useTheme from '../hooks/useTheme.js';
 import usePresets from '../hooks/usePresets.js';
@@ -63,6 +63,7 @@ export default function Home() {
         মূল কনটেন্টে যান
       </a>
       <ScrollProgress />
+      <CursorGlow />
       <Header theme={theme} onToggleTheme={toggle} onTool={openTool} onGoto={scrollToId} activeMode={ws.settings.mode} install={install} />
       <main id="main">
         <Hero install={install} onStart={() => openTool('photo')} />
