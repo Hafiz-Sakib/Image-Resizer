@@ -6,14 +6,14 @@ export default function SignatureEnhance({ settings: s, actions: a }) {
       <Switch
         checked={s.enhanceOn}
         onChange={(v) => a.setEnhance({ enhanceOn: v })}
-        label="স্বাক্ষর পরিষ্কার করুন"
-        description="কাগজে সই করে ছবি তুললে ব্যাকগ্রাউন্ড ধূসর দেখায়। এটি চালু করলে ব্যাকগ্রাউন্ড সাদা ও কালি গাঢ় হবে, ফাইলও ছোট হয়।"
+        label="স্বাক্ষর ক্লিন করুন"
+        description="কাগজে সই করে ছবি তুললে ব্যাকগ্রাউন্ড ধূসর দেখায়। এটা অন করলে ব্যাকগ্রাউন্ড সাদা আর কালি গাঢ় হবে, ফাইলও ছোট হয়।"
       />
       {s.enhanceOn && (
         <div>
           <div className="mb-1.5 flex items-center justify-between">
             <label htmlFor="enhance" className="text-sm font-medium">
-              পরিষ্কার করার মাত্রা
+              ক্লিন করার মাত্রা
             </label>
             <span className="text-sm font-semibold text-brand">{s.enhanceStrength}%</span>
           </div>
@@ -27,7 +27,7 @@ export default function SignatureEnhance({ settings: s, actions: a }) {
             className="h-2 w-full cursor-pointer accent-[rgb(var(--brand))]"
             aria-valuetext={`${s.enhanceStrength} শতাংশ`}
           />
-          <p className="mt-1 text-xs text-muted">সইয়ের হালকা রেখা মুছে গেলে মাত্রা কমান।</p>
+          <p className="mt-1 text-xs text-muted">সইয়ের হালকা দাগ মুছে গেলে মাত্রা কমিয়ে দিন।</p>
         </div>
       )}
     </div>

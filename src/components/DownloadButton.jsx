@@ -17,10 +17,6 @@ export default function DownloadButton({ processor, settings, className, compact
   const click = () => {
     if (phase === 'running') return;
     downloadUrl(url, filename);
-    try {
-      localStorage.setItem('bdir.count', String((Number(localStorage.getItem('bdir.count')) || 0) + 1));
-    } catch { /* সংরক্ষণ না হলেও চলবে */ }
-    window.dispatchEvent(new Event('bdir:downloaded'));
     setPhase('running');
     timers.current.push(setTimeout(() => setPhase('done'), 700), setTimeout(() => setPhase('idle'), 2600));
   };

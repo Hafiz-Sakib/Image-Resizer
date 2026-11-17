@@ -11,9 +11,9 @@ import { IMPORTANT_LINKS, LINK_CATEGORIES } from '../data/links.js';
 const ICONS = { newspaper: Newspaper, send: Send, puzzle: Puzzle };
 
 const STEPS = [
-  ['১', 'সার্কুলার খুঁজুন', 'BD Govt Job-এ চলমান নিয়োগ ও শেষ তারিখ দেখে বিজ্ঞপ্তি পড়ুন।'],
-  ['২', 'ছবি ও স্বাক্ষর তৈরি করুন', 'বিজ্ঞপ্তির মাপ ও KB অনুযায়ী এই সাইটেই রিসাইজ ও কমপ্রেস করুন।'],
-  ['৩', 'অনলাইনে আবেদন করুন', 'টেলিটক পোর্টালে আবেদন করুন; চাইলে ApplyMama দিয়ে ফর্ম দ্রুত পূরণ করুন।'],
+  ['১', 'সার্কুলার খুঁজুন', 'BD Govt Job-এ চলমান নিয়োগ ও শেষ তারিখ দেখে সার্কুলার পড়ুন।'],
+  ['২', 'ছবি ও স্বাক্ষর তৈরি করুন', 'সার্কুলারের মাপ ও KB অনুযায়ী এই সাইটেই রিসাইজ ও কমপ্রেস করুন।'],
+  ['৩', 'অনলাইনে আবেদন করুন', 'টেলিটক পোর্টালে আবেদন করুন; চাইলে ApplyMama দিয়ে ফর্ম তাড়াতাড়ি পূরণ করে নিন।'],
 ];
 
 const pill = 'inline-flex min-h-[2.75rem] items-center justify-center gap-2 rounded-full font-semibold transition';
@@ -120,7 +120,7 @@ function LinkCard({ link, index }) {
           rel="noopener noreferrer"
           className={`${pill} flex-1 bg-brand px-5 text-onbrand hover:opacity-90`}
         >
-          <ExternalLink size={18} aria-hidden="true" /> খুলুন
+          <ExternalLink size={18} aria-hidden="true" /> ওপেন করুন
         </a>
         <button type="button" onClick={onCopy} className={`${pill} border border-line bg-surface px-4 text-sm hover:border-brand hover:text-brand`} aria-live="polite">
           {copied ? <Check size={18} className="text-ok" aria-hidden="true" /> : <Copy size={18} aria-hidden="true" />}
@@ -184,7 +184,7 @@ export default function ImportantLinks() {
             </nav>
             <h1 className="mt-1 text-3xl font-bold sm:text-4xl">সরকারি চাকরির গুরুত্বপূর্ণ লিংক</h1>
             <p className="mt-2 max-w-2xl font-medium leading-relaxed opacity-90">
-              সার্কুলার দেখা থেকে আবেদন করা পর্যন্ত — দরকারি সব ওয়েবসাইট ও টুলের শর্টকাট এক জায়গায়।
+              সার্কুলার দেখা থেকে আবেদন পর্যন্ত — দরকারি সব ওয়েবসাইট ও টুলের লিংক এক জায়গায়।
             </p>
           </div>
         </section>
@@ -193,17 +193,17 @@ export default function ImportantLinks() {
           {/* সার্চ ও ফিল্টার */}
           <div className="card flex flex-col gap-3 p-4 shadow-pop sm:flex-row sm:items-center sm:p-5">
             <label className="relative block flex-1">
-              <span className="sr-only">লিংক খুঁজুন</span>
+              <span className="sr-only">লিংক সার্চ করুন</span>
               <Search size={18} className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
               <input
                 type="search"
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
-                placeholder="লিংক বা বিষয় খুঁজুন (যেমন: টেলিটক, সার্কুলার)"
+                placeholder="লিংক বা বিষয় সার্চ করুন (যেমন: টেলিটক, সার্কুলার)"
                 className="min-h-[2.75rem] w-full rounded-xl border border-line bg-surface pl-10 pr-10 text-base outline-none transition focus:border-brand"
               />
               {q && (
-                <button type="button" onClick={() => setQ('')} aria-label="খোঁজা মুছুন" className="absolute right-2 top-1/2 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-full text-muted hover:bg-sunken">
+                <button type="button" onClick={() => setQ('')} aria-label="সার্চ মুছুন" className="absolute right-2 top-1/2 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-full text-muted hover:bg-sunken">
                   <X size={16} aria-hidden="true" />
                 </button>
               )}
@@ -250,7 +250,7 @@ export default function ImportantLinks() {
           <section aria-labelledby="steps-title">
             <h2 id="steps-title" className="flex items-center gap-3 text-2xl font-bold">
               <span className="h-7 w-1.5 rounded-full bg-gradient-to-b from-brand to-accent" aria-hidden="true" />
-              আবেদনের সহজ ধাপ
+              আবেদনের ধাপগুলো
             </h2>
             <ol className="mt-4 grid gap-3 md:grid-cols-3">
               {STEPS.map(([n, t, d]) => (
@@ -268,9 +268,9 @@ export default function ImportantLinks() {
           {/* ছবি-স্বাক্ষর টুলে যাওয়ার আমন্ত্রণ */}
           <section aria-labelledby="tool-cta" className="relative isolate overflow-hidden rounded-3xl bg-gradient-to-br from-brand to-emerald-800 p-6 text-center text-white sm:p-10">
             <div className="absolute -right-10 -top-16 -z-10 h-56 w-56 rounded-full bg-emerald-300/25 blur-3xl" aria-hidden="true" />
-            <h2 id="tool-cta" className="text-2xl font-bold sm:text-3xl">আবেদনের ছবি ও স্বাক্ষর তৈরি করবেন?</h2>
+            <h2 id="tool-cta" className="text-2xl font-bold sm:text-3xl">আবেদনের ছবি ও স্বাক্ষর রেডি করবেন?</h2>
             <p className="mx-auto mt-2 max-w-xl leading-relaxed text-white/90">
-              Pixel ও KB অনুযায়ী ছবি-স্বাক্ষর রিসাইজ ও কমপ্রেস করুন — সব কাজ আপনার ব্রাউজারেই, কোনো ছবি সার্ভারে যায় না।
+              Pixel ও KB মিলিয়ে ছবি-স্বাক্ষর রিসাইজ ও কমপ্রেস করুন — সব কাজ ব্রাউজারেই, কোনো ছবি সার্ভারে যায় না।
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
               <button type="button" onClick={() => home('workspace', 'photo')} className={`${pill} bg-white px-6 text-emerald-900 hover:bg-emerald-50`}>
@@ -283,7 +283,7 @@ export default function ImportantLinks() {
           </section>
 
           <button type="button" onClick={() => navigate(PATHS.home)} className="btn-ghost px-5">
-            <ArrowLeft size={18} aria-hidden="true" /> হোমে ফিরে যান
+            <ArrowLeft size={18} aria-hidden="true" /> হোমে ফিরুন
           </button>
         </div>
       </main>

@@ -32,7 +32,7 @@ export default function ThemeToggle({ theme, onToggle }) {
       role="switch"
       aria-checked={dark}
       aria-label="ডার্ক মোড"
-      title={dark ? 'লাইট মোড চালু করুন' : 'ডার্ক মোড চালু করুন'}
+      title={dark ? 'লাইট মোড অন করুন' : 'ডার্ক মোড অন করুন'}
       onClick={(e) => onToggle(e.currentTarget)}
       whileTap={still ? undefined : { scale: 0.94 }}
       className={`relative h-9 w-[4.1rem] shrink-0 cursor-pointer overflow-hidden rounded-full border border-line shadow-card transition-colors duration-500 ${dark ? 'bg-[#0b1a16]' : 'bg-[#d9efe5]'}`}

@@ -40,22 +40,22 @@ export default function DimensionControls({ settings: s, actions: a, errors }) {
           onChange={a.toggleLock}
           className="h-5 w-5 shrink-0 cursor-pointer accent-brand"
         />
-        <span className="text-sm font-medium sm:text-base">অনুপাত ঠিক রাখুন (Maintain aspect ratio)</span>
+        <span className="text-sm font-medium sm:text-base">অনুপাত ঠিক রাখুন</span>
       </label>
 
       <p className="text-xs text-muted sm:text-sm" aria-live="polite">
         {s.lock
-          ? 'একটি মাপ বদলালে অন্যটি নিজে নিজে হিসাব হবে। ছবি আপলোড করলে আসল মাপ বসে যাবে।'
-          : 'অনুপাত লক বন্ধ — প্রস্থ ও উচ্চতা আলাদাভাবে লিখতে পারবেন (ছবি চেপে/টেনে যেতে পারে)।'}
+          ? 'একটা মাপ বদলালে অন্যটা নিজে থেকেই বদলে যাবে। ছবি আপলোড করলে আসল মাপ বসে যাবে।'
+          : 'অনুপাত লক বন্ধ — প্রস্থ ও উচ্চতা আলাদা করে লিখতে পারবেন (ছবি চ্যাপ্টা বা লম্বা হয়ে যেতে পারে)।'}
       </p>
 
       <div className="flex items-center justify-between rounded-xl bg-sunken px-3 py-2 sm:px-4 sm:py-3">
-        <span className="text-xs text-muted sm:text-sm">চূড়ান্ত মাপ</span>
+        <span className="text-xs text-muted sm:text-sm">ফাইনাল মাপ</span>
         <strong className="text-base sm:text-lg" data-testid="final-dims">
           {valid ? `${s.width} × ${s.height} px` : '—'}
         </strong>
       </div>
-      <p className="text-[0.7rem] leading-snug text-muted sm:text-xs">অনুমোদিত মাপ: {MIN_DIM} থেকে {MAX_DIM} Pixel পর্যন্ত। বাংলা সংখ্যাও (যেমন ৩০০) লিখতে পারবেন।</p>
+      <p className="text-[0.7rem] leading-snug text-muted sm:text-xs">মাপ {MIN_DIM} থেকে {MAX_DIM} Pixel-এর মধ্যে হতে হবে। বাংলা সংখ্যাও (যেমন ৩০০) লিখতে পারবেন।</p>
     </div>
   );
 }

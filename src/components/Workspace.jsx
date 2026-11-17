@@ -83,24 +83,24 @@ export default function Workspace({ ws, presets }) {
     <section id="workspace" className="scroll-mt-20 border-y border-line bg-sunken/40 py-12 sm:py-16" aria-labelledby="ws-title">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
-          eyebrow="ওয়ার্কস্পেস"
-          title={<span id="ws-title">আপনার ছবি প্রস্তুত করুন</span>}
-          desc="ছবি আপলোড করুন, আবেদনের বিজ্ঞপ্তি অনুযায়ী মাপ ও KB দিন — প্রস্তুত ছবি সঙ্গে সঙ্গে দেখতে পাবেন।"
+          eyebrow="টুল"
+          title={<span id="ws-title">ছবি রেডি করুন</span>}
+          desc="ছবি আপলোড করুন, সার্কুলার অনুযায়ী মাপ ও KB দিন — রেডি ছবি সাথে সাথেই দেখতে পাবেন।"
         />
         <ModeTabs mode={s.mode} onChange={a.setMode} />
 
         <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
           {/* ===== বাম প্যানেল: সেটিংস ===== */}
           <div className="min-w-0 space-y-3 sm:space-y-5">
-            <Panel step="১" title="ছবি আপলোড" hint={s.mode === 'signature' ? 'স্বাক্ষরের ছবি বা স্ক্যান নির্বাচন করুন' : 'রঙিন ছবি দিন — কিছু পোর্টালে সাদা-কালো ছবি গ্রহণ করা হয় না'}>
+            <Panel step="১" title="ছবি আপলোড" hint={s.mode === 'signature' ? 'স্বাক্ষরের ছবি বা স্ক্যান সিলেক্ট করুন' : 'রঙিন ছবি দিন — কিছু পোর্টাল সাদা-কালো ছবি নেয় না'}>
               <ImageUploader upload={upload} />
             </Panel>
 
-            <Panel step="২" title="প্রিসেট" hint="দ্রুত শুরু করতে একটি প্রিসেট বেছে নিন">
+            <Panel step="২" title="প্রিসেট" hint="দ্রুত শুরু করতে একটি প্রিসেট সিলেক্ট করুন">
               <PresetSelector presets={presets} settings={s} actions={a} />
             </Panel>
 
-            <Panel step="৩" title="মাপ (Pixel)" hint="আবেদনে চাওয়া প্রস্থ ও উচ্চতা লিখুন">
+            <Panel step="৩" title="মাপ (Pixel)" hint="আবেদনে যে প্রস্থ ও উচ্চতা চেয়েছে, সেটা লিখুন">
               <DimensionControls settings={s} actions={a} errors={errors} />
             </Panel>
 
@@ -113,7 +113,7 @@ export default function Workspace({ ws, presets }) {
             </Panel>
 
             {s.mode === 'signature' && (
-              <Panel icon={Sparkles} title="স্বাক্ষর পরিষ্কার করা" hint="ঐচ্ছিক — ছবি থেকে তোলা স্বাক্ষরের জন্য">
+              <Panel icon={Sparkles} title="স্বাক্ষর ক্লিন করুন" hint="অপশনাল — ছবি তুলে নেওয়া স্বাক্ষরের জন্য">
                 <SignatureEnhance settings={s} actions={a} />
               </Panel>
             )}
@@ -126,16 +126,16 @@ export default function Workspace({ ws, presets }) {
                 <span className="grid h-16 w-16 place-items-center rounded-2xl bg-brandsoft text-brand">
                   <Scaling size={30} aria-hidden="true" />
                 </span>
-                <h3 className="text-xl font-semibold">এখনও কোনো ছবি নেই</h3>
+                <h3 className="text-xl font-semibold">এখনো কোনো ছবি আপলোড করা হয়নি</h3>
                 <p className="max-w-sm text-muted">
-                  বাম পাশ থেকে একটি ছবি আপলোড করলে মূল ছবি ও প্রস্তুত ছবির তুলনামূলক প্রিভিউ এখানে দেখা যাবে। ছবি পেস্ট (Ctrl + V) করেও দিতে পারেন।
+                  বাম পাশ থেকে ছবি আপলোড করলে এখানে আসল ছবি আর রেডি ছবির প্রিভিউ পাশাপাশি দেখতে পাবেন। চাইলে Ctrl + V দিয়ে পেস্টও করতে পারেন।
                 </p>
                 <PrivacyNotice />
               </div>
             ) : (
               <>
                 {showCrop && (
-                  <Panel icon={Crop} title="ক্রপ এলাকা নির্ধারণ" hint="ছবির কোন অংশ থাকবে তা নিজে ঠিক করুন">
+                  <Panel icon={Crop} title="ক্রপ এরিয়া ঠিক করুন" hint="ছবির কোন অংশটা থাকবে, নিজে ঠিক করে নিন">
                     <CropEditor
                       src={url}
                       srcW={info.width}
@@ -150,32 +150,32 @@ export default function Workspace({ ws, presets }) {
 
                 <div className="grid gap-4 sm:grid-cols-2">
                   <ImagePreview
-                    title="মূল ছবি"
+                    title="আসল ছবি"
                     src={url}
-                    alt="আপনার আপলোড করা মূল ছবি"
+                    alt="আপনার আপলোড করা আসল ছবি"
                     checker={info.hasAlpha}
                     specs={[
                       ['মাপ', `${formatNumber(info.width)} × ${formatNumber(info.height)} px`, 'orig-dims'],
                       ['ফাইল সাইজ', formatBytes(info.size), 'orig-size'],
                       ['ফরম্যাট', SRC_FORMAT[info.type], 'orig-format'],
-                      ['স্বচ্ছতা', info.hasAlpha ? 'আছে' : 'নেই'],
+                      ['ট্রান্সপারেন্সি', info.hasAlpha ? 'আছে' : 'নেই'],
                     ]}
                   />
                   <ImagePreview
-                    title="প্রস্তুতকৃত ছবি"
+                    title="রেডি ছবি"
                     tone="brand"
                     src={proc.url}
-                    alt="প্রস্তুতকৃত ছবির প্রিভিউ"
+                    alt="রেডি ছবির প্রিভিউ"
                                         busy={proc.busy}
                     naturalWidth={result?.width}
-                    placeholder="প্রস্তুত হচ্ছে…"
+                    placeholder="রেডি হচ্ছে…"
                     specs={[
                       ['মাপ', result ? `${result.width} × ${result.height} px` : '—', 'out-dims'],
                       ['ফাইল সাইজ', result ? formatBytes(result.size) : '—', 'out-size'],
                       ['ফরম্যাট', FORMAT_NAME[s.format], 'out-format'],
                       [
                         'কোয়ালিটি',
-                        result?.quality != null ? `${Math.round(result.quality * 100)}%` : s.format === 'png' ? 'ক্ষতিহীন' : '—',
+                        result?.quality != null ? `${Math.round(result.quality * 100)}%` : s.format === 'png' ? 'লসলেস' : '—',
                         'out-quality',
                       ],
                     ]}

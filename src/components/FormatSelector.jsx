@@ -12,8 +12,8 @@ export default function FormatSelector({ info }) {
       </div>
 
       {info?.hasAlpha && (
-        <Alert tone="info" title="স্বচ্ছ অংশ সাদা হবে" live>
-          আপনার ছবিতে স্বচ্ছ (transparent) অংশ আছে। প্রস্তুত ছবিতে সেই অংশ সাদা রঙে ভরাট হবে।
+        <Alert tone="info" title="ট্রান্সপারেন্ট অংশ সাদা হয়ে যাবে" live>
+          আপনার ছবিতে ট্রান্সপারেন্ট অংশ আছে। রেডি ছবিতে সেই অংশ সাদা হয়ে যাবে।
         </Alert>
       )}
     </div>

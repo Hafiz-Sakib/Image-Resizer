@@ -24,7 +24,7 @@ export default function useImageUpload() {
       if (!files.length) return false;
       const file = files[0];
       const mine = ++token.current;
-      const notice = files.length > 1 ? 'একাধিক ছবি নির্বাচন করা হয়েছে; শুধু প্রথম ছবিটি নেওয়া হয়েছে।' : null;
+      const notice = files.length > 1 ? 'একসাথে কয়েকটা ছবি দিয়েছেন; শুধু প্রথম ছবিটা নেওয়া হয়েছে।' : null;
       setState((s) => ({ ...s, loading: true, error: null, notice: null }));
 
       const v = await validateFile(file);

@@ -19,11 +19,11 @@ export default function Footer({ onTool, onGoto, onPage = navigate }) {
         <div className="space-y-4">
           <Logo />
           <p className="max-w-md text-muted">
-            বাংলাদেশের চাকরি ও ভর্তির আবেদনের জন্য ছবি ও স্বাক্ষর রিসাইজ এবং কমপ্রেস করার একটি বিনামূল্যের, ব্রাউজারভিত্তিক বাংলা টুল।
+            চাকরি ও ভর্তির আবেদনের ছবি আর স্বাক্ষর রিসাইজ ও কমপ্রেস করার জন্য একটি ফ্রি বাংলা টুল। সব কাজ ব্রাউজারেই হয়।
           </p>
           <p className="flex max-w-md items-start gap-2 rounded-xl bg-brandsoft p-3 text-sm text-ink">
             <ShieldCheck size={18} className="mt-0.5 shrink-0 text-brand" aria-hidden="true" />
-            আপনার ছবি কখনোই সার্ভারে পাঠানো হয় না — সব প্রসেসিং আপনার ডিভাইসের ব্রাউজারেই হয়।
+            আপনার ছবি কখনোই সার্ভারে যায় না — সব কাজ আপনার ডিভাইসের ব্রাউজারেই হয়।
           </p>
         </div>
         <nav aria-label="ফুটার মেনু">
@@ -50,7 +50,7 @@ export default function Footer({ onTool, onGoto, onPage = navigate }) {
       </div>
       <div className="border-t border-line">
         <p className="mx-auto max-w-7xl px-4 py-5 text-center text-sm text-muted sm:px-6">
-          © {bnYear()} সরকারি চাকরি। সর্বস্বত্ব সংরক্ষিত। প্রিসেটের মাপ কেবল উদাহরণ — আবেদনের বিজ্ঞপ্তি অনুযায়ী সঠিক মাপ ব্যবহার করুন।
+          © {bnYear()} সরকারি চাকরি। সর্বস্বত্ব সংরক্ষিত। প্রিসেটের মাপ শুধু নমুনা — সার্কুলার দেখে সঠিক মাপ ব্যবহার করুন।
         </p>
       </div>
     </footer>

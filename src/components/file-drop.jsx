@@ -20,9 +20,9 @@ export function FileDrop({
   upload,
   maxSize = 5 * 1024 * 1024,
   accept = 'image/jpeg,image/png,image/webp',
-  title = 'ছবি এখানে ছাড়ুন',
-  hint = 'অথবা ক্লিক করে বেছে নিন',
-  button = 'ছবি নির্বাচন করুন',
+  title = 'ছবি এখানে ড্রপ করুন',
+  hint = 'অথবা ক্লিক করে সিলেক্ট করুন',
+  button = 'ছবি সিলেক্ট করুন',
   formats = 'JPG, PNG, WEBP',
   className = '',
   inputProps = {},
@@ -39,7 +39,7 @@ export function FileDrop({
   const run = async (file) => {
     if (!file || st.phase === 'uploading') return;
     if (file.size > maxSize) {
-      setSt({ phase: 'error', pct: 0, name: file.name, size: file.size, error: `ফাইল বড় (${fmt(file.size)}) — সর্বোচ্চ ${fmt(maxSize)}।` });
+      setSt({ phase: 'error', pct: 0, name: file.name, size: file.size, error: `ফাইলটি অনেক বড় (${fmt(file.size)}) — সর্বোচ্চ ${fmt(maxSize)}।` });
       later(() => setSt((s) => (s.phase === 'error' ? { ...s, phase: 'idle' } : s)), 3500);
       return;
     }
@@ -66,7 +66,7 @@ export function FileDrop({
         accept={accept}
         className="sr-only"
         tabIndex={-1}
-        aria-label="ছবি নির্বাচন করুন"
+        aria-label="ছবি সিলেক্ট করুন"
         data-testid="file-input"
         {...inputProps}
         onChange={(e) => { run(e.target.files?.[0]); e.target.value = ''; }}
@@ -75,7 +75,7 @@ export function FileDrop({
         role="button"
         tabIndex={0}
         aria-busy={busy}
-        aria-label="ছবি আপলোড করুন — ক্লিক করুন বা ছবি টেনে এনে ছাড়ুন"
+        aria-label="ছবি আপলোড করুন — ক্লিক করুন বা ছবি টেনে এনে ড্রপ করুন"
         onClick={pick}
         onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } }}
         onDragEnter={(e) => { e.preventDefault(); setDrag(true); }}
@@ -120,19 +120,19 @@ export function FileDrop({
         <div className="relative min-h-[3.25rem]" aria-live="polite">
           {st.phase === 'idle' && (
             <>
-              <p className="text-xl font-semibold">{drag ? 'এবার ছেড়ে দিন' : title}</p>
+              <p className="text-xl font-semibold">{drag ? 'এবার ড্রপ করুন' : title}</p>
               <p className="mt-1 text-sm text-muted">{hint}</p>
             </>
           )}
           {busy && (<><p className="max-w-[16rem] truncate text-lg font-semibold" title={st.name}>{st.name}</p><p className="text-sm text-muted">{fmt(st.size)} · লোড হচ্ছে…</p></>)}
-          {st.phase === 'done' && (<><p className="text-lg font-semibold text-brand">ছবি নেওয়া হয়েছে</p><p className="text-sm text-muted">{st.name}</p></>)}
-          {st.phase === 'error' && (<><p className="text-lg font-semibold text-err">ছবি নেওয়া যায়নি</p><p className="max-w-xs text-sm text-err">{st.error}</p></>)}
+          {st.phase === 'done' && (<><p className="text-lg font-semibold text-brand">ছবি আপলোড হয়েছে</p><p className="text-sm text-muted">{st.name}</p></>)}
+          {st.phase === 'error' && (<><p className="text-lg font-semibold text-err">ছবি আপলোড করা যায়নি</p><p className="max-w-xs text-sm text-err">{st.error}</p></>)}
         </div>
 
         {st.phase === 'idle' && (
           <span className="btn-primary pointer-events-none relative mt-1"><ImagePlus size={18} aria-hidden="true" /> {button}</span>
         )}
-        <p className="relative text-xs text-muted">সমর্থিত ফরম্যাট: {formats} · সর্বোচ্চ {fmt(maxSize)}</p>
+        <p className="relative text-xs text-muted">চলবে: {formats} · সর্বোচ্চ {fmt(maxSize)}</p>
 
         {st.phase === 'error' && (
           <button type="button" aria-label="বন্ধ করুন" onClick={(e) => { e.stopPropagation(); setSt((s) => ({ ...s, phase: 'idle' })); }} className="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-surface/80 text-err">

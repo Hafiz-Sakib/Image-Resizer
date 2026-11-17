@@ -4,21 +4,21 @@ import { Alert, ChipGroup, NumberField, OptionCards } from './ui.jsx';
 const FIT_OPTIONS = [
   {
     value: 'crop',
-    title: 'ক্রপ করে ভরান',
+    title: 'ক্রপ করে ফিল করুন',
     icon: <Crop size={16} aria-hidden="true" />,
-    desc: 'মাপ পূর্ণ করতে ছবির বাড়তি অংশ কেটে ফেলা হবে। ক্রপ এলাকা আপনি নিজে ঠিক করতে পারবেন।',
+    desc: 'মাপ ভরাট করতে ছবির বাড়তি অংশ কেটে যাবে। কোন অংশ থাকবে, সেটা আপনি নিজে ঠিক করতে পারবেন।',
   },
   {
     value: 'fit',
-    title: 'ভেতরে ফিট করুন',
+    title: 'ফিট করুন',
     icon: <Maximize size={16} aria-hidden="true" />,
-    desc: 'পুরো ছবি অক্ষত থাকবে; ফাঁকা অংশ ব্যাকগ্রাউন্ড রঙে ভরবে। স্বাক্ষরের জন্য উপযুক্ত।',
+    desc: 'পুরো ছবি যেমন আছে তেমনই থাকবে; ফাঁকা জায়গা ব্যাকগ্রাউন্ড রঙে ভরে যাবে। স্বাক্ষরের জন্য ভালো।',
   },
   {
     value: 'stretch',
-    title: 'টেনে সমান করুন',
+    title: 'স্ট্রেচ করুন',
     icon: <Move size={16} aria-hidden="true" />,
-    desc: 'ছবি টেনে ঠিক নির্ধারিত মাপে আনা হবে। ছবির আকার বিকৃত হতে পারে।',
+    desc: 'ছবি টেনে ঠিক মাপে বসানো হবে। তাই ছবি চ্যাপ্টা বা লম্বা দেখাতে পারে।',
   },
 ];
 
@@ -43,7 +43,7 @@ export default function AspectRatioControls({ settings: s, actions: a, errors })
         value={s.ratioKey}
         onChange={(v) => (v === 'custom' ? a.setCustomRatio(s.customRW || 1, s.customRH || 1) : a.setRatio(v))}
       />
-      {!hasSrc && <p className="-mt-3 text-xs text-muted">“মূল অনুপাত” ব্যবহার করতে আগে একটি ছবি আপলোড করুন।</p>}
+      {!hasSrc && <p className="-mt-3 text-xs text-muted">“মূল অনুপাত” ব্যবহার করতে আগে একটা ছবি আপলোড করুন।</p>}
 
       {s.ratioKey === 'custom' && (
         <div className="grid grid-cols-[1fr_auto_1fr] items-start gap-2">
@@ -70,11 +70,11 @@ export default function AspectRatioControls({ settings: s, actions: a, errors })
         </div>
       )}
 
-      <OptionCards legend="ছবি সামঞ্জস্যের পদ্ধতি" name="fit" options={FIT_OPTIONS} value={s.fit} onChange={a.setFit} />
+      <OptionCards legend="ছবি কীভাবে বসবে" name="fit" options={FIT_OPTIONS} value={s.fit} onChange={a.setFit} />
 
       {s.fit === 'stretch' && (
-        <Alert tone="warn" title="সতর্কতা: ছবি বিকৃত হতে পারে" live>
-          ছবির অনুপাত আর আউটপুটের অনুপাত আলাদা হলে ছবি টেনে চ্যাপ্টা বা লম্বা হয়ে যাবে। ছবি বা স্বাক্ষর ঠিক রাখতে “ক্রপ” বা “ফিট” বেছে নিন।
+        <Alert tone="warn" title="সাবধান: ছবি বেঁকে যেতে পারে" live>
+          ছবির অনুপাত আর আউটপুটের অনুপাত আলাদা হলে ছবি চ্যাপ্টা বা লম্বা হয়ে যাবে। ছবি বা স্বাক্ষর ঠিক রাখতে “ক্রপ” বা “ফিট” সিলেক্ট করুন।
         </Alert>
       )}
     </div>

@@ -17,7 +17,7 @@ export default function ImageUploader({ upload }) {
     await new Promise((resolve, reject) => {
       const r = new FileReader();
       r.onprogress = (e) => e.lengthComputable && progress((e.loaded / e.total) * 85);
-      r.onerror = () => reject(new Error('ফাইল পড়া যায়নি।'));
+      r.onerror = () => reject(new Error('ফাইলটা পড়া যায়নি।'));
       r.onload = () => { progress(90); resolve(); };
       r.readAsArrayBuffer(file);
     });
@@ -28,7 +28,7 @@ export default function ImageUploader({ upload }) {
 
   return (
     <div className="space-y-3">
-      <input ref={inputRef} type="file" accept={ACCEPT} className="sr-only" tabIndex={-1} aria-label="ছবি পরিবর্তন করুন" onChange={(e) => { select(e.target.files); e.target.value = ''; }} />
+      <input ref={inputRef} type="file" accept={ACCEPT} className="sr-only" tabIndex={-1} aria-label="ছবি পাল্টান" onChange={(e) => { select(e.target.files); e.target.value = ''; }} />
       {!info ? (
         <FileDrop maxSize={MAX_FILE_BYTES} upload={uploadFile} />
       ) : (
@@ -48,10 +48,10 @@ export default function ImageUploader({ upload }) {
             </p>
             <div className="mt-2 flex flex-wrap gap-2">
               <button type="button" onClick={openPicker} className="btn-ghost min-h-[2.5rem] px-3 text-sm">
-                <RefreshCw size={16} aria-hidden="true" /> ছবি পরিবর্তন
+                <RefreshCw size={16} aria-hidden="true" /> ছবি পাল্টান
               </button>
               <button type="button" onClick={remove} className="btn-danger min-h-[2.5rem] px-3 text-sm">
-                <Trash2 size={16} aria-hidden="true" /> মুছে ফেলুন
+                <Trash2 size={16} aria-hidden="true" /> ডিলিট করুন
               </button>
             </div>
           </div>
@@ -66,11 +66,11 @@ export default function ImageUploader({ upload }) {
       )}
 
       {info && info.size > 8 * 1024 * 1024 && (
-        <Alert tone="info">এটি একটি বড় ছবি, তাই প্রসেস হতে একটু বেশি সময় লাগতে পারে।</Alert>
+        <Alert tone="info">ছবিটা বেশ বড়, তাই প্রসেস হতে একটু সময় লাগতে পারে।</Alert>
       )}
       {notice && <Alert tone="info">{notice}</Alert>}
       {error && (
-        <Alert tone="err" title="ছবি নেওয়া যায়নি">
+        <Alert tone="err" title="ছবি আপলোড করা যায়নি">
           {error}{' '}
           <button type="button" onClick={dismissError} className="font-semibold underline">
             বন্ধ করুন

@@ -1,25 +1,23 @@
-import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { CircleOff, Eraser, Gift, Gauge, Monitor, ShieldCheck, UserX, Zap, Eye, HardDrive, Upload, SlidersHorizontal, Download, Check } from 'lucide-react';
+import { CircleOff, Eraser, Gift, Gauge, Monitor, ShieldCheck, UserX, Zap, Eye, HardDrive, Upload, SlidersHorizontal, Download } from 'lucide-react';
 import { SectionHeading } from './ui.jsx';
 import { Spotlight, CountUp } from './motion/kit.jsx';
-import { OrbitCard } from './orbit-card.jsx';
 import PrivacyNotice from './PrivacyNotice.jsx';
 
 const FEATURES = [
   { icon: Gift, title: 'সম্পূর্ণ বিনামূল্যে', desc: 'কোনো ফি, ওয়াটারমার্ক বা লুকানো চার্জ নেই। যতবার খুশি ব্যবহার করুন।' },
-  { icon: UserX, title: 'কোনো অ্যাকাউন্ট প্রয়োজন নেই', desc: 'সাইন-আপ বা লগইন ছাড়াই সরাসরি ছবি তৈরি শুরু করুন।' },
-  { icon: Zap, title: 'দ্রুত ছবি রিসাইজ', desc: 'ইন্টারনেটে আপলোডের অপেক্ষা নেই — আপনার ডিভাইসেই মুহূর্তে কাজ শেষ।' },
-  { icon: Gauge, title: 'নির্দিষ্ট KB অনুযায়ী কমপ্রেস', desc: '20, 50, 100 KB বা নিজের পছন্দের সীমায় ছবি আনুন, আর প্রকৃত সাইজ নিজ চোখে দেখুন।' },
-  { icon: ShieldCheck, title: 'নিরাপদ ও ব্যক্তিগত', desc: 'আপনার ছবি আপনার ডিভাইসের বাইরে যায় না। কিছুই সার্ভারে সংরক্ষিত হয় না।' },
-  { icon: Monitor, title: 'মোবাইল ও কম্পিউটারে ব্যবহারযোগ্য', desc: 'ফোন, ট্যাবলেট বা কম্পিউটার — যেকোনো ডিভাইসের ব্রাউজারে সমানভাবে কাজ করে।' },
+  { icon: UserX, title: 'অ্যাকাউন্ট লাগে না', desc: 'সাইন-আপ বা লগইন ছাড়াই সরাসরি কাজ শুরু করুন।' },
+  { icon: Zap, title: 'দ্রুত ছবি রিসাইজ', desc: 'আপলোডের অপেক্ষা নেই — আপনার ডিভাইসেই সাথে সাথে কাজ শেষ।' },
+  { icon: Gauge, title: 'যত KB লাগে, তত KB-তে কমপ্রেস', desc: '20, 50, 100 KB বা নিজের মতো যেকোনো সীমায় ছবি আনুন, আর আসল সাইজ নিজের চোখেই দেখে নিন।' },
+  { icon: ShieldCheck, title: 'নিরাপদ ও প্রাইভেট', desc: 'আপনার ছবি আপনার ডিভাইসের বাইরে যায় না। কিছুই সার্ভারে সেভ হয় না।' },
+  { icon: Monitor, title: 'মোবাইল ও কম্পিউটার — দুটোতেই চলে', desc: 'ফোন, ট্যাব বা কম্পিউটার — যেকোনো ডিভাইসের ব্রাউজারে একইভাবে কাজ করে।' },
 ];
 
 const GUARANTEES = [
   { icon: CircleOff, title: 'সার্ভারে কিছুই যায় না', desc: 'এই টুলে কোনো ব্যাকএন্ড, ডেটাবেস বা ক্লাউড স্টোরেজ নেই।' },
-  { icon: HardDrive, title: 'ছবি সংরক্ষিত হয় না', desc: 'শুধু প্রিসেটের সেটিংস ব্রাউজারে থাকে — ছবি নয়।' },
-  { icon: Eraser, title: 'মেমরি পরিষ্কার', desc: 'ছবি মুছলে বা পেজ বন্ধ করলে সাময়িক ডেটা মুছে যায়।' },
-  { icon: Eye, title: 'নিজে যাচাই করুন', desc: 'ব্রাউজারের Network ট্যাব খুলে দেখুন — ছবি প্রসেসের সময় কোনো আপলোড নেই।' },
+  { icon: HardDrive, title: 'ছবি সেভ হয় না', desc: 'শুধু প্রিসেটের সেটিংস ব্রাউজারে থাকে — ছবি নয়।' },
+  { icon: Eraser, title: 'মেমরি ক্লিন', desc: 'ছবি ডিলিট করলে বা পেজ বন্ধ করলে সাময়িক ডেটা মুছে যায়।' },
+  { icon: Eye, title: 'নিজেই চেক করে দেখুন', desc: 'ব্রাউজারের Network ট্যাব ওপেন করে দেখুন — ছবি প্রসেসের সময় কোনো আপলোড হয় না।' },
 ];
 
 function reveal(i = 0) {
@@ -35,7 +33,7 @@ export function WhyUs() {
   return (
     <section id="why" className="scroll-mt-20 border-y border-line bg-sunken/40 py-14 sm:py-20" aria-labelledby="why-title">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <SectionHeading eyebrow="সুবিধা" title={<span id="why-title">কেন এই টুল ব্যবহার করবেন?</span>} desc="চাকরির আবেদনের ছবি ও স্বাক্ষর রিসাইজের ঝামেলা কমাতেই এই টুল।" />
+        <SectionHeading eyebrow="সুবিধা" title={<span id="why-title">কেন এই টুল ব্যবহার করবেন?</span>} desc="আবেদনের ছবি ও স্বাক্ষর রিসাইজের ঝামেলা কমাতেই এই টুল।" />
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {FEATURES.map((f, i) => (
             <motion.li key={f.title} {...reveal(i)}>
@@ -74,7 +72,7 @@ export function PrivacySection() {
           ))}
         </ul>
         <p className="mt-5 text-center text-xs text-muted">
-          নোট: পেজের ফন্ট ও কোড এই সাইট থেকেই লোড হয় — কোনো তৃতীয় পক্ষের সার্ভারে আপনার ছবি বা তথ্য পাঠানো হয় না।
+          নোট: ফন্ট ও কোড এই সাইট থেকেই লোড হয় — অন্য কোনো সার্ভারে আপনার ছবি বা তথ্য যায় না।
         </p>
       </div>
     </section>
@@ -82,16 +80,16 @@ export function PrivacySection() {
 }
 
 const STEPS = [
-  { icon: Upload, title: 'ছবি দিন', desc: 'ছবি বা স্বাক্ষর আপলোড করুন, অথবা Ctrl + V দিয়ে পেস্ট করুন।' },
-  { icon: SlidersHorizontal, title: 'মাপ ঠিক করুন', desc: 'প্রিসেট বেছে নিন (ছবি ৩০০×৩০০, স্বাক্ষর ৩০০×৮০) অথবা নিজের মাপ ও KB লিখুন।' },
-  { icon: Download, title: 'ডাউনলোড করুন', desc: 'প্রস্তুত ছবি দেখে নিয়ে এক ক্লিকে নামিয়ে নিন। কিছুই সার্ভারে যায় না।' },
+  { icon: Upload, title: 'ছবি আপলোড করুন', desc: 'ছবি বা স্বাক্ষর আপলোড করুন, অথবা Ctrl + V দিয়ে পেস্ট করুন।' },
+  { icon: SlidersHorizontal, title: 'মাপ ঠিক করুন', desc: 'প্রিসেট সিলেক্ট করুন (ছবি ৩০০×৩০০, স্বাক্ষর ৩০০×৮০) অথবা নিজের মাপ ও KB লিখুন।' },
+  { icon: Download, title: 'ডাউনলোড করুন', desc: 'রেডি ছবি দেখে নিয়ে এক ক্লিকে ডাউনলোড করুন। কিছুই সার্ভারে যায় না।' },
 ];
 
 export function HowItWorks() {
   return (
     <section id="how" className="scroll-mt-20 py-14 sm:py-20" aria-labelledby="how-title">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <SectionHeading eyebrow="কীভাবে কাজ করে" title={<span id="how-title">তিন ধাপে কাজ শেষ</span>} desc="কোনো অ্যাকাউন্ট বা অপেক্ষা ছাড়া, সরাসরি আপনার ব্রাউজারে।" />
+        <SectionHeading eyebrow="কীভাবে কাজ করে" title={<span id="how-title">তিন ধাপে কাজ শেষ</span>} desc="অ্যাকাউন্ট বা অপেক্ষা ছাড়াই, সরাসরি ব্রাউজারে।" />
         <ol className="relative grid gap-4 md:grid-cols-3">
           {STEPS.map((st, i) => (
             <motion.li key={st.title} {...reveal(i)} className="relative">
@@ -106,53 +104,6 @@ export function HowItWorks() {
             </motion.li>
           ))}
         </ol>
-      </div>
-    </section>
-  );
-}
-
-const POINTS = ['ছবি ৩০০×৩০০ ও স্বাক্ষর ৩০০×৮০ প্রিসেট', 'নিজের মাপ ও KB লিখে কাস্টম সাইজ', 'ক্রপ করে ঠিক মাপে আনা, JPG ডাউনলোড', 'অফলাইনেও চলে — PWA হিসেবে ইনস্টল করা যায়'];
-
-/** কতগুলো ছবি এই ডিভাইসে ডাউনলোড হয়েছে — শুধু ব্রাউজারে গোনা, কোথাও পাঠানো হয় না */
-function useLocalCount() {
-  const read = () => { try { return Number(localStorage.getItem('bdir.count')) || 0; } catch { return 0; } };
-  const [n, setN] = useState(read);
-  useEffect(() => {
-    const f = () => setN(read());
-    window.addEventListener('bdir:downloaded', f);
-    return () => window.removeEventListener('bdir:downloaded', f);
-  }, []);
-  return n;
-}
-
-export function OrbitSection({ onStart }) {
-  const n = useLocalCount();
-  return (
-    <section id="orbit" className="scroll-mt-20 border-y border-line bg-sunken/40 py-14 sm:py-20" aria-labelledby="orbit-title">
-      <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-2">
-        <div>
-          <p className="mb-3 inline-flex rounded-full bg-brandsoft px-3 py-1 text-sm font-medium text-brand">এক জায়গায় সব</p>
-          <h2 id="orbit-title" className="text-3xl font-bold sm:text-4xl">আবেদনের সব ছবির কাজ এক টুলে</h2>
-          <ul className="mt-5 space-y-2.5">
-            {POINTS.map((p) => (
-              <li key={p} className="flex items-start gap-2.5 text-muted"><Check size={18} className="mt-1 shrink-0 text-brand" aria-hidden="true" />{p}</li>
-            ))}
-          </ul>
-          <p className="mt-5 text-sm text-muted">কার্ডটি টেনে ঘোরান, মাউস রাখলে ধীর হবে।</p>
-        </div>
-        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.6 }}>
-          <OrbitCard
-            count={n}
-            label="ছবি তৈরি হয়েছে"
-            description="এই ডিভাইসে আপনার ডাউনলোড করা ছবির গণনা — শুধু ব্রাউজারে থাকে। চিপগুলো টুলের সুবিধা।"
-            cta="ছবি রিসাইজ শুরু করুন"
-            onCta={onStart}
-            speed={1.5}
-            joinEvery={5.2}
-            incrementOnJoin={false}
-            className="mx-auto max-w-md"
-          />
-        </motion.div>
       </div>
     </section>
   );

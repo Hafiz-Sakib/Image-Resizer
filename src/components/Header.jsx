@@ -76,7 +76,7 @@ export default function Header({ theme, onToggleTheme, onTool, onGoto, activeMod
           <button
             type="button"
             className="grid h-11 w-11 place-items-center rounded-xl border border-line bg-surface lg:hidden"
-            aria-label={open ? 'মেনু বন্ধ করুন' : 'মেনু খুলুন'}
+            aria-label={open ? 'মেনু বন্ধ করুন' : 'মেনু ওপেন করুন'}
             aria-expanded={open}
             aria-controls="mobile-menu"
             onClick={() => setOpen((o) => !o)}

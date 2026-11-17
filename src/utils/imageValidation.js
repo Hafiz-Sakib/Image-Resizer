@@ -33,13 +33,13 @@ export async function validateFile(file) {
 /** সেটিংসের ইনপুট যাচাই; ত্রুটি না থাকলে {} ফেরত */
 export function validateDims(width, height) {
   const errors = {};
-  const dimMsg = (label) => `${label} অবশ্যই ${MIN_DIM} থেকে ${MAX_DIM} Pixel-এর মধ্যে হতে হবে।`;
+  const dimMsg = (label) => `${label} ${MIN_DIM} থেকে ${MAX_DIM} Pixel-এর মধ্যে হতে হবে।`;
   if (width === '' || width == null) errors.width = 'প্রস্থ (Width) লিখুন।';
   else if (width < MIN_DIM || width > MAX_DIM) errors.width = dimMsg('প্রস্থ');
   if (height === '' || height == null) errors.height = 'উচ্চতা (Height) লিখুন।';
   else if (height < MIN_DIM || height > MAX_DIM) errors.height = dimMsg('উচ্চতা');
   if (!errors.width && !errors.height && width * height > MAX_AREA) {
-    errors.height = 'মোট Pixel সংখ্যা অতিরিক্ত বেশি। প্রস্থ বা উচ্চতা কমিয়ে নিন।';
+    errors.height = 'মোট Pixel সংখ্যা অনেক বেশি। প্রস্থ বা উচ্চতা কমিয়ে নিন।';
   }
   return errors;
 }
@@ -47,7 +47,7 @@ export function validateDims(width, height) {
 export function validateKB(sizeKey, kb) {
   if (sizeKey !== 'custom') return null;
   if (kb === '' || kb == null) return 'সর্বোচ্চ KB লিখুন।';
-  if (kb < MIN_KB || kb > MAX_KB) return `KB অবশ্যই ${MIN_KB} থেকে ${MAX_KB}-এর মধ্যে হতে হবে।`;
+  if (kb < MIN_KB || kb > MAX_KB) return `KB ${MIN_KB} থেকে ${MAX_KB}-এর মধ্যে হতে হবে।`;
   return null;
 }
 
@@ -56,14 +56,14 @@ export function validateSettings(s) {
   const kbErr = validateKB(s.sizeKey, s.customKB);
   if (kbErr) errors.kb = kbErr;
   if (s.minKB !== '' && s.minKB != null) {
-    if (s.minKB < MIN_KB || s.minKB > MAX_KB) errors.minKB = `KB অবশ্যই ${MIN_KB} থেকে ${MAX_KB}-এর মধ্যে হতে হবে।`;
+    if (s.minKB < MIN_KB || s.minKB > MAX_KB) errors.minKB = `KB ${MIN_KB} থেকে ${MAX_KB}-এর মধ্যে হতে হবে।`;
     else if (!kbErr && s.sizeKey !== 'none') {
       const max = s.sizeKey === 'custom' ? Number(s.customKB) : Number(s.sizeKey);
-      if (s.minKB > max) errors.minKB = 'সর্বনিম্ন সাইজ সর্বোচ্চ সাইজের চেয়ে বেশি হতে পারে না।';
+      if (s.minKB > max) errors.minKB = 'সর্বনিম্ন সাইজ সর্বোচ্চ সাইজের চেয়ে বেশি হবে না।';
     }
   }
   if (s.ratioKey === 'custom' && s.lock && !(s.customRW > 0 && s.customRH > 0)) {
-    errors.ratio = 'কাস্টম অনুপাতের দুটি সংখ্যাই লিখুন (যেমন ৩ : ২)।';
+    errors.ratio = 'কাস্টম অনুপাতের দুটো সংখ্যাই লিখুন (যেমন ৩ : ২)।';
   }
   return errors;
 }

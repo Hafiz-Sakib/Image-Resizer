@@ -12,11 +12,11 @@ function PresetForm({ initial, onSave, onCancel }) {
   const [f, setF] = useState(initial);
   const set = (k) => (v) => setF((x) => ({ ...x, [k]: v }));
   const e = {};
-  if (!f.name.trim()) e.name = 'প্রিসেটের একটি নাম দিন।';
+  if (!f.name.trim()) e.name = 'প্রিসেটের একটা নাম দিন।';
   if (f.width === '' || f.width < MIN_DIM || f.width > MAX_DIM) e.width = `${MIN_DIM}–${MAX_DIM} px লিখুন।`;
   if (f.height === '' || f.height < MIN_DIM || f.height > MAX_DIM) e.height = `${MIN_DIM}–${MAX_DIM} px লিখুন।`;
   if (f.maxKB !== '' && (f.maxKB < MIN_KB || f.maxKB > MAX_KB)) e.maxKB = `${MIN_KB}–${MAX_KB} KB লিখুন।`;
-  if (f.minKB !== '' && (f.minKB < MIN_KB || f.minKB > MAX_KB || (f.maxKB !== '' && f.minKB > f.maxKB))) e.minKB = 'সঠিক সর্বনিম্ন KB লিখুন (সর্বোচ্চের চেয়ে বেশি নয়)।';
+  if (f.minKB !== '' && (f.minKB < MIN_KB || f.minKB > MAX_KB || (f.maxKB !== '' && f.minKB > f.maxKB))) e.minKB = 'সর্বনিম্ন KB ঠিকমতো লিখুন (সর্বোচ্চের চেয়ে বেশি হবে না)।';
   const invalid = Object.keys(e).length > 0;
   const [touched, setTouched] = useState(false);
 
@@ -51,7 +51,7 @@ function PresetForm({ initial, onSave, onCancel }) {
         <NumberField id="pf-h" label="উচ্চতা" suffix="px" value={f.height} onChange={set('height')} error={touched && e.height} />
         <NumberField
           id="pf-min"
-          label="সর্বনিম্ন সাইজ (ঐচ্ছিক)"
+          label="সর্বনিম্ন সাইজ (অপশনাল)"
           suffix="KB"
           value={f.minKB}
           onChange={set('minKB')}
@@ -59,7 +59,7 @@ function PresetForm({ initial, onSave, onCancel }) {
         />
         <NumberField
           id="pf-kb"
-          label="সর্বোচ্চ সাইজ (ঐচ্ছিক)"
+          label="সর্বোচ্চ সাইজ (অপশনাল)"
           suffix="KB"
           value={f.maxKB}
           onChange={set('maxKB')}
@@ -83,7 +83,7 @@ function PresetForm({ initial, onSave, onCancel }) {
 
       <div className="flex flex-wrap gap-2">
         <button type="submit" className="btn-primary px-5">
-          <Check size={18} aria-hidden="true" /> সংরক্ষণ করুন
+          <Check size={18} aria-hidden="true" /> সেভ করুন
         </button>
         <button type="button" onClick={onCancel} className="btn-ghost px-5">
           <X size={18} aria-hidden="true" /> বাতিল
@@ -104,12 +104,12 @@ export default function PresetsSection({ presets, onApply }) {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="প্রিসেট"
-          title={<span id="presets-title">রেডি-মেইড প্রিসেট</span>}
-          desc="দুটি রেডি প্রিসেট আছে: ছবি ৩০০×৩০০ এবং স্বাক্ষর ৩০০×৮০। অন্য যেকোনো মাপ নিজে কাস্টম করে নিন বা নতুন প্রিসেট বানিয়ে রাখুন — এগুলো আপনার ব্রাউজারেই সংরক্ষিত থাকবে।"
+          title={<span id="presets-title">রেডি প্রিসেট</span>}
+          desc="দুটো রেডি প্রিসেট আছে: ছবি ৩০০×৩০০ আর স্বাক্ষর ৩০০×৮০। অন্য মাপ লাগলে নিজে কাস্টম করে নিন, বা নতুন প্রিসেট বানিয়ে রাখুন — সেগুলো আপনার ব্রাউজারেই সেভ থাকবে।"
         />
 
-        <Alert tone="info" className="mx-auto mb-8 max-w-3xl" title="গুরুত্বপূর্ণ">
-          এই দুটি সবচেয়ে সাধারণ মাপ। প্রতিটি বিজ্ঞপ্তির মাপ ও ফাইল সাইজ আলাদা হতে পারে — অন্য মাপ লাগলে “কাস্টম সাইজ” বেছে নিয়ে সঠিক মাপ ও KB নিজে লিখুন।
+        <Alert tone="info" className="mx-auto mb-8 max-w-3xl" title="খেয়াল রাখুন">
+          এই দুটো সবচেয়ে কমন মাপ। প্রতিটা সার্কুলারের মাপ ও ফাইল সাইজ আলাদা হতে পারে — অন্য মাপ লাগলে “কাস্টম সাইজ” সিলেক্ট করে সঠিক মাপ ও KB নিজে লিখে দিন।
         </Alert>
 
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2 lg:max-w-3xl lg:mx-auto">
@@ -130,7 +130,7 @@ export default function PresetsSection({ presets, onApply }) {
                   </h3>
                   <p className="text-xs text-muted">{KIND_LABEL[p.kind]}</p>
                 </div>
-                {p.builtIn && <span className="rounded-full bg-brandsoft px-2 py-0.5 text-[0.7rem] font-medium text-brand">উদাহরণ</span>}
+                {p.builtIn && <span className="rounded-full bg-brandsoft px-2 py-0.5 text-[0.7rem] font-medium text-brand">নমুনা</span>}
               </div>
               <p className="text-2xl font-bold text-brand">
                 {p.width} × {p.height}
@@ -147,7 +147,7 @@ export default function PresetsSection({ presets, onApply }) {
                   type="button"
                   onClick={() => setEditing(p.id)}
                   className="btn-ghost min-h-[2.5rem] w-11 px-0"
-                  aria-label={`${p.name} প্রিসেট সম্পাদনা করুন`}
+                  aria-label={`${p.name} প্রিসেট এডিট করুন`}
                 >
                   <Pencil size={16} aria-hidden="true" />
                 </button>
@@ -159,14 +159,14 @@ export default function PresetsSection({ presets, onApply }) {
                     autoFocus
                     className="btn-danger min-h-[2.5rem] px-3 text-sm"
                   >
-                    নিশ্চিত, মুছুন
+                    হ্যাঁ, ডিলিট করুন
                   </button>
                 ) : (
                   <button
                     type="button"
                     onClick={() => setConfirmId(p.id)}
                     className="btn-ghost min-h-[2.5rem] w-11 px-0 text-err"
-                    aria-label={`${p.name} প্রিসেট মুছে ফেলুন`}
+                    aria-label={`${p.name} প্রিসেট ডিলিট করুন`}
                   >
                     <Trash2 size={16} aria-hidden="true" />
                   </button>
@@ -175,7 +175,7 @@ export default function PresetsSection({ presets, onApply }) {
             </motion.li>
           ))}
           {presets.list.length === 0 && (
-            <li className="card col-span-full p-8 text-center text-muted">কোনো প্রিসেট নেই। নিচে নতুন প্রিসেট যোগ করুন বা ডিফল্ট প্রিসেট ফিরিয়ে আনুন।</li>
+            <li className="card col-span-full p-8 text-center text-muted">কোনো প্রিসেট নেই। নিচ থেকে নতুন প্রিসেট বানান, অথবা ডিফল্ট প্রিসেট ফিরিয়ে আনুন।</li>
           )}
         </ul>
 
@@ -194,14 +194,14 @@ export default function PresetsSection({ presets, onApply }) {
           ) : (
             <div className={cx('flex flex-wrap justify-center gap-3')}>
               <button type="button" onClick={() => setEditing('new')} className="btn-primary px-6">
-                <Plus size={18} aria-hidden="true" /> নতুন প্রিসেট তৈরি করুন
+                <Plus size={18} aria-hidden="true" /> নতুন প্রিসেট বানান
               </button>
               <button type="button" onClick={presets.reset} className="btn-ghost px-6">
                 <RotateCcw size={18} aria-hidden="true" /> ডিফল্ট প্রিসেট ফিরিয়ে আনুন
               </button>
             </div>
           )}
-          <p className="text-center text-xs text-muted">শুধু প্রিসেটের সেটিংস আপনার ব্রাউজারে সংরক্ষিত হয়। কোনো ছবি কখনোই সংরক্ষণ করা হয় না।</p>
+          <p className="text-center text-xs text-muted">শুধু প্রিসেটের সেটিংস আপনার ব্রাউজারে সেভ থাকে। কোনো ছবি কখনোই সেভ করা হয় না।</p>
         </div>
       </div>
     </section>

@@ -10,7 +10,7 @@ export default function ResultStatus({ processor, settings: s, maxKB, hasErrors,
   if (hasErrors) {
     return (
       <Alert tone="warn" title="সেটিংসে ভুল আছে" live>
-        বাম পাশের লাল চিহ্নিত ঘরগুলো ঠিক করুন, তাহলেই প্রস্তুত ছবি দেখা যাবে।
+        বাম পাশের লাল দাগ দেওয়া ঘরগুলো ঠিক করুন, তাহলেই রেডি ছবি দেখতে পাবেন।
       </Alert>
     );
   }
@@ -31,20 +31,20 @@ export default function ResultStatus({ processor, settings: s, maxKB, hasErrors,
 
   const actual = formatBytes(result.size);
   const limit = maxKB ? `${maxKB} KB` : null;
-  const stale = busy ? <p className="text-xs opacity-80">সেটিংস বদলানো হয়েছে — নতুন ফলাফল তৈরি হচ্ছে…</p> : null;
+  const stale = busy ? <p className="text-xs opacity-80">সেটিংস বদলেছে — নতুন ছবি তৈরি হচ্ছে…</p> : null;
 
   if (result.reason === 'format_unsupported') {
     return (
       <Alert
         tone="err"
-        title="আপনার ব্রাউজার এই ফরম্যাটের ফাইল তৈরি করতে পারছে না"
+        title="আপনার ব্রাউজার এই ফরম্যাটে ফাইল বানাতে পারছে না"
         action={
           <button type="button" onClick={() => onSwitchFormat('jpeg')} className="btn-ghost mt-2 min-h-[2.5rem] px-3 text-sm text-ink">
-            JPEG-তে পরিবর্তন করুন
+            JPEG করে নিন
           </button>
         }
       >
-        আপনার ব্রাউজার এই ফরম্যাট এনকোড করতে পারছে না। অনুগ্রহ করে JPEG ফরম্যাট বেছে নিন।
+        আপনার ব্রাউজার এই ফরম্যাট বানাতে পারছে না। JPEG ফরম্যাট সিলেক্ট করুন।
       </Alert>
     );
   }
@@ -53,21 +53,21 @@ export default function ResultStatus({ processor, settings: s, maxKB, hasErrors,
     return (
       <Alert
         tone="warn"
-        title="নির্ধারিত ফাইল সাইজ অর্জন করা সম্ভব হয়নি।"
+        title="ফাইল সাইজ সীমার মধ্যে আনা যায়নি।"
         live
         action={
           <button type="button" onClick={() => onSwitchFormat('jpeg')} className="btn-ghost mt-2 min-h-[2.5rem] px-3 text-sm text-ink">
-            JPEG-তে পরিবর্তন করুন
+            JPEG করে নিন
           </button>
         }
       >
         <p>
-          তৈরি হওয়া PNG ফাইলের প্রকৃত সাইজ <strong>{actual}</strong> ({formatNumber(result.size)} বাইট), কিন্তু সীমা <strong>{limit}</strong>।
-          PNG ক্ষতিহীন ফরম্যাট, তাই JPEG-এর মতো কোয়ালিটি কমিয়ে সাইজ ঠিক করা যায় না।
+          PNG ফাইলের আসল সাইজ <strong>{actual}</strong> ({formatNumber(result.size)} বাইট), কিন্তু সীমা <strong>{limit}</strong>।
+          PNG লসলেস ফরম্যাট, তাই JPEG-এর মতো কোয়ালিটি কমিয়ে সাইজ ছোট করা যায় না।
         </p>
         <ul>
-          <li>আউটপুট ফরম্যাট JPEG করুন।</li>
-          <li>অথবা ছবির প্রস্থ ও উচ্চতা (Pixel) কমান।</li>
+          <li>ফরম্যাট JPEG করে নিন।</li>
+          <li>অথবা ছবির প্রস্থ ও উচ্চতা (Pixel) কমিয়ে দিন।</li>
         </ul>
         {stale}
       </Alert>
@@ -76,15 +76,15 @@ export default function ResultStatus({ processor, settings: s, maxKB, hasErrors,
 
   if (!result.met) {
     return (
-      <Alert tone="warn" title="নির্ধারিত ফাইল সাইজ অর্জন করা সম্ভব হয়নি। ছবির ডাইমেনশন কমিয়ে আবার চেষ্টা করুন।" live>
+      <Alert tone="warn" title="ফাইল সাইজ সীমার মধ্যে আনা যায়নি। ছবির মাপ কমিয়ে আবার চেষ্টা করুন।" live>
         <p>
-          সবচেয়ে কম কোয়ালিটিতেও ফাইলের প্রকৃত সাইজ <strong>{actual}</strong> ({formatNumber(result.size)} বাইট) হয়েছে, যা সীমা{' '}
-          <strong>{limit}</strong>-এর বেশি। তাই এই ফাইল আবেদনে গৃহীত নাও হতে পারে।
+          সবচেয়ে কম কোয়ালিটিতেও ফাইলের সাইজ <strong>{actual}</strong> ({formatNumber(result.size)} বাইট) হয়েছে, যা সীমা{' '}
+          <strong>{limit}</strong>-এর বেশি। তাই এই ফাইল আবেদনে নাও নিতে পারে।
         </p>
         <ul>
           <li>প্রস্থ ও উচ্চতা (Pixel) কমিয়ে দেখুন।</li>
           {s.format !== 'jpeg' && <li>ফরম্যাট JPEG করে দেখুন।</li>}
-          {s.mode === 'signature' && <li>“স্বাক্ষর পরিষ্কার করুন” চালু করলে ফাইল ছোট হতে পারে।</li>}
+          {s.mode === 'signature' && <li>“স্বাক্ষর ক্লিন করুন” অন করলে ফাইল ছোট হতে পারে।</li>}
         </ul>
         {stale}
       </Alert>
@@ -95,11 +95,11 @@ export default function ResultStatus({ processor, settings: s, maxKB, hasErrors,
     return (
       <Alert tone="warn" title="সর্বনিম্ন ফাইল সাইজ পূরণ হয়নি" live>
         <p>
-          ফাইলের প্রকৃত সাইজ <strong>{actual}</strong>, কিন্তু আপনি সর্বনিম্ন <strong>{s.minKB} KB</strong> চেয়েছেন। ছবিতে বিস্তারিত কম থাকলে (যেমন সাদা ব্যাকগ্রাউন্ডের স্বাক্ষর) ফাইল ছোট হয়।
+          ফাইলের সাইজ <strong>{actual}</strong>, কিন্তু আপনি কমপক্ষে <strong>{s.minKB} KB</strong> চেয়েছেন। ছবিতে ডিটেইল কম থাকলে (যেমন সাদা ব্যাকগ্রাউন্ডের স্বাক্ষর) ফাইল ছোট হয়।
         </p>
         <ul>
-          <li>ছবির মাপ (Pixel) আবেদনের নিয়ম অনুযায়ী ঠিক আছে কি না দেখুন।</li>
-          <li>স্বাক্ষর হলে “স্বাক্ষর পরিষ্কার করুন” বন্ধ করে দেখুন, অথবা বেশি বিস্তারিত ছবি ব্যবহার করুন।</li>
+          <li>ছবির মাপ (Pixel) সার্কুলারের নিয়ম মতো আছে কি না দেখে নিন।</li>
+          <li>স্বাক্ষর হলে “স্বাক্ষর ক্লিন করুন” অফ করে দেখুন, অথবা আরেকটু ডিটেইল আছে এমন ছবি দিন।</li>
         </ul>
       </Alert>
     );
@@ -108,9 +108,9 @@ export default function ResultStatus({ processor, settings: s, maxKB, hasErrors,
   const lowQuality = result.quality != null && maxKB && result.quality < 0.35;
   return (
     <div className="space-y-2.5">
-      <Alert tone="ok" title={limit ? 'আপনার ছবিটি নির্ধারিত সাইজের মধ্যে তৈরি হয়েছে।' : 'আপনার ছবি প্রস্তুত হয়েছে।'} live>
+      <Alert tone="ok" title={limit ? 'ছবি রেডি, সাইজও সীমার মধ্যে আছে।' : 'আপনার ছবি রেডি।'} live>
         <p>
-          প্রকৃত সাইজ: <strong>{actual}</strong>
+          সাইজ: <strong>{actual}</strong>
           {limit && (
             <>
               {' '}
@@ -124,8 +124,8 @@ export default function ResultStatus({ processor, settings: s, maxKB, hasErrors,
       </Alert>
       {lowQuality && (
         <Alert tone="warn" title="কোয়ালিটি অনেক কমে গেছে">
-          সীমার ভেতরে আনতে কোয়ালিটি {Math.round(result.quality * 100)}%-এ নামাতে হয়েছে, তাই ছবি কিছুটা ঝাপসা দেখাতে পারে। ছবির মাপ (Pixel) কমালে
-          স্পষ্টতা বাড়বে।
+          সীমার ভেতরে আনতে কোয়ালিটি {Math.round(result.quality * 100)}%-এ নামাতে হয়েছে, তাই ছবি একটু ঝাপসা দেখাতে পারে। ছবির মাপ (Pixel) কমালে
+          ছবি আরও পরিষ্কার আসবে।
         </Alert>
       )}
     </div>

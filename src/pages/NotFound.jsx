@@ -36,13 +36,13 @@ export default function NotFound() {
           <p className="text-7xl font-extrabold leading-none text-brand sm:text-8xl" aria-hidden="true">
             ৪০৪
           </p>
-          <h1 className="mt-4 text-2xl font-bold sm:text-3xl">পেজটি খুঁজে পাওয়া যায়নি</h1>
+          <h1 className="mt-4 text-2xl font-bold sm:text-3xl">পেজটি পাওয়া যায়নি</h1>
           <p className="mt-2 leading-relaxed text-muted">
-            আপনি যে ঠিকানাটি খুঁজছেন সেটি হয়তো সরানো হয়েছে বা ঠিকানায় ভুল আছে। নিচের লিংক থেকে এগিয়ে যান।
+            আপনি যে লিংকে এসেছেন সেটা হয়তো সরানো হয়েছে, অথবা লিংকে ভুল আছে। নিচের লিংকগুলো থেকে এগিয়ে যান।
           </p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
             <button type="button" onClick={() => navigate(PATHS.home)} className="btn-primary px-6">
-              <HomeIcon size={18} aria-hidden="true" /> হোমে ফিরে যান
+              <HomeIcon size={18} aria-hidden="true" /> হোমে ফিরুন
             </button>
             <button type="button" onClick={() => navigate(PATHS.importantLinks)} className="btn-ghost px-6">
               <Link2 size={18} aria-hidden="true" /> গুরুত্বপূর্ণ লিংক
@@ -53,7 +53,7 @@ export default function NotFound() {
             onClick={() => window.history.back()}
             className="mt-4 inline-flex min-h-[2.75rem] items-center gap-2 text-sm text-muted hover:text-brand"
           >
-            <ArrowLeft size={16} aria-hidden="true" /> আগের পেজে যান
+            <ArrowLeft size={16} aria-hidden="true" /> আগের পেজে ফিরুন
           </button>
         </motion.div>
       </main>

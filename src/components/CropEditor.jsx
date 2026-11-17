@@ -85,14 +85,14 @@ export default function CropEditor({ src, srcW, srcH, aspect, crop, onChange, on
       >
         <img
           src={src}
-          alt="ক্রপ করার জন্য মূল ছবি"
+          alt="ক্রপ করার জন্য আসল ছবি"
           draggable="false"
           className="pointer-events-none block h-auto max-h-[26rem] w-auto max-w-full"
         />
         <div
           role="group"
           tabIndex={0}
-          aria-label="ক্রপ এলাকা। তীর চিহ্নের কী দিয়ে সরান, প্লাস ও মাইনাস কী দিয়ে জুম করুন।"
+          aria-label="ক্রপ এরিয়া। অ্যারো কী দিয়ে সরান, প্লাস ও মাইনাস কী দিয়ে জুম করুন।"
           onKeyDown={onKey}
           onPointerDown={startMove}
           onPointerMove={onMove}
@@ -113,7 +113,7 @@ export default function CropEditor({ src, srcW, srcH, aspect, crop, onChange, on
               key={c}
               data-handle="1"
               role="presentation"
-              title={`${CORNER_LABEL[c]} ধরে টেনে ক্রপ এলাকা বদলান`}
+              title={`${CORNER_LABEL[c]} ধরে টেনে ক্রপ এরিয়া বদলান`}
               onPointerDown={startResize(c)}
               onPointerMove={onMove}
               onPointerUp={end}
@@ -153,7 +153,7 @@ export default function CropEditor({ src, srcW, srcH, aspect, crop, onChange, on
           <RotateCcw size={16} aria-hidden="true" /> রিসেট
         </button>
       </div>
-      <p className="text-xs text-muted">সাদা বক্সটি টেনে সরান; কোণ ধরে টানলে এলাকা বড়-ছোট হবে। বক্সের ভেতরের অংশটিই চূড়ান্ত ছবিতে থাকবে।</p>
+      <p className="text-xs text-muted">সাদা বক্সটা টেনে সরান; কোণ ধরে টানলে বক্স বড়-ছোট হবে। বক্সের ভেতরের অংশটুকুই ফাইনাল ছবিতে থাকবে।</p>
     </div>
   );
 }

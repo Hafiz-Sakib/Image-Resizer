@@ -33,7 +33,7 @@ export default function PresetSelector({ presets, settings: s, actions: a }) {
     <div className="space-y-2.5">
       <ChipGroup legend="প্রিসেট" hideLegend name="preset" options={options} value={value} onChange={onPick} />
       <p className="text-[0.72rem] leading-snug text-muted sm:text-xs">
-        অন্য মাপ লাগলে “কাস্টম সাইজ” চাপুন, তারপর আবেদনের বিজ্ঞপ্তি অনুযায়ী প্রস্থ, উচ্চতা ও KB নিজে লিখুন।
+        অন্য মাপ লাগলে “কাস্টম সাইজ” চাপুন, তারপর সার্কুলার দেখে প্রস্থ, উচ্চতা ও KB নিজে লিখে দিন।
       </p>
 
     </div>

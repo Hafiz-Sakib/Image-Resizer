@@ -3,7 +3,7 @@ import Header from '../components/Header.jsx';
 import Hero from '../components/Hero.jsx';
 import Workspace from '../components/Workspace.jsx';
 import PresetsSection from '../components/PresetsSection.jsx';
-import { WhyUs, PrivacySection, HowItWorks, OrbitSection } from '../components/InfoSections.jsx';
+import { WhyUs, PrivacySection, HowItWorks } from '../components/InfoSections.jsx';
 import { Marquee, ScrollProgress, CursorGlow } from '../components/motion/kit.jsx';
 import Footer from '../components/Footer.jsx';
 import useTheme from '../hooks/useTheme.js';
@@ -60,7 +60,7 @@ export default function Home() {
         href="#main"
         className="sr-only z-50 rounded-lg bg-brand px-4 py-2 text-onbrand focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
       >
-        মূল কনটেন্টে যান
+        মূল অংশে যান
       </a>
       <ScrollProgress />
       <CursorGlow />
@@ -71,7 +71,6 @@ export default function Home() {
         <Workspace ws={ws} presets={presets} />
         <PresetsSection presets={presets} onApply={applyAndScroll} />
         <HowItWorks />
-        <OrbitSection onStart={() => openTool('photo')} />
         <WhyUs />
         <PrivacySection />
       </main>

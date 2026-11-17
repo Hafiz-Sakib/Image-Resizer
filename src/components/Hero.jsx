@@ -57,7 +57,7 @@ function HeroIllustration() {
           <span className="h-2.5 w-2.5 rounded-full bg-accent/80" />
           <span className="h-2.5 w-2.5 rounded-full bg-warn/60" />
           <span className="h-2.5 w-2.5 rounded-full bg-brand/70" />
-          <span className="ml-3 text-xs text-muted">ছবি রিসাইজ — মুহূর্তেই</span>
+          <span className="ml-3 text-xs text-muted">ছবি রিসাইজ — সাথে সাথে</span>
         </div>
 
         <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 sm:gap-4">
@@ -67,7 +67,7 @@ function HeroIllustration() {
               {/* ক্রপ এলাকা — এই অংশটাই "প্রস্তুত ছবি" হবে */}
               <span className="absolute left-[21.5%] top-[3%] h-[76%] w-[57%] rounded-md border-2 border-dashed border-brand shadow-[0_0_0_999px_rgb(0_0_0/0.28)]" />
             </div>
-            <p className="mt-2 text-center text-xs font-medium text-muted">মূল ছবি</p>
+            <p className="mt-2 text-center text-xs font-medium text-muted">আসল ছবি</p>
             <p className="text-center text-[0.7rem] text-muted">4000 × 3000 px · 3.2 MB</p>
           </div>
 
@@ -95,7 +95,7 @@ function HeroIllustration() {
                 <Check size={14} strokeWidth={3} />
               </span>
             </div>
-            <p className="mt-2 text-center text-xs font-medium text-brand">প্রস্তুত ছবি</p>
+            <p className="mt-2 text-center text-xs font-medium text-brand">রেডি ছবি</p>
             <p className="text-center text-[0.7rem] text-muted">300 × 300 px · 48 KB</p>
           </div>
         </div>
@@ -172,8 +172,8 @@ export default function Hero({ onStart, install }) {
             transition={{ delay: 0.12 }}
             className="mt-5 max-w-xl text-base text-muted sm:text-lg"
           >
-            সরকারি চাকরি, বিসিএস, ব্যাংক নিয়োগসহ বিভিন্ন অনলাইন আবেদনের জন্য প্রয়োজনীয় Pixel ও KB অনুযায়ী ছবি রিসাইজ এবং
-            কমপ্রেস করুন মুহূর্তেই।
+            সরকারি চাকরি, বিসিএস, ব্যাংক নিয়োগসহ যেকোনো অনলাইন আবেদনের জন্য Pixel আর KB মিলিয়ে ছবি রিসাইজ ও
+            কমপ্রেস করুন, এক মিনিটেই।
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 14 }}

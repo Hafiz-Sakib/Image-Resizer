@@ -15,7 +15,7 @@ export default function CompressionControls({ settings: s, actions: a, compressi
       <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
         <NumberField
           id="min-kb"
-          label="সর্বনিম্ন (ঐচ্ছিক)"
+          label="সর্বনিম্ন (অপশনাল)"
           suffix="KB"
           value={s.minKB}
           onChange={a.setMinKB}
@@ -37,7 +37,7 @@ export default function CompressionControls({ settings: s, actions: a, compressi
 
       {compression.hasLimit && s.format !== 'png' && (
         <p className="text-sm text-muted">
-          টুল স্বয়ংক্রিয়ভাবে কোয়ালিটি সামঞ্জস্য করে সীমার ভেতরে সর্বোচ্চ সম্ভাব্য মানের ছবি তৈরি করবে।
+          টুল নিজেই কোয়ালিটি অ্যাডজাস্ট করে সীমার ভেতরে সবচেয়ে ভালো মানের ছবি বানিয়ে দেবে।
         </p>
       )}
 
@@ -60,14 +60,14 @@ export default function CompressionControls({ settings: s, actions: a, compressi
             className="h-2 w-full cursor-pointer accent-[rgb(var(--brand))]"
             aria-valuetext={`${s.quality} শতাংশ`}
           />
-          <p className="mt-1 text-xs text-muted">কোয়ালিটি বেশি = ছবি স্পষ্ট, কিন্তু ফাইল বড়।</p>
+          <p className="mt-1 text-xs text-muted">কোয়ালিটি বেশি হলে ছবি পরিষ্কার হয়, কিন্তু ফাইল বড় হয়।</p>
         </div>
       )}
 
       {compression.pngLimitNotice && (
-        <Alert tone="warn" title="PNG-তে KB সীমা মানা কঠিন হতে পারে">
-          PNG ক্ষতিহীন (lossless) ফরম্যাট, তাই JPEG-এর মতো কোয়ালিটি কমিয়ে ফাইল সাইজ নিয়ন্ত্রণ করা যায় না। সীমার ভেতরে আনতে
-          JPEG বেছে নিন, অথবা ছবির মাপ কমান।
+        <Alert tone="warn" title="PNG-তে KB সীমার মধ্যে আনা কঠিন হতে পারে">
+          PNG লসলেস ফরম্যাট, তাই JPEG-এর মতো কোয়ালিটি কমিয়ে সাইজ ছোট করা যায় না। সীমার ভেতরে আনতে
+          JPEG সিলেক্ট করুন, অথবা ছবির মাপ কমান।
         </Alert>
       )}
     </div>

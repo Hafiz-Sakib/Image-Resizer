@@ -5,14 +5,14 @@ import { LogoMark } from './Logo.jsx';
 function Steps({ ios }) {
   const steps = ios
     ? [
-        [Share, 'Safari ব্রাউজারের নিচে (বা উপরে) “শেয়ার” বোতাম চাপুন।'],
-        [PlusSquare, 'মেনু নিচে স্ক্রল করে “Add to Home Screen” (হোম স্ক্রিনে যোগ করুন) বেছে নিন।'],
+        [Share, 'Safari ব্রাউজারের নিচে (বা উপরে) “শেয়ার” বাটনে চাপ দিন।'],
+        [PlusSquare, 'মেনু নিচে স্ক্রল করে “Add to Home Screen” সিলেক্ট করুন।'],
         [Smartphone, '“Add” চাপুন — হোম স্ক্রিনে অ্যাপের আইকন চলে আসবে।'],
       ]
     : [
-        [MoreVertical, 'ব্রাউজারের ডান পাশের উপরের মেনু (⋮) খুলুন।'],
-        [PlusSquare, '“ইনস্টল অ্যাপ” অথবা “Add to Home screen” (হোম স্ক্রিনে যোগ করুন) চাপুন।'],
-        [Smartphone, 'নিশ্চিত করলে হোম স্ক্রিনে অ্যাপের আইকন চলে আসবে।'],
+        [MoreVertical, 'ব্রাউজারের ডান পাশের উপরের মেনু (⋮) ওপেন করুন।'],
+        [PlusSquare, '“Install app” অথবা “Add to Home screen” চাপুন।'],
+        [Smartphone, 'কনফার্ম করলে হোম স্ক্রিনে অ্যাপের আইকন চলে আসবে।'],
       ];
   return (
     <ol className="space-y-3">
@@ -103,7 +103,7 @@ export default function InstallButton({ install, variant = 'card' }) {
         <LogoMark size={52} />
         <div className="min-w-0 flex-1">
           <p className="font-semibold leading-snug">মোবাইলের হোম স্ক্রিনে অ্যাপ হিসেবে রাখুন</p>
-          <p className="text-sm text-muted">এক ট্যাপে খুলুন, প্রথমবারের পর ইন্টারনেট ছাড়াও চলবে।</p>
+          <p className="text-sm text-muted">এক ট্যাপে ওপেন করুন, প্রথমবারের পর নেট ছাড়াও চলবে।</p>
         </div>
         <button type="button" onClick={click} className="btn-primary shrink-0 px-4">
           <Download size={18} aria-hidden="true" /> ইনস্টল
