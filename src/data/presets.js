@@ -1,5 +1,4 @@
-// সাধারণ উদাহরণ প্রিসেট। এগুলো সব আবেদনের জন্য সার্বজনীন নয় —
-// আবেদনের বিজ্ঞপ্তিতে দেওয়া সঠিক মাপ ও KB নিজে লিখে নিন, অথবা প্রিসেট এডিট করুন।
+// শুধু দুটি প্রিসেট: ছবি ৩০০×৩০০ ও স্বাক্ষর ৩০০×৮০। বাকি সব মাপ ব্যবহারকারী নিজে কাস্টম করে নেবেন।
 export const DEFAULT_PRESETS = [
   {
     id: 'profile',
@@ -23,28 +22,6 @@ export const DEFAULT_PRESETS = [
     minKB: 3,
     format: 'jpeg',
     fit: 'fit',
-    builtIn: true,
-  },
-  {
-    id: 'square',
-    name: 'বর্গাকার ছবি',
-    kind: 'photo',
-    width: 600,
-    height: 600,
-    maxKB: 200,
-    format: 'jpeg',
-    fit: 'crop',
-    builtIn: true,
-  },
-  {
-    id: 'wide',
-    name: 'চওড়া ছবি',
-    kind: 'photo',
-    width: 600,
-    height: 200,
-    maxKB: 100,
-    format: 'jpeg',
-    fit: 'crop',
     builtIn: true,
   },
 ];

@@ -46,7 +46,7 @@ function PresetForm({ initial, onSave, onCancel }) {
         {touched && e.name && <p role="alert" className="mt-1 text-sm text-err">{e.name}</p>}
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-2 lg:max-w-3xl lg:mx-auto">
         <NumberField id="pf-w" label="প্রস্থ" suffix="px" value={f.width} onChange={set('width')} error={touched && e.width} />
         <NumberField id="pf-h" label="উচ্চতা" suffix="px" value={f.height} onChange={set('height')} error={touched && e.height} />
         <NumberField
@@ -105,14 +105,14 @@ export default function PresetsSection({ presets, onApply }) {
         <SectionHeading
           eyebrow="প্রিসেট"
           title={<span id="presets-title">রেডি-মেইড প্রিসেট</span>}
-          desc="সাধারণ মাপের কয়েকটি উদাহরণ প্রিসেট দেওয়া আছে। নিজের প্রয়োজনমতো সম্পাদনা করুন বা নতুন প্রিসেট বানিয়ে রাখুন — এগুলো আপনার ব্রাউজারেই সংরক্ষিত থাকবে।"
+          desc="দুটি রেডি প্রিসেট আছে: ছবি ৩০০×৩০০ এবং স্বাক্ষর ৩০০×৮০। অন্য যেকোনো মাপ নিজে কাস্টম করে নিন বা নতুন প্রিসেট বানিয়ে রাখুন — এগুলো আপনার ব্রাউজারেই সংরক্ষিত থাকবে।"
         />
 
         <Alert tone="info" className="mx-auto mb-8 max-w-3xl" title="গুরুত্বপূর্ণ">
-          এগুলো সাধারণ উদাহরণ, সব সরকারি বা বেসরকারি আবেদনের বাধ্যতামূলক মাপ নয়। প্রতিটি বিজ্ঞপ্তির মাপ ও ফাইল সাইজ আলাদা হতে পারে — তাই আবেদনের বিজ্ঞপ্তি দেখে সঠিক মাপ ও KB নিজে লিখে নিন।
+          এই দুটি সবচেয়ে সাধারণ মাপ। প্রতিটি বিজ্ঞপ্তির মাপ ও ফাইল সাইজ আলাদা হতে পারে — অন্য মাপ লাগলে “কাস্টম সাইজ” বেছে নিয়ে সঠিক মাপ ও KB নিজে লিখুন।
         </Alert>
 
-        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2 lg:max-w-3xl lg:mx-auto">
           {presets.list.map((p, i) => (
             <motion.li
               key={p.id}

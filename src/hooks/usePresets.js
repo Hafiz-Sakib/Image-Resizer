@@ -3,7 +3,7 @@ import { DEFAULT_PRESETS } from '../data/presets.js';
 import { MIN_DIM, MAX_DIM } from '../utils/imageResize.js';
 
 // শুধু প্রিসেটের কনফিগারেশন সংরক্ষিত হয় — কোনো ছবি বা ছবির ডেটা নয়
-const KEY = 'bdir.presets.v1';
+const KEY = 'bdir.presets.v2';
 
 const FORMATS = ['jpeg'];
 const FITS = ['crop', 'fit'];
