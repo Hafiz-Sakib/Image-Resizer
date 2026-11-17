@@ -5,7 +5,6 @@ import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import useTheme from '../hooks/useTheme.js';
 import useInstall from '../hooks/useInstall.js';
-import { PATHS, navigate } from '../utils/router.js';
 import photo from '../assets/developer.jpg';
 
 // লুসিডে ব্র্যান্ড আইকন নেই, তাই নিজস্ব SVG পাথ
@@ -48,7 +47,6 @@ const pill =
 export default function Developer() {
   const { theme, toggle } = useTheme();
   const install = useInstall();
-  const home = (scroll, tool) => navigate(PATHS.home, { scroll, tool });
 
   useEffect(() => {
     const prev = document.title;
@@ -64,10 +62,7 @@ export default function Developer() {
       <Header
         theme={theme}
         onToggleTheme={toggle}
-        onTool={(mode) => home('workspace', mode)}
-        onGoto={(id) => home(id)}
         install={install}
-        currentPath={PATHS.developer}
       />
       <main id="main" className="mx-auto flex min-h-[70vh] max-w-2xl items-center px-4 py-12 sm:px-6">
         <motion.article initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} className="w-full text-center">
@@ -100,7 +95,7 @@ export default function Developer() {
           </ul>
         </motion.article>
       </main>
-      <Footer onTool={(mode) => home('workspace', mode)} onGoto={(id) => home(id)} onPage={navigate} />
+      <Footer />
     </>
   );
 }

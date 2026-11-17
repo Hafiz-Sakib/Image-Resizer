@@ -10,7 +10,6 @@ import { PATHS, navigate } from '../utils/router.js';
 export default function NotFound() {
   const { theme, toggle } = useTheme();
   const install = useInstall();
-  const home = (scroll, tool) => navigate(PATHS.home, { scroll, tool });
 
   useEffect(() => {
     const prev = document.title;
@@ -26,10 +25,7 @@ export default function NotFound() {
       <Header
         theme={theme}
         onToggleTheme={toggle}
-        onTool={(mode) => home('workspace', mode)}
-        onGoto={(id) => home(id)}
         install={install}
-        currentPath={PATHS.notFound}
       />
       <main id="main" className="mx-auto flex min-h-[70vh] max-w-xl items-center px-4 py-12 sm:px-6">
         <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} className="w-full text-center">
@@ -57,7 +53,7 @@ export default function NotFound() {
           </button>
         </motion.div>
       </main>
-      <Footer onTool={(mode) => home('workspace', mode)} onGoto={(id) => home(id)} onPage={navigate} />
+      <Footer />
     </>
   );
 }

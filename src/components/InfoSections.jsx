@@ -1,23 +1,15 @@
 import { motion } from 'framer-motion';
-import { CircleOff, Eraser, Gift, Gauge, Monitor, ShieldCheck, UserX, Zap, Eye, HardDrive, Upload, SlidersHorizontal, Download } from 'lucide-react';
+import { Gift, Gauge, Monitor, ShieldCheck, UserX, Zap, Upload, SlidersHorizontal, Download } from 'lucide-react';
 import { SectionHeading } from './ui.jsx';
 import { Spotlight, CountUp } from './motion/kit.jsx';
-import PrivacyNotice from './PrivacyNotice.jsx';
 
 const FEATURES = [
   { icon: Gift, title: 'সম্পূর্ণ বিনামূল্যে', desc: 'কোনো ফি, ওয়াটারমার্ক বা লুকানো চার্জ নেই। যতবার খুশি ব্যবহার করুন।' },
   { icon: UserX, title: 'অ্যাকাউন্ট লাগে না', desc: 'সাইন-আপ বা লগইন ছাড়াই সরাসরি কাজ শুরু করুন।' },
   { icon: Zap, title: 'দ্রুত ছবি রিসাইজ', desc: 'আপলোডের অপেক্ষা নেই — আপনার ডিভাইসেই সাথে সাথে কাজ শেষ।' },
   { icon: Gauge, title: 'যত KB লাগে, তত KB-তে কমপ্রেস', desc: '20, 50, 100 KB বা নিজের মতো যেকোনো সীমায় ছবি আনুন, আর আসল সাইজ নিজের চোখেই দেখে নিন।' },
-  { icon: ShieldCheck, title: 'নিরাপদ ও প্রাইভেট', desc: 'আপনার ছবি আপনার ডিভাইসের বাইরে যায় না। কিছুই সার্ভারে সেভ হয় না।' },
+  { icon: ShieldCheck, title: 'ছবি প্রাইভেট থাকে', desc: 'ছবি আপনার ডিভাইসের বাইরে যায় না। সার্ভার, ডেটাবেস বা ক্লাউড স্টোরেজ বলে কিছুই নেই।' },
   { icon: Monitor, title: 'মোবাইল ও কম্পিউটার — দুটোতেই চলে', desc: 'ফোন, ট্যাব বা কম্পিউটার — যেকোনো ডিভাইসের ব্রাউজারে একইভাবে কাজ করে।' },
-];
-
-const GUARANTEES = [
-  { icon: CircleOff, title: 'সার্ভারে কিছুই যায় না', desc: 'এই টুলে কোনো ব্যাকএন্ড, ডেটাবেস বা ক্লাউড স্টোরেজ নেই।' },
-  { icon: HardDrive, title: 'ছবি সেভ হয় না', desc: 'শুধু প্রিসেটের সেটিংস ব্রাউজারে থাকে — ছবি নয়।' },
-  { icon: Eraser, title: 'মেমরি ক্লিন', desc: 'ছবি ডিলিট করলে বা পেজ বন্ধ করলে সাময়িক ডেটা মুছে যায়।' },
-  { icon: Eye, title: 'নিজেই চেক করে দেখুন', desc: 'ব্রাউজারের Network ট্যাব ওপেন করে দেখুন — ছবি প্রসেসের সময় কোনো আপলোড হয় না।' },
 ];
 
 function reveal(i = 0) {
@@ -33,7 +25,7 @@ export function WhyUs() {
   return (
     <section id="why" className="scroll-mt-20 border-y border-line bg-sunken/40 py-14 sm:py-20" aria-labelledby="why-title">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <SectionHeading eyebrow="সুবিধা" title={<span id="why-title">কেন এই টুল ব্যবহার করবেন?</span>} desc="আবেদনের ছবি ও স্বাক্ষর রিসাইজের ঝামেলা কমাতেই এই টুল।" />
+        <SectionHeading eyebrow="সুবিধা ও নিরাপত্তা" title={<span id="why-title">কেন এই টুল ব্যবহার করবেন?</span>} desc="ছবি ও স্বাক্ষর রিসাইজের ঝামেলা কমাতেই এই টুল — আর আপনার ছবি থাকে শুধু আপনার ডিভাইসেই।" />
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {FEATURES.map((f, i) => (
             <motion.li key={f.title} {...reveal(i)}>
@@ -47,32 +39,8 @@ export function WhyUs() {
             </motion.li>
           ))}
         </ul>
-      </div>
-    </section>
-  );
-}
-
-export function PrivacySection() {
-  return (
-    <section id="privacy" className="scroll-mt-20 border-t border-line bg-sunken/40 py-14 sm:py-20" aria-labelledby="privacy-title">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6">
-        <SectionHeading eyebrow="গোপনীয়তা" title={<span id="privacy-title">গোপনীয়তা ও নিরাপত্তা</span>} desc="আপনার ছবি আপনার ডিভাইসের বাইরে কখনোই যায় না।" />
-        <PrivacyNotice variant="full" />
-        <ul className="mt-6 grid gap-4 sm:grid-cols-2">
-          {GUARANTEES.map((g, i) => (
-            <motion.li key={g.title} {...reveal(i)} className="card flex gap-4 p-5">
-              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brandsoft text-brand">
-                <g.icon size={22} aria-hidden="true" />
-              </span>
-              <div>
-                <h3 className="font-semibold">{g.title}</h3>
-                <p className="text-sm text-muted">{g.desc}</p>
-              </div>
-            </motion.li>
-          ))}
-        </ul>
         <p className="mt-5 text-center text-xs text-muted">
-          নোট: ফন্ট ও কোড এই সাইট থেকেই লোড হয় — অন্য কোনো সার্ভারে আপনার ছবি বা তথ্য যায় না।
+          চাইলে ব্রাউজারের Network ট্যাব ওপেন করে নিজেই চেক করে দেখুন — ছবি প্রসেসের সময় কোনো আপলোড হয় না।
         </p>
       </div>
     </section>

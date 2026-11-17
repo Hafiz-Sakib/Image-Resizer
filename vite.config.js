@@ -28,8 +28,8 @@ export default defineConfig({
         icons: [icon('/icons/icon-192.png', '192x192'), icon('/icons/icon-512.png', '512x512'), icon('/icons/maskable-512.png', '512x512', 'maskable')],
         shortcuts: [
           { name: 'গুরুত্বপূর্ণ লিংক', short_name: 'লিংক', url: '/ImportantLinks', icons: [icon('/icons/icon-192.png', '192x192')] },
-          { name: 'ছবি রিসাইজ করুন', short_name: 'ছবি', url: '/?tool=photo', icons: [icon('/icons/icon-192.png', '192x192')] },
-          { name: 'স্বাক্ষর রিসাইজ করুন', short_name: 'স্বাক্ষর', url: '/?tool=signature', icons: [icon('/icons/icon-192.png', '192x192')] },
+          { name: 'ছবি রিসাইজ করুন', short_name: 'ছবি', url: '/photo', icons: [icon('/icons/icon-192.png', '192x192')] },
+          { name: 'স্বাক্ষর রিসাইজ করুন', short_name: 'স্বাক্ষর', url: '/signature', icons: [icon('/icons/icon-192.png', '192x192')] },
         ],
       },
       workbox: {

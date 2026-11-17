@@ -3,6 +3,7 @@ import Home from './pages/Home.jsx';
 import Developer from './pages/Developer.jsx';
 import ImportantLinks from './pages/ImportantLinks.jsx';
 import NotFound from './pages/NotFound.jsx';
+import TabBar from './components/TabBar.jsx';
 import { PATHS, usePath } from './utils/router.js';
 
 export default function App() {
@@ -10,6 +11,7 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
       {path === PATHS.developer ? <Developer /> : path === PATHS.importantLinks ? <ImportantLinks /> : path === PATHS.notFound ? <NotFound /> : <Home />}
+      <TabBar />
     </MotionConfig>
   );
 }

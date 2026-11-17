@@ -162,3 +162,8 @@ html.dark ::selection { background: rgb(var(--brand) / 0.35); }
 .theme-fade, .theme-fade *, .theme-fade *::before, .theme-fade *::after {
   transition: background-color 0.45s ease, color 0.45s ease, border-color 0.45s ease, fill 0.45s ease, stroke 0.45s ease, box-shadow 0.45s ease !important;
 }
+
+/* মোবাইলে নিচের ট্যাব বারের জন্য জায়গা */
+@media (max-width: 1023px) {
+  body { padding-bottom: calc(5rem + env(safe-area-inset-bottom)); }
+}

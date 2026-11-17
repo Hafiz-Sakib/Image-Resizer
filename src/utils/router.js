@@ -1,39 +1,63 @@
 import { useEffect, useState } from 'react';
 
-// খুব ছোট রাউটার: "/" (হোম), "/developer" ও "/ImportantLinks" — Vercel-এর rewrite থাকায় সরাসরি লিংকও কাজ করে
-export const PATHS = { home: '/', developer: '/developer', importantLinks: '/ImportantLinks', notFound: '/404' };
+// ছোট রাউটার। হোম পেজের সেকশনগুলোর নিজস্ব পথ আছে (/photo, /signature, /presets ...),
+// তাই URL-এ # না এসে সুন্দর লিংক দেখায়। Vercel-এর rewrite থাকায় সরাসরি লিংকও কাজ করে।
+export const PATHS = {
+  home: '/',
+  photo: '/photo',
+  signature: '/signature',
+  presets: '/presets',
+  why: '/why',
+  how: '/how',
+  developer: '/developer',
+  importantLinks: '/ImportantLinks',
+  notFound: '/404',
+};
+
+/** হোম পেজের কোন পথ কোন সেকশনে নিয়ে যাবে (tool থাকলে ছবি/স্বাক্ষর ট্যাবও বদলাবে) */
+export const SECTIONS = {
+  [PATHS.photo]: { id: 'workspace', tool: 'photo' },
+  [PATHS.signature]: { id: 'workspace', tool: 'signature' },
+  [PATHS.presets]: { id: 'presets' },
+  [PATHS.why]: { id: 'why' },
+  [PATHS.how]: { id: 'how' },
+};
+
+export const isHomePath = (p) => p === PATHS.home || p in SECTIONS;
 
 // বড়-ছোট হাতের অক্ষরে পার্থক্য করা হয় না (/importantlinks ও /ImportantLinks একই পেজ); অচেনা পথ ৪০৪ পেজে যায়
 const KNOWN = Object.values(PATHS);
 const canonical = (p) => KNOWN.find((k) => k.toLowerCase() === p.toLowerCase()) || PATHS.notFound;
-
-let pending = null;
-
 const normalize = (p) => canonical(p.replace(/\/+$/, '') || '/');
 
-/** পেজ বদলের পর হোম কী করবে (যেমন নির্দিষ্ট সেকশনে স্ক্রল) তা এক বার পড়ে নেওয়া যায় */
-export const takePending = () => {
-  const p = pending;
-  pending = null;
-  return p;
-};
+/** ব্রাউজারের বর্তমান পথ (ক্যানোনিকাল রূপে) */
+export const currentPath = () => normalize(window.location.pathname);
 
-export function navigate(to, pend = null) {
-  pending = pend;
-  if (normalize(window.location.pathname) !== to) window.history.pushState({}, '', to);
+/** নতুন পেজ/সেকশনে যাওয়া (ইতিহাসে নতুন এন্ট্রি যোগ হয়, তাই Back বাটন কাজ করে) */
+export function navigate(to) {
+  if (currentPath() !== to) window.history.pushState({}, '', to);
   window.dispatchEvent(new Event('bdir-nav'));
-  if (!pend) window.scrollTo({ top: 0 });
+  if (!isHomePath(to)) window.scrollTo({ top: 0 });
+}
+
+/** স্ক্রলের সময় URL চুপচাপ বদলায় — ইতিহাসে নতুন এন্ট্রি হয় না */
+export function setUrl(to) {
+  if (currentPath() === to) return;
+  window.history.replaceState({}, '', to);
+  window.dispatchEvent(new Event('bdir-url'));
 }
 
 export function usePath() {
-  const [path, setPath] = useState(() => normalize(window.location.pathname));
+  const [path, setPath] = useState(currentPath);
   useEffect(() => {
-    const on = () => setPath(normalize(window.location.pathname));
+    const on = () => setPath(currentPath());
     window.addEventListener('popstate', on);
     window.addEventListener('bdir-nav', on);
+    window.addEventListener('bdir-url', on);
     return () => {
       window.removeEventListener('popstate', on);
       window.removeEventListener('bdir-nav', on);
+      window.removeEventListener('bdir-url', on);
     };
   }, []);
   return path;

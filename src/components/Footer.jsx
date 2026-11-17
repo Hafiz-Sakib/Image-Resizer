@@ -1,18 +1,18 @@
 import { ShieldCheck } from 'lucide-react';
 import Logo from './Logo.jsx';
 import { bnYear } from '../utils/format.js';
-import { navigate } from '../utils/router.js';
+import { PATHS, navigate } from '../utils/router.js';
 
 const LINKS = [
-  { href: 'workspace', label: 'ছবি রিসাইজ করুন', tool: 'photo' },
-  { href: 'workspace', label: 'স্বাক্ষর রিসাইজ করুন', tool: 'signature' },
-  { href: 'presets', label: 'প্রিসেট' },
-  { href: 'privacy', label: 'গোপনীয়তা ও নিরাপত্তা' },
-  { href: 'important-links', label: 'গুরুত্বপূর্ণ লিংক', path: '/ImportantLinks' },
-  { href: 'developer', label: 'ডেভেলপার', path: '/developer' },
+  { label: 'ছবি রিসাইজ করুন', path: PATHS.photo },
+  { label: 'স্বাক্ষর রিসাইজ করুন', path: PATHS.signature },
+  { label: 'প্রিসেট', path: PATHS.presets },
+  { label: 'সুবিধা ও নিরাপত্তা', path: PATHS.why },
+  { label: 'গুরুত্বপূর্ণ লিংক', path: PATHS.importantLinks },
+  { label: 'ডেভেলপার', path: PATHS.developer },
 ];
 
-export default function Footer({ onTool, onGoto, onPage = navigate }) {
+export default function Footer() {
   return (
     <footer className="border-t-[3px] border-accent bg-surface" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-[1.4fr_1fr]">
@@ -32,12 +32,11 @@ export default function Footer({ onTool, onGoto, onPage = navigate }) {
             {LINKS.map((l) => (
               <li key={l.label}>
                 <a
-                  href={l.path || `#${l.href}`}
+                  href={l.path}
                   onClick={(e) => {
+                    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
                     e.preventDefault();
-                    if (l.path) onPage(l.path);
-                    else if (l.tool) onTool(l.tool);
-                    else onGoto(l.href);
+                    navigate(l.path);
                   }}
                   className="flex min-h-[2.75rem] items-center text-muted transition hover:text-brand"
                 >

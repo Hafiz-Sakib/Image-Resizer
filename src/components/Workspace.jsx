@@ -197,8 +197,8 @@ export default function Workspace({ ws, presets }) {
       {/* মোবাইলে নিচে স্থির ডাউনলোড বার */}
       {info && result && (
         <div
-          className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-surface/95 px-4 py-3 shadow-pop backdrop-blur lg:hidden"
-          style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
+          className="fixed inset-x-3 z-30 rounded-2xl border border-line bg-surface/95 px-4 py-2.5 shadow-pop backdrop-blur lg:hidden"
+          style={{ bottom: 'calc(5rem + env(safe-area-inset-bottom))' }}
         >
           <div className="mx-auto flex max-w-md items-center gap-3">
             <div className="min-w-0 flex-1 text-sm leading-tight">
@@ -211,7 +211,7 @@ export default function Workspace({ ws, presets }) {
           </div>
         </div>
       )}
-      {info && result && <div className="h-16 lg:hidden" aria-hidden="true" />}
+      {info && result && <div className="h-20 lg:hidden" aria-hidden="true" />}
     </section>
   );
 }

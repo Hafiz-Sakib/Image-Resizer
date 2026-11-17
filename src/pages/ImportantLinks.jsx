@@ -136,7 +136,6 @@ export default function ImportantLinks() {
   const install = useInstall();
   const [cat, setCat] = useState('all');
   const [q, setQ] = useState('');
-  const home = (scroll, tool) => navigate(PATHS.home, { scroll, tool });
 
   useEffect(() => {
     const prev = document.title;
@@ -162,10 +161,7 @@ export default function ImportantLinks() {
       <Header
         theme={theme}
         onToggleTheme={toggle}
-        onTool={(mode) => home('workspace', mode)}
-        onGoto={(id) => home(id)}
         install={install}
-        currentPath={PATHS.importantLinks}
       />
       <main id="main">
         <section className="relative overflow-hidden bg-brand text-onbrand">
@@ -287,7 +283,7 @@ export default function ImportantLinks() {
           </button>
         </div>
       </main>
-      <Footer onTool={(mode) => home('workspace', mode)} onGoto={(id) => home(id)} onPage={navigate} />
+      <Footer />
     </>
   );
 }
