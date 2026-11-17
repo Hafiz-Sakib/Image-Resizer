@@ -3,7 +3,8 @@ import Header from '../components/Header.jsx';
 import Hero from '../components/Hero.jsx';
 import Workspace from '../components/Workspace.jsx';
 import PresetsSection from '../components/PresetsSection.jsx';
-import { WhyUs, PrivacySection } from '../components/InfoSections.jsx';
+import { WhyUs, PrivacySection, HowItWorks } from '../components/InfoSections.jsx';
+import { Marquee, ScrollProgress } from '../components/motion/kit.jsx';
 import Footer from '../components/Footer.jsx';
 import useTheme from '../hooks/useTheme.js';
 import usePresets from '../hooks/usePresets.js';
@@ -17,6 +18,8 @@ function scrollToId(id) {
   const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
   el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
 }
+
+const USES = ['বিসিএস', 'ব্যাংক নিয়োগ', 'টেলিটক আবেদন', 'সরকারি চাকরি', 'শিক্ষক নিয়োগ', 'পাসপোর্ট ছবি', 'ছবি ৩০০×৩০০', 'স্বাক্ষর ৩০০×৮০', 'কাস্টম মাপ', 'KB কমপ্রেস'];
 
 export default function Home() {
   const { theme, toggle } = useTheme();
@@ -59,11 +62,14 @@ export default function Home() {
       >
         মূল কনটেন্টে যান
       </a>
+      <ScrollProgress />
       <Header theme={theme} onToggleTheme={toggle} onTool={openTool} onGoto={scrollToId} activeMode={ws.settings.mode} install={install} />
       <main id="main">
         <Hero install={install} onStart={() => openTool('photo')} />
+        <Marquee items={USES} className="pb-8" />
         <Workspace ws={ws} presets={presets} />
         <PresetsSection presets={presets} onApply={applyAndScroll} />
+        <HowItWorks />
         <WhyUs />
         <PrivacySection />
       </main>

@@ -1,6 +1,7 @@
 import { useId } from 'react';
 import { AlertTriangle, CheckCircle2, Info, Loader2, XCircle } from 'lucide-react';
 import { parseIntInput } from '../utils/format.js';
+import { Spotlight } from './motion/kit.jsx';
 
 export function cx(...a) {
   return a.filter(Boolean).join(' ');
@@ -9,7 +10,7 @@ export function cx(...a) {
 /** ধাপ-নম্বরসহ কার্ড প্যানেল */
 export function Panel({ step, title, icon: Icon, hint, children, className }) {
   return (
-    <section className={cx('card p-3.5 sm:p-5', className)}>
+    <Spotlight as="section" className={cx('card p-3.5 sm:p-5', className)}>
       <header className="mb-3 flex items-start gap-2.5 sm:mb-4 sm:gap-3">
         <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-brandsoft text-brand sm:h-9 sm:w-9">
           {step ? <span className="text-base font-bold">{step}</span> : Icon && <Icon size={18} aria-hidden="true" />}
@@ -20,7 +21,7 @@ export function Panel({ step, title, icon: Icon, hint, children, className }) {
         </div>
       </header>
       {children}
-    </section>
+    </Spotlight>
   );
 }
 

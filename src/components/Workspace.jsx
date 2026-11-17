@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Crop, FileType2, Image as ImageIcon, PenLine, Ruler, Scaling, Sparkles, Weight } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { SectionHeading, Panel, cx } from './ui.jsx';
 import ImageUploader from './ImageUploader.jsx';
 import PresetSelector from './PresetSelector.jsx';
@@ -34,11 +35,16 @@ function ModeTabs({ mode, onChange }) {
           aria-selected={mode === id}
           onClick={() => onChange(id)}
           className={cx(
-            'flex min-h-[2.75rem] flex-1 items-center justify-center gap-2 rounded-xl px-3 font-semibold transition',
-            mode === id ? 'bg-surface text-brand shadow-card' : 'text-muted hover:text-ink',
+            'relative flex min-h-[2.75rem] flex-1 items-center justify-center gap-2 rounded-xl px-3 font-semibold transition-colors',
+            mode === id ? 'text-brand' : 'text-muted hover:text-ink',
           )}
         >
-          <I size={18} aria-hidden="true" /> {label}
+          {mode === id && (
+            <motion.span layoutId="mode-pill" transition={{ type: 'spring', stiffness: 420, damping: 32 }} className="absolute inset-0 rounded-xl bg-surface shadow-card" />
+          )}
+          <span className="relative flex items-center gap-2">
+            <I size={18} aria-hidden="true" /> {label}
+          </span>
         </button>
       ))}
     </div>

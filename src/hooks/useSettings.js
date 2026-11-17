@@ -135,7 +135,9 @@ export default function useSettings(presetList) {
 
       onImageLoaded: (info) =>
         set((s) => {
-          // ছবি আপলোড হলে মাপ = ছবির আসল মাপ, অনুপাত লক চালু (iLoveIMG-এর মতো)
+          // প্রিসেট বাছাই থাকলে (যেমন ৩০০×৩০০) সেটিই থাকবে — শুধু ছবির তথ্য ও ক্রপ রিসেট হবে
+          if (s.activePresetId) return { ...s, srcW: info.width, srcH: info.height, crop: DEFAULT_CROP };
+          // কাস্টম মোডে: মাপ = ছবির আসল মাপ, অনুপাত লক চালু (iLoveIMG-এর মতো)
           const d = fitWithinLimits(info.width, info.height);
           return {
             ...s,

@@ -132,3 +132,5 @@
     background-size: 16px 16px;
   }
 }
+
+@keyframes marquee { to { transform: translateX(-50%); } }

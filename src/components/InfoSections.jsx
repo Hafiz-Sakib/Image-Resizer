@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
-import { CircleOff, Cpu, Eraser, Gift, Gauge, Monitor, ShieldCheck, Sparkles, UserX, Zap, Eye, HardDrive } from 'lucide-react';
+import { CircleOff, Eraser, Gift, Gauge, Monitor, ShieldCheck, UserX, Zap, Eye, HardDrive, Upload, SlidersHorizontal, Download } from 'lucide-react';
 import { SectionHeading } from './ui.jsx';
+import { Spotlight, CountUp } from './motion/kit.jsx';
 import PrivacyNotice from './PrivacyNotice.jsx';
 
 const FEATURES = [
@@ -35,12 +36,14 @@ export function WhyUs() {
         <SectionHeading eyebrow="সুবিধা" title={<span id="why-title">কেন এই টুল ব্যবহার করবেন?</span>} desc="চাকরির আবেদনের ছবি ও স্বাক্ষর রিসাইজের ঝামেলা কমাতেই এই টুল।" />
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {FEATURES.map((f, i) => (
-            <motion.li key={f.title} {...reveal(i)} className="card p-5">
-              <span className="mb-3 grid h-12 w-12 place-items-center rounded-2xl bg-brandsoft text-brand">
-                <f.icon size={24} aria-hidden="true" />
-              </span>
-              <h3 className="text-lg font-semibold">{f.title}</h3>
-              <p className="mt-1 text-muted">{f.desc}</p>
+            <motion.li key={f.title} {...reveal(i)}>
+              <Spotlight className="card h-full p-5 transition-transform duration-300 hover:-translate-y-1">
+                <span className="mb-3 grid h-12 w-12 place-items-center rounded-2xl bg-brandsoft text-brand">
+                  <f.icon size={24} aria-hidden="true" />
+                </span>
+                <h3 className="text-lg font-semibold">{f.title}</h3>
+                <p className="mt-1 text-muted">{f.desc}</p>
+              </Spotlight>
             </motion.li>
           ))}
         </ul>
@@ -71,6 +74,36 @@ export function PrivacySection() {
         <p className="mt-5 text-center text-xs text-muted">
           নোট: পেজের ফন্ট ও কোড এই সাইট থেকেই লোড হয় — কোনো তৃতীয় পক্ষের সার্ভারে আপনার ছবি বা তথ্য পাঠানো হয় না।
         </p>
+      </div>
+    </section>
+  );
+}
+
+const STEPS = [
+  { icon: Upload, title: 'ছবি দিন', desc: 'ছবি বা স্বাক্ষর আপলোড করুন, অথবা Ctrl + V দিয়ে পেস্ট করুন।' },
+  { icon: SlidersHorizontal, title: 'মাপ ঠিক করুন', desc: 'প্রিসেট বেছে নিন (ছবি ৩০০×৩০০, স্বাক্ষর ৩০০×৮০) অথবা নিজের মাপ ও KB লিখুন।' },
+  { icon: Download, title: 'ডাউনলোড করুন', desc: 'প্রস্তুত ছবি দেখে নিয়ে এক ক্লিকে নামিয়ে নিন। কিছুই সার্ভারে যায় না।' },
+];
+
+export function HowItWorks() {
+  return (
+    <section id="how" className="scroll-mt-20 py-14 sm:py-20" aria-labelledby="how-title">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <SectionHeading eyebrow="কীভাবে কাজ করে" title={<span id="how-title">তিন ধাপে কাজ শেষ</span>} desc="কোনো অ্যাকাউন্ট বা অপেক্ষা ছাড়া, সরাসরি আপনার ব্রাউজারে।" />
+        <ol className="relative grid gap-4 md:grid-cols-3">
+          {STEPS.map((st, i) => (
+            <motion.li key={st.title} {...reveal(i)} className="relative">
+              <Spotlight className="card h-full p-6 text-center">
+                <span className="mx-auto mb-4 grid h-14 w-14 place-items-center rounded-2xl bg-brand text-onbrand shadow-card">
+                  <st.icon size={26} aria-hidden="true" />
+                </span>
+                <p className="text-sm font-semibold text-brand">ধাপ <CountUp to={i + 1} /></p>
+                <h3 className="mt-1 text-xl font-semibold">{st.title}</h3>
+                <p className="mt-2 text-muted">{st.desc}</p>
+              </Spotlight>
+            </motion.li>
+          ))}
+        </ol>
       </div>
     </section>
   );

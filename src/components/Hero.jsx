@@ -1,7 +1,11 @@
+import { Suspense, lazy } from 'react';
 import { motion } from 'framer-motion';
+import { BlurText, Magnetic, TiltCard } from './motion/kit.jsx';
 import InstallButton from './InstallButton.jsx';
 import samplePhoto from '../assets/sample-portrait.jpg';
 import { ArrowRight, Check, Gift, ShieldCheck, UserX, PenLine, Repeat } from 'lucide-react';
+
+const HeroScene = lazy(() => import('./HeroScene.jsx'));
 
 const TRUST = [
   { icon: Gift, text: 'সম্পূর্ণ বিনামূল্যে' },
@@ -42,6 +46,7 @@ function HeroIllustration() {
     <div className="relative mx-auto w-full max-w-[34rem]" aria-hidden="true">
       <div className="absolute -inset-6 -z-10 rounded-[3rem] bg-gradient-to-br from-brand/20 via-transparent to-accent/20 blur-2xl" />
 
+      <TiltCard className="rounded-2xl">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
@@ -109,6 +114,7 @@ function HeroIllustration() {
           </span>
         </div>
       </motion.div>
+      </TiltCard>
 
       <motion.div
         animate={{ y: [0, -8, 0] }}
@@ -131,6 +137,9 @@ function HeroIllustration() {
 export default function Hero({ onStart, install }) {
   return (
     <section id="top" className="relative overflow-hidden">
+      <Suspense fallback={null}>
+        <HeroScene className="pointer-events-none absolute inset-0 -z-10 hidden opacity-80 sm:block" />
+      </Suspense>
       <div
         className="pointer-events-none absolute inset-0 -z-10 opacity-60"
         style={{
@@ -148,18 +157,15 @@ export default function Hero({ onStart, install }) {
           >
             <ShieldCheck size={16} aria-hidden="true" /> ১০০% ব্রাউজারে — কোনো ছবি সার্ভারে যায় না
           </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.05 }}
-            className="text-[2rem] font-bold leading-[1.3] sm:text-5xl sm:leading-[1.3] lg:text-[3.4rem]"
-          >
-            চাকরির আবেদনের{' '}
-            <span className="bg-gradient-to-r from-brand to-emerald-500 bg-clip-text text-transparent dark:to-emerald-300">
-              ছবি ও স্বাক্ষর
-            </span>{' '}
-            রিসাইজ করুন সহজেই
-          </motion.h1>
+          <h1 className="text-[2rem] font-bold leading-[1.3] sm:text-5xl sm:leading-[1.3] lg:text-[3.4rem]">
+            <BlurText text="চাকরির আবেদনের" delay={0.05} />
+            <BlurText
+              text="ছবি ও স্বাক্ষর"
+              delay={0.3}
+              wordClass="bg-gradient-to-r from-brand to-emerald-500 bg-clip-text text-transparent dark:to-emerald-300"
+            />
+            <BlurText text="রিসাইজ করুন সহজেই" delay={0.55} />
+          </h1>
           <motion.p
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
@@ -175,9 +181,11 @@ export default function Hero({ onStart, install }) {
             transition={{ delay: 0.2 }}
             className="mt-8 flex flex-col gap-3 sm:flex-row"
           >
-            <button type="button" onClick={onStart} className="btn-primary px-7 text-lg">
-              ছবি রিসাইজ শুরু করুন <ArrowRight size={20} aria-hidden="true" />
-            </button>
+            <Magnetic>
+              <button type="button" onClick={onStart} className="btn-primary px-7 text-lg">
+                ছবি রিসাইজ শুরু করুন <ArrowRight size={20} aria-hidden="true" />
+              </button>
+            </Magnetic>
           </motion.div>
           <InstallButton install={install} variant="card" />
           <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted">
