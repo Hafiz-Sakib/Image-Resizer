@@ -25,6 +25,8 @@ export default defineConfig({
         background_color: '#f5f8f4',
         theme_color: '#00694d',
         categories: ['utilities', 'productivity', 'photo'],
+        // ব্রাউজার ট্যাবে থেকেও navigator.getInstalledRelatedApps() দিয়ে জানা যায় অ্যাপ ইনস্টল করা আছে কি না
+        related_applications: [{ platform: 'webapp', url: '/manifest.webmanifest' }],
         icons: [icon('/icons/icon-192.png', '192x192'), icon('/icons/icon-512.png', '512x512'), icon('/icons/maskable-512.png', '512x512', 'maskable')],
         shortcuts: [
           { name: 'গুরুত্বপূর্ণ লিংক', short_name: 'লিংক', url: '/ImportantLinks', icons: [icon('/icons/icon-192.png', '192x192')] },

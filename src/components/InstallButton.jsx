@@ -2,12 +2,18 @@ import { useEffect, useState } from 'react';
 import { Download, MoreVertical, PlusSquare, Share, Smartphone, X } from 'lucide-react';
 import { LogoMark } from './Logo.jsx';
 
-function Steps({ ios }) {
+function Steps({ ios, mobile }) {
   const steps = ios
     ? [
         [Share, 'Safari ব্রাউজারের নিচে (বা উপরে) “শেয়ার” বাটনে চাপ দিন।'],
         [PlusSquare, 'মেনু নিচে স্ক্রল করে “Add to Home Screen” সিলেক্ট করুন।'],
         [Smartphone, '“Add” চাপুন — হোম স্ক্রিনে অ্যাপের আইকন চলে আসবে।'],
+      ]
+    : !mobile
+    ? [
+        [Download, 'অ্যাড্রেস বারের ডান পাশে ইনস্টল আইকনে চাপ দিন — না দেখলে ব্রাউজারের মেনু (⋮) ওপেন করুন।'],
+        [PlusSquare, '“Install app” (Edge-এ “Apps → Install this site as an app”) বেছে নিন।'],
+        [Smartphone, 'কনফার্ম করলে অ্যাপটি আলাদা উইন্ডোতে ও ডেস্কটপে চলে আসবে।'],
       ]
     : [
         [MoreVertical, 'ব্রাউজারের ডান পাশের উপরের মেনু (⋮) ওপেন করুন।'],
@@ -31,7 +37,7 @@ function Steps({ ios }) {
   );
 }
 
-function HelpDialog({ ios, onClose }) {
+function HelpDialog({ ios, mobile, onClose }) {
   useEffect(() => {
     const onKey = (e) => e.key === 'Escape' && onClose();
     document.addEventListener('keydown', onKey);
@@ -51,14 +57,14 @@ function HelpDialog({ ios, onClose }) {
           <div className="flex items-center gap-3">
             <LogoMark size={44} />
             <h2 id="install-title" className="text-lg font-bold leading-snug">
-              হোম স্ক্রিনে ইনস্টল করুন
+              {mobile ? 'হোম স্ক্রিনে ইনস্টল করুন' : 'অ্যাপ ইনস্টল করুন'}
             </h2>
           </div>
           <button type="button" onClick={onClose} autoFocus aria-label="বন্ধ করুন" className="grid h-11 w-11 shrink-0 place-items-center rounded-xl hover:bg-sunken">
             <X size={20} aria-hidden="true" />
           </button>
         </div>
-        <Steps ios={ios} />
+        <Steps ios={ios} mobile={mobile} />
         <button type="button" onClick={onClose} className="btn-primary w-full">
           বুঝেছি
         </button>
@@ -70,14 +76,16 @@ function HelpDialog({ ios, onClose }) {
 /** variant: 'header' (ছোট বোতাম) | 'card' (হোমের ইনস্টল কার্ড) */
 export default function InstallButton({ install, variant = 'card' }) {
   const [help, setHelp] = useState(false);
-  const { mode, install: doInstall, ios } = install;
+  // হেডারের বোতাম ইনস্টল না থাকলে সব ডিভাইসে দেখায়; কার্ড শুধু মোবাইলে/সরাসরি প্রম্পট থাকলে
+  const mode = variant === 'header' ? install.headerMode : install.mode;
+  const { install: doInstall, ios, mobile } = install;
   if (!mode) return null;
 
   const click = async () => {
     if (mode === 'prompt') await doInstall();
     else setHelp(true);
   };
-  const dialog = help && <HelpDialog ios={ios} onClose={() => setHelp(false)} />;
+  const dialog = help && <HelpDialog ios={ios} mobile={mobile} onClose={() => setHelp(false)} />;
 
   if (variant === 'header') {
     return (

@@ -20,6 +20,8 @@ import { registerSW } from 'virtual:pwa-register';
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   window.__bdirInstallPrompt = e;
+  // প্রম্পট আসা মানে অ্যাপ ইনস্টল করা নেই — আগের ইনস্টলের মনে-রাখা ফ্ল্যাগ মুছে দেওয়া হয়
+  try { localStorage.removeItem('bdir.installed'); } catch { /* ignore */ }
   window.dispatchEvent(new Event('bdir-install-ready'));
 });
 registerSW({ immediate: true });
