@@ -155,12 +155,28 @@ html.dark body::before {
 }
 html.dark ::selection { background: rgb(var(--brand) / 0.35); }
 
-/* থিম বদলানোর অ্যানিমেশন: নতুন থিম বোতাম থেকে বৃত্তের মতো ছড়ায় (clip-path JS থেকে সেট হয়) */
+/* থিম বদলানোর অ্যানিমেশন (১.৩ সেকেন্ড): রাত বোতাম থেকে ছড়িয়ে পড়ে, দিন বোতামে গুটিয়ে যায়। দুই দিকেই পুরনো (স্থির) স্ন্যাপশট অ্যানিমেট হয়, নতুন পেজ নিচে থাকে — তাই মসৃণ। */
 ::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
 ::view-transition-old(root) { z-index: 1; }
 ::view-transition-new(root) { z-index: 2; }
+:root[data-theme-switch]::view-transition-old(root) { z-index: 2; }
+:root[data-theme-switch]::view-transition-new(root) { z-index: 1; }
+/* দিন → রাত: দিনের স্ন্যাপশটে বোতাম থেকে একটা গর্ত বড় হয়, নিচে রাত দেখা যায় */
+@property --vt-r { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@keyframes vt-hole { from { --vt-r: 0px; } to { --vt-r: var(--vt-reach); } }
+:root[data-theme-switch="to-dark"]::view-transition-old(root) {
+  -webkit-mask-image: radial-gradient(circle at var(--vt-x) var(--vt-y), transparent var(--vt-r), #000 calc(var(--vt-r) + 1.5px));
+  mask-image: radial-gradient(circle at var(--vt-x) var(--vt-y), transparent var(--vt-r), #000 calc(var(--vt-r) + 1.5px));
+  animation: vt-hole var(--vt-ms) var(--vt-ease) both;
+}
+/* রাত → দিন: রাতের স্ন্যাপশট বোতামের ভেতরে গুটিয়ে যায় */
+@keyframes vt-close {
+  from { clip-path: circle(var(--vt-reach) at var(--vt-x) var(--vt-y)); }
+  to   { clip-path: circle(0px at var(--vt-x) var(--vt-y)); }
+}
+:root[data-theme-switch="to-light"]::view-transition-old(root) { animation: vt-close var(--vt-ms) var(--vt-ease) both; }
 .theme-fade, .theme-fade *, .theme-fade *::before, .theme-fade *::after {
-  transition: background-color 0.45s ease, color 0.45s ease, border-color 0.45s ease, fill 0.45s ease, stroke 0.45s ease, box-shadow 0.45s ease !important;
+  transition: background-color 1s ease, color 1s ease, border-color 1s ease, fill 1s ease, stroke 1s ease, box-shadow 1s ease !important;
 }
 
 /* মোবাইলে নিচের ট্যাব বারের জন্য জায়গা */
