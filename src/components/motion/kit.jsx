@@ -161,3 +161,54 @@ export function CursorGlow() {
       style={{ background: 'radial-gradient(circle, rgb(var(--brand) / .14), rgb(var(--brand) / .04) 45%, transparent 68%)' }} />
   );
 }
+
+/** একটি শব্দ টাইপ হয়, কিছুক্ষণ থাকে, তারপর ব্যাকস্পেসে মুছে পরের শব্দ আসে */
+export function BackspaceText({ before = '', words = [], typeSpeed = 80, deleteSpeed = 40, hold = 1500, caretClassName = '' }) {
+  const still = !!useReducedMotion();
+  const [i, setI] = useState(0);
+  const [n, setN] = useState(0);
+  const [erasing, setErasing] = useState(false);
+  const word = words[i] ?? '';
+  useEffect(() => {
+    if (still || !words.length) return undefined;
+    let t;
+    if (!erasing && n < word.length) t = setTimeout(() => setN(n + 1), typeSpeed);
+    else if (!erasing) t = setTimeout(() => setErasing(true), hold);
+    else if (n > 0) t = setTimeout(() => setN(n - 1), deleteSpeed);
+    else { setErasing(false); setI((i + 1) % words.length); }
+    return () => clearTimeout(t);
+  }, [n, erasing, i, word, still, words.length, typeSpeed, deleteSpeed, hold]);
+  const shown = still ? words[0] ?? '' : word.slice(0, n);
+  return (
+    <span aria-label={`${before} ${words.join(', ')}`.trim()}>
+      <span aria-hidden="true">
+        {before && <>{before} </>}
+        <span className="whitespace-pre-wrap font-semibold text-brand">{shown}</span>
+        {!still && <motion.span className={`ml-0.5 inline-block h-[1.05em] w-[2px] translate-y-[0.2em] rounded-full bg-current ${caretClassName}`} animate={{ opacity: [1, 1, 0, 0] }} transition={{ duration: 1, repeat: Infinity, times: [0, 0.5, 0.5, 1], ease: 'linear' }} />}
+      </span>
+    </span>
+  );
+}
+
+/** মূল শব্দগুলো বোল্ড হয় আর স্ক্রলে দেখা গেলে নিচে সবুজ দাগ ফুটে ওঠে */
+export function HighlightText({ text = '', marks = [], className = '' }) {
+  const ref = useRef(null);
+  const seen = useInView(ref, { once: true, margin: '-10% 0px' });
+  const still = !!useReducedMotion();
+  const list = marks.filter((m) => text.includes(m));
+  const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const re = list.length ? new RegExp(`(${list.map(esc).join('|')})`, 'g') : null;
+  let k = 0;
+  return (
+    <p ref={ref} className={className}>
+      {(re ? text.split(re) : [text]).map((p, i) => {
+        if (!list.includes(p)) return <span key={i}>{p}</span>;
+        const n = k++;
+        return (
+          <motion.span key={i} className="font-semibold text-ink underline decoration-2 underline-offset-[6px] [box-decoration-break:clone]"
+            initial={false} animate={{ textDecorationColor: still || seen ? 'rgb(var(--brand) / .85)' : 'rgb(var(--brand) / 0)' }} transition={{ duration: 0.6, delay: 0.3 + n * 0.3 }}>{p}</motion.span>
+        );
+      })}
+    </p>
+  );
+}
