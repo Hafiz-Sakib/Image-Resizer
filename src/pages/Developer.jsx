@@ -11,7 +11,7 @@ import photo from '../assets/developer.jpg';
 const PATH = {
   github: 'M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22',
   linkedin: 'M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 2a2 2 0 110 4 2 2 0 010-4z',
-  facebook: 'M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z',
+  instagram: 'M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zM16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01',
 };
 const brand = (d) =>
   function BrandIcon({ size = 18 }) {
@@ -23,19 +23,20 @@ const brand = (d) =>
   };
 const Github = brand(PATH.github);
 const Linkedin = brand(PATH.linkedin);
-const Facebook = brand(PATH.facebook);
+const Instagram = brand(PATH.instagram);
 
 // ডেভেলপার পরিচিতি — সম্পূর্ণ বাংলায়
 const NAME = 'মোহাম্মদ হাফিজুর রহমান সাকিব';
 const EMAIL = 'hafizsakib5@gmail.com';
 const MAIL_URL = `https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}`;
 
+// hover-এ প্রতিটির নিজের রং: পোর্টফোলিও = অ্যাপের সবুজ, বাকিগুলো নিজ নিজ ব্র্যান্ডের রং
 const LINKS = [
-  ['পোর্টফোলিও', 'https://hsakib.vercel.app/', Globe],
-  ['ইমেইল', MAIL_URL, Mail],
-  ['লিংকডইন', 'https://linkedin.com/in/hafizsakib', Linkedin],
-  ['গিটহাব', 'https://github.com/Hafiz-Sakib', Github],
-  ['ফেসবুক', 'https://www.facebook.com/Sakib.1118/', Facebook],
+  ['পোর্টফোলিও', 'https://hsakib.vercel.app/', Globe, 'hover:border-brand hover:bg-brand hover:text-onbrand'],
+  ['ইমেইল', MAIL_URL, Mail, 'hover:border-[#EA4335] hover:bg-[#EA4335] hover:text-white'],
+  ['লিংকডইন', 'https://linkedin.com/in/hafizsakib', Linkedin, 'hover:border-[#0A66C2] hover:bg-[#0A66C2] hover:text-white'],
+  ['গিটহাব', 'https://github.com/Hafiz-Sakib', Github, 'hover:border-[#24292f] hover:bg-[#24292f] hover:text-white dark:hover:border-[#3d444d] dark:hover:bg-[#2d333b]'],
+  ['ইনস্টাগ্রাম', 'https://www.instagram.com/___sakib.404/', Instagram, 'hover:border-[#DD2A7B] hover:bg-[linear-gradient(45deg,#F58529,#DD2A7B,#8134AF)] hover:text-white'],
 ];
 
 const BIO =
@@ -79,13 +80,13 @@ export default function Developer() {
           <p className="mt-5 leading-[1.9] text-muted">{BIO}</p>
 
           <ul className="mt-7 flex flex-wrap justify-center gap-2">
-            {LINKS.map(([label, href, I]) => (
+            {LINKS.map(([label, href, I, hover]) => (
               <li key={label}>
                 <a
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`${pill} border border-line bg-surface px-4 text-sm hover:border-brand hover:text-brand hover:shadow-md`}
+                  className={`${pill} border border-line bg-surface px-4 text-sm hover:-translate-y-0.5 hover:shadow-md ${hover}`}
                 >
                   <I size={18} aria-hidden="true" />
                   {label}

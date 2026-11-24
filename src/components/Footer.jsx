@@ -48,8 +48,19 @@ export default function Footer() {
         </nav>
       </div>
       <div className="border-t border-line">
-        <p className="mx-auto max-w-7xl px-4 py-5 text-center text-sm text-muted sm:px-6">
+        <p className="mx-auto max-w-7xl px-4 pt-5 pb-2 text-center text-sm text-muted sm:px-6">
           © {bnYear()} সরকারি চাকরি। সর্বস্বত্ব সংরক্ষিত। প্রিসেটের মাপ শুধু নমুনা — সার্কুলার দেখে সঠিক মাপ ব্যবহার করুন।
+        </p>
+        <p className="mx-auto max-w-7xl px-4 pb-5 text-center text-sm text-muted sm:px-6">
+          Made with <span role="img" aria-label="love">❤️</span> by{' '}
+          <a
+            href="https://github.com/hafiz-sakib"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-brand hover:underline"
+          >
+            Mohammad Hafizur Rahman Sakib
+          </a>
         </p>
       </div>
     </footer>
