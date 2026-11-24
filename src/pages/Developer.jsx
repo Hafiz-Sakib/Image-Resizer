@@ -31,7 +31,7 @@ const EMAIL = 'hafizsakib5@gmail.com';
 const MAIL_URL = `https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}`;
 
 const LINKS = [
-  ['পোর্টফোলিও', 'https://hafizsakib.vercel.app/', Globe],
+  ['পোর্টফোলিও', 'https://hsakib.vercel.app/', Globe],
   ['ইমেইল', MAIL_URL, Mail],
   ['লিংকডইন', 'https://linkedin.com/in/hafizsakib', Linkedin],
   ['গিটহাব', 'https://github.com/Hafiz-Sakib', Github],

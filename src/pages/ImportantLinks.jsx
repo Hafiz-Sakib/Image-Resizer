@@ -1,14 +1,15 @@
 import { useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Check, Copy, ExternalLink, Image as ImageIcon, Newspaper, Puzzle, Search, Send, ShieldAlert, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, Copy, ExternalLink, Image as ImageIcon, Newspaper, Puzzle, Search, Send, ShieldAlert, Smartphone, X } from 'lucide-react';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
+import TiltCard from '../components/TiltCard.jsx';
 import useTheme from '../hooks/useTheme.js';
 import useInstall from '../hooks/useInstall.js';
 import { PATHS, navigate } from '../utils/router.js';
 import { IMPORTANT_LINKS, LINK_CATEGORIES } from '../data/links.js';
 
-const ICONS = { newspaper: Newspaper, send: Send, puzzle: Puzzle };
+const ICONS = { newspaper: Newspaper, send: Send, puzzle: Puzzle, smartphone: Smartphone };
 
 const STEPS = [
   ['১', 'সার্কুলার খুঁজুন', 'BD Govt Job-এ চলমান নিয়োগ ও শেষ তারিখ দেখে সার্কুলার পড়ুন।'],
@@ -60,10 +61,11 @@ function LinkCard({ link, index }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.96 }}
       transition={{ delay: Math.min(index, 4) * 0.05 }}
-      className="card group flex flex-col gap-4 p-5 transition hover:-translate-y-0.5 hover:shadow-pop sm:p-6"
+      className="h-full"
     >
+      <TiltCard max={4} className="card group flex flex-col gap-4 p-5 transition-[border-color,box-shadow] duration-300 hover:border-brand/45 hover:shadow-pop sm:p-6">
       <div className="flex items-start gap-4">
-        <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-brandsoft text-brand transition group-hover:bg-brand group-hover:text-onbrand">
+        <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-brandsoft text-brand transition duration-300 group-hover:rotate-[-4deg] group-hover:scale-105 group-hover:bg-brand group-hover:text-onbrand">
           <Icon size={28} aria-hidden="true" />
         </span>
         <div className="min-w-0 flex-1">
@@ -127,6 +129,7 @@ function LinkCard({ link, index }) {
           {copied ? 'কপি হয়েছে' : 'লিংক কপি'}
         </button>
       </div>
+      </TiltCard>
     </motion.li>
   );
 }

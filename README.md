@@ -134,4 +134,4 @@ src/
 
 ## 👨‍💻 ডেভেলপার
 
-**মোহাম্মদ হাফিজুর রহমান সাকিব** — [পোর্টফোলিও](https://hafizsakib.vercel.app/) · [গিটহাব](https://github.com/Hafiz-Sakib)
+**মোহাম্মদ হাফিজুর রহমান সাকিব** — [পোর্টফোলিও](https://hsakib.vercel.app/) · [গিটহাব](https://github.com/Hafiz-Sakib)

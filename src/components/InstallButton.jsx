@@ -95,10 +95,10 @@ export default function InstallButton({ install, variant = 'card' }) {
           onClick={click}
           data-testid="install-header"
           aria-label="অ্যাপ ইনস্টল করুন"
-          className="hidden h-11 items-center gap-2 rounded-xl bg-brand min-[360px]:inline-flex px-3 text-sm font-semibold text-onbrand shadow-card hover:brightness-110 sm:px-4"
+          className="hidden h-7 items-center gap-1.5 rounded-lg bg-brand min-[360px]:inline-flex shrink-0 whitespace-nowrap px-2.5 text-xs font-semibold leading-none text-onbrand shadow-card hover:brightness-110 min-[400px]:px-3 min-[400px]:text-[13px] sm:px-3.5"
         >
-          <Download size={18} aria-hidden="true" />
-          <span className="hidden sm:inline">অ্যাপ ইনস্টল</span>
+          <Download size={15} aria-hidden="true" />
+          <span>অ্যাপ ইনস্টল</span>
         </button>
         {dialog}
       </>
