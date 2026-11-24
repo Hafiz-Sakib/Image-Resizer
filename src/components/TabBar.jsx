@@ -1,6 +1,6 @@
 import { useId, useRef, useState } from 'react';
 import { AnimatePresence, LayoutGroup, MotionConfig, motion, useInView, useReducedMotion } from 'framer-motion';
-import { Home, Image as ImageIcon, PenLine, Bookmark, Link2 } from 'lucide-react';
+import { Home, Image as ImageIcon, PenLine, Bookmark, Link2, Code } from 'lucide-react';
 import { PATHS, navigate, usePath } from '../utils/router.js';
 
 /*
@@ -15,6 +15,7 @@ const ITEMS = [
   { id: 'signature', label: 'স্বাক্ষর', icon: PenLine, to: PATHS.signature, match: [PATHS.signature] },
   { id: 'presets', label: 'প্রিসেট', icon: Bookmark, to: PATHS.presets, match: [PATHS.presets] },
   { id: 'links', label: 'লিংক', icon: Link2, to: PATHS.importantLinks, match: [PATHS.importantLinks] },
+  { id: 'developer', label: 'ডেভেলপার', icon: Code, to: PATHS.developer, match: [PATHS.developer] },
 ];
 
 const GLIDE = [0.22, 1, 0.36, 1];
